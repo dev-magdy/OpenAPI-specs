@@ -111,8 +111,8 @@ paths:
         schema:
           type: string
           enum:
-            - true
-            - false
+          - true
+          - false
       - name: temperature_unit
         in: query
         schema:
