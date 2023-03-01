@@ -109,7 +109,10 @@ paths:
       - name: current_weather
         in: query
         schema:
-          type: boolean
+          type: string
+          enum:
+            - true
+            - false
       - name: temperature_unit
         in: query
         schema:
