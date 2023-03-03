@@ -1,0 +1,204 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Web Series Quotes Api",
+    "description": "Quotes of various web series with image generating feature",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://web-series-quotes-api.deta.dev"
+    }
+  ],
+  "paths": {
+    "/quote/": {
+      "get": {
+        "tags": [
+          "Get Quotes"
+        ],
+        "summary": "Get Quote",
+        "description": "Get a random or particular quote(s)",
+        "operationId": "get_quote_quote__get",
+        "parameters": [
+          {
+            "description": "breaking_bad, dark, game_of_thrones, money_heist",
+            "required": false,
+            "schema": {
+              "title": "Series",
+              "type": "string",
+              "description": "breaking_bad, dark, game_of_thrones, money_heist"
+            },
+            "name": "series",
+            "in": "query"
+          },
+          {
+            "description": "Count of random quotes to be returned",
+            "required": false,
+            "schema": {
+              "title": "Count",
+              "type": "integer",
+              "description": "Count of random quotes to be returned"
+            },
+            "name": "count",
+            "in": "query"
+          },
+          {
+            "description": "Get quote with id <code>Series name required </code>",
+            "required": false,
+            "schema": {
+              "title": "Id",
+              "type": "integer",
+              "description": "Get quote with id <code>Series name required </code>"
+            },
+            "name": "id",
+            "in": "query"
+          },
+          {
+            "description": "True if all quote of series to be returned",
+            "required": false,
+            "schema": {
+              "title": "All",
+              "type": "boolean",
+              "description": "True if all quote of series to be returned"
+            },
+            "name": "all",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "id of the quote",
+                        "example": 8
+                      },
+                      "author": {
+                        "type": "string",
+                        "description": "name of the character who said the quote on the series",
+                        "example": "Walter White"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "description": "text of the quote",
+                        "example": "I'm not in the meth business. I'm in the empire business."
+                      },
+                      "series": {
+                        "type": "string",
+                        "description": "name of the series",
+                        "example": "breaking_bad"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/series": {
+      "get": {
+        "tags": [
+          "Get all Available series"
+        ],
+        "summary": "All Available Series",
+        "operationId": "all_available_series_series_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Others"
+        ],
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
