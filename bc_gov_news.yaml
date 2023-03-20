@@ -22,13 +22,11 @@ paths:
           required: false
           schema:
             type: string
-            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -54,7 +52,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -80,7 +77,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -118,7 +114,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -150,7 +145,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -176,7 +170,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -213,7 +206,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -251,7 +243,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -295,7 +286,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -329,7 +319,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -361,7 +350,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -391,13 +379,11 @@ paths:
             type: array
             items:
               type: string
-            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -445,7 +431,6 @@ paths:
           required: false
           schema:
             type: string
-            default: ''
         - name: count
           in: query
           description: number of posts to return
@@ -453,7 +438,6 @@ paths:
           schema:
             type: integer
             format: int32
-            default: ''
         - name: skip
           in: query
           description: number of posts to skip
@@ -461,13 +445,11 @@ paths:
           schema:
             type: integer
             format: int32
-            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -514,7 +496,6 @@ paths:
           required: false
           schema:
             type: string
-            default: ''
         - name: count
           in: query
           description: number of posts to return
@@ -522,7 +503,6 @@ paths:
           schema:
             type: integer
             format: int32
-            default: ''
         - name: skip
           in: query
           description: number of posts to skip
@@ -530,13 +510,11 @@ paths:
           schema:
             type: integer
             format: int32
-            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -574,7 +552,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -588,38 +565,6 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/KeyValuePair_2'
-  '/api/Posts/LatestMediaUri/{mediaType}':
-    get:
-      tags:
-        - Posts
-      summary: Gets the latest Social Media post for the social media type passed in.
-      operationId: Posts_GetLatestMediaUri
-      parameters:
-        - name: mediaType
-          in: path
-          description: ''
-          required: true
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: '1.0'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-            text/json:
-              schema:
-                type: string
   /api/ResourceLinks:
     get:
       tags:
@@ -632,7 +577,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -664,7 +608,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -702,7 +645,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -734,7 +676,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -760,7 +701,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -792,7 +732,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -830,7 +769,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -856,7 +794,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
@@ -894,7 +831,6 @@ paths:
           required: true
           schema:
             type: string
-            default: '1.0'
       responses:
         '200':
           description: Success
