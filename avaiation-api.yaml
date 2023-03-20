@@ -1,8 +1,7 @@
 swagger: '2.0'
 info:
   title: AviationAPI API
-  description: >-
-    AviationAPI was created for the use on VATSIM, but can be used for any application.
+  description: AviationAPI was created for the use on VATSIM, but can be used for any application.
   contact:
     name: Ian Cowan
     url: https://www.aviationapi.com
@@ -20,13 +19,13 @@ paths:
         - airports
       summary: Get an airport by its ICAO or FAA identifier
       description: Search for an airport by its ICAO or FAA identifier
+      operationId: airports
       produces:
         - application/json
       parameters:
         - name: apt
           in: query
-          description: >-
-            FAA or ICAO facility identifier (KAVL or AVL). Separate multiple entries with a comma
+          description: FAA or ICAO facility identifier (KAVL or AVL). Separate multiple entries with a comma
           required: true
           type: string
       responses:
@@ -131,13 +130,11 @@ paths:
                 type: string
                 example: ATLANTA
               responsible_artcc:
-                description: >-
-                  ARTCC that is responsible for the facility, Blank -> Same as boundary
+                description: ARTCC that is responsible for the facility, Blank -> Same as boundary
                 type: string
                 example: ZTL
               responsible_artcc_name:
-                description: >-
-                  Name of the ARTCC that is responsible for the facility, Blank. Same as boundary.
+                description: Name of the ARTCC that is responsible for the facility, Blank. Same as boundary.
                 type: string
                 example: ATLANTA
               fss_phone_number:
@@ -212,6 +209,7 @@ paths:
         - charts
       summary: Get charts for a specified airport
       description: Search for charts by ICAO or FAA identifier with optional grouping
+      operationId: charts
       produces:
         - application/json
       parameters:
@@ -306,6 +304,7 @@ paths:
         - charts
       summary: Get chart changes by airport or chart name
       description: Search for charts by ICAO or FAA identifier or chart name
+      operationId: charts_changes
       produces:
         - application/json
       parameters:
@@ -389,6 +388,7 @@ paths:
         - charts
       summary: Get the AFD for a specified airport
       description: Search for AFD by ICAO or FAA identifier
+      operationId: charts_afd
       produces:
         - application/json
       parameters:
@@ -443,6 +443,7 @@ paths:
         - preferred routes
       summary: Get all of the preferred routes
       description: Get all of the preferred routes with no search parameters
+      operationId: preferred_routes
       produces:
         - application/json
       responses:
@@ -475,9 +476,7 @@ paths:
                 type: string
                 example: 'null'
               type:
-                description: >-
-                  Type of route, H -> High, L -> low, LSD -> Low Single
-                  Direction, HSD -> High Single Direction, SLD -> Special Low Altitude Directional, SHD -> Special High Altitude Directional, TEC -> Tower Enroute Control, Blank -> N/A
+                description: Type of route, H -> High, L -> low, LSD -> Low Single Direction, HSD -> High Single Direction, SLD -> Special Low Altitude Directional, SHD -> Special High Altitude Directional, TEC -> Tower Enroute Control, Blank -> N/A
                 type: string
                 example: H
               area:
@@ -514,8 +513,8 @@ paths:
       tags:
         - preferred routes
       summary: Get preferred routes based on search criteria
-      description: >-
-        Search for preferred routes by various parameters. At least one search criteria is required, although a combination of any can be used
+      description: Search for preferred routes by various parameters. At least one search criteria is required, although a combination of any can be used
+      operationId: preferred_routes_search
       produces:
         - application/json
       parameters:
@@ -531,8 +530,7 @@ paths:
           type: string
         - name: type
           in: query
-          description: >-
-            Type of route, H -> High, L -> low, LSD -> Low Single Direction, HSD -> High Single Direction, SLD -> Special Low Altitude Directional, SHD -> Special High Altitude Directional, TEC -> Tower Enroute Control, Blank -> N/A
+          description: Type of route, H -> High, L -> low, LSD -> Low Single Direction, HSD -> High Single Direction, SLD -> Special Low Altitude Directional, SHD -> Special High Altitude Directional, TEC -> Tower Enroute Control, Blank -> N/A
           required: false
           type: string
         - name: alt
@@ -595,8 +593,7 @@ paths:
                 type: string
                 example: 'null'
               type:
-                description: >-
-                  Type of route, H -> High, L -> low, LSD -> Low Single Direction, HSD -> High Single Direction, SLD -> Special Low Altitude Directional, SHD -> Special High Altitude Directional, TEC -> Tower Enroute Control, Blank -> N/A
+                description: Type of route, H -> High, L -> low, LSD -> Low Single Direction, HSD -> High Single Direction, SLD -> Special Low Altitude Directional, SHD -> Special High Altitude Directional, TEC -> Tower Enroute Control, Blank -> N/A
                 type: string
                 example: H
               area:
@@ -652,6 +649,7 @@ paths:
         - VATSIM
       summary: Get all the arrivals and/or departures into an airport on VATSIM
       description: Search for all the arrivals and/or departures into an airport on VATSIM
+      operationId: vatsim_pilots
       produces:
         - application/json
       parameters:
@@ -787,6 +785,7 @@ paths:
         - VATSIM
       summary: Get all the controllers at a specified facility on VATSIM
       description: Search for all the at a specified facility on VATSIM
+      operationId: vatsim_controllers
       produces:
         - application/json
       parameters:
@@ -826,8 +825,7 @@ paths:
                 type: timestamp
                 example: '2019-01-28 14:14:04'
               time_online:
-                description: >-
-                  Amount of time the controller has been logged on in hours, minutes, and seconds
+                description: Amount of time the controller has been logged on in hours, minutes, and seconds
                 type: string
                 example: '01:04:24'
             type: object
@@ -846,13 +844,13 @@ paths:
         - weather
       summary: Get the METAR for a specified airport
       description: Search for an airport's METAR
+      operationId: weather_metar
       produces:
         - application/json
       parameters:
         - name: apt
           in: query
-          description: >-
-            ICAO airport identifier (KAVL). Separate multiple entries with a comma
+          description: ICAO airport identifier (KAVL). Separate multiple entries with a comma
           required: true
           type: string
       responses:
@@ -959,13 +957,13 @@ paths:
         - weather
       summary: Get the TAF for a specified airport
       description: Search for an airport's TAF
+      operationId: weather_taf
       produces:
         - application/json
       parameters:
         - name: apt
           in: query
-          description: >-
-            ICAO airport identifier (KAVL). Separate multiple entries with a comma
+          description: ICAO airport identifier (KAVL). Separate multiple entries with a comma
           required: true
           type: string
       responses:
@@ -980,8 +978,7 @@ paths:
               raw:
                 description: Raw, uninterpreted TAF
                 type: string
-                example: >-
-                  KAVL 301133Z 3012/3112 32008KT P6SM SKC FM301500 33015G25KT P6SM FEW250
+                example: KAVL 301133Z 3012/3112 32008KT P6SM SKC FM301500 33015G25KT P6SM FEW250
               issue_time:
                 description: Time the report was issued
                 type: timestamp
