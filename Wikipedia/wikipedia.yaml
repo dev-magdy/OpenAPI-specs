@@ -6,7 +6,7 @@ info:
     This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats.
     ## General notes:
       - For `title` parameter, use underscores or percent-encoding instead of spaces. Example: `Main_Page`.
-      - Requests for redirect pages return HTTP 302 with a redirect target in `Location` header and content in the body. To get a 200 response instead, supply `false` to the `redirect` parameter.
+      - Requests for redirect pages return HTTP 302. To get a 200 response, supply `false` to the `redirect` parameter.
       - For `stash` parameter, use the desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
   termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
   contact:
@@ -950,56 +950,6 @@ paths:
             body:
               success: true
               checked: /.+/
-  /data/citation/{format}/{query}:
-    get:
-      tags:
-        - Citation
-      summary: Get citation data given an article identifier.
-      description: Get citation data given an article identifier.
-      parameters:
-        - name: format
-          in: path
-          description: The format to use for the resulting citation data
-          schema:
-            type: string
-            enum:
-              - mediawiki
-              - mediawiki-basefields
-              - zotero
-              - bibtex
-              - wikibase
-          required: true
-        - name: query
-          in: path
-          description: |
-            URL of an article, DOI, ISBN, PMCID or PMID in the URL-encoded format.
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          description: |
-            For some articles the result depends on the `Accept-Language` header, so provide it if localized content is required.
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The citation data in the requested format
-          content:
-            application/json; charset=utf-8;:
-              schema:
-                $ref: '#/components/schemas/result'
-            application/x-bibtex; charset=utf-8:
-              schema:
-                $ref: '#/components/schemas/result'
-        '404':
-          description: Citation data was not found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      operationId: getCitation
-      x-monitor: false
   /data/recommendation/article/creation/translation/{from_lang}:
     get:
       tags:
