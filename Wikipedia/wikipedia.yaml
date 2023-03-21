@@ -4,22 +4,6 @@ info:
   title: Wikimedia REST API
   description: |
     This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats.
-    ### Global Rules
-    - Limit your clients to no more than 200 requests/s to this API.
-      Each API endpoint's documentation may detail more specific usage limits.
-    - Set a unique `User-Agent` or `Api-User-Agent` header that
-      allows us to contact you quickly. Email addresses or URLs
-      of contact pages work well.
-
-    By using this API, you agree to Wikimedia's [Terms of Use](https://wikimediafoundation.org/wiki/Terms_of_Use) and [Privacy Policy](https://wikimediafoundation.org/wiki/Privacy_policy). Unless otherwise specified in the endpoint documentation below, content accessed via this API is licensed under the [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) and [GFDL](https://www.gnu.org/copyleft/fdl.html) licenses, and you irrevocably agree to release modifications or additions made through this API under these licenses. See https://www.mediawiki.org/wiki/REST_API for background and details.
-    ### Endpoint documentation
-    Please consult each endpoint's documentation for details on:
-    - Licensing information for the specific type of content
-      and data served via the endpoint.
-    - Stability markers to inform you about development status and
-      change policy, according to
-      [our API version policy](https://www.mediawiki.org/wiki/API_versioning).
-    - Endpoint specific usage limits.
   termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
   contact:
     name: the Wikimedia Services team
@@ -55,15 +39,11 @@ paths:
       tags:
         - Page content
       summary: Get revision metadata for a title.
-      description: |
-        Returns the revision metadata for the given title. If a revision ID is provided,
-        metadata for that revision is returned, otherwise the latest revision ID is assumed.
-
-        Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).
+      description: Returns the revision metadata for the given title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: 'Page title. Use underscores instead of spaces. Example: `Main_Page`.'
           required: true
           schema:
             type: string
@@ -126,15 +106,11 @@ paths:
       tags:
         - Page content
       summary: Get revision metadata for a title.
-      description: |
-        Returns the revision metadata for the given title. If a revision ID is provided,
-        metadata for that revision is returned, otherwise the latest revision ID is assumed.
-
-        Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).
+      description: Returns the revision metadata for the given title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: 'Page title. Use underscores instead of spaces. Example: `Main_Page`.'
           required: true
           schema:
             type: string
@@ -203,19 +179,17 @@ paths:
       tags:
         - Page content
       summary: Get latest HTML for a title.
-      description: |
-        Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)
+      description: Get latest HTML for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: 'Page title. Use underscores instead of spaces. Example: `Main_Page`.'
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -223,9 +197,7 @@ paths:
         - name: stash
           in: query
           description: |
-            Whether to temporary stash data-parsoid in order to support transforming the
-            modified content later. If this parameter is set, requests are rate-limited on
-            a per-client basis (max 5 requests per second per client)
+            Whether to temporary stash data-parsoid in order to support transforming the modified content later.
           schema:
             type: boolean
         - name: Accept-Language
@@ -398,13 +370,12 @@ paths:
       tags:
         - Page content
       summary: Get HTML for a specific title/revision & optionally timeuuid.
-      description: |
-        Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)
+      description: Get HTML for a specific title/revision & optionally timeuuid.
       operationId: getFormatRevision
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
@@ -417,22 +388,19 @@ paths:
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: stash
           in: query
           description: |
-            Whether to temporary stash data-parsoid in order to support transforming the
-            modified content later. If this parameter is set, requests are rate-limited on
-            a per-client basis (max 5 requests per second per client)
+            Whether to temporary stash data-parsoid in order to support transforming the modified content later.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -514,22 +482,11 @@ paths:
       tags:
         - Page content
       summary: Get data-parsoid metadata for a specific title/revision/tid.
-      description: |
-        Data-parsoid is metadata used by
-        [Parsoid](https://www.mediawiki.org/wiki/Parsoid) to support clean
-        round-tripping conversions between HTML and Wikitext. Among other
-        things, it contains the original Wikitext offsets of each HTML
-        element, keyed by element ID. The format is unstable.
-
-        The metadata in data-parsoid is specific to a specific HTML render.
-        For this reason, you need to supply the exact `revision` and `tid` as
-        provided in the `ETag` header of the HTML response.
-
-        Stability: [Stable](https://www.mediawiki.org/wiki/API_versioning#Stable)
+      description: Get data-parsoid metadata for a specific title/revision/tid.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
@@ -548,7 +505,6 @@ paths:
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -610,12 +566,11 @@ paths:
       tags:
         - Page content
       summary: Get the linter errors for a specific title/revision.
-      description: |
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get the linter errors for a specific title/revision.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
@@ -676,12 +631,11 @@ paths:
       tags:
         - Page content
       summary: Get the linter errors for a specific title/revision.
-      description: |
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get the linter errors for a specific title/revision.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
@@ -835,16 +789,11 @@ paths:
       tags:
         - Page content
       summary: Fetches a segmented page to be used in machine translation
-      description: |
-        Use this end point to fetch the segmented content of a page. Clients should
-        use the returned content in conjunction with the [language transform
-        API](https://wikimedia.org/api/rest_v1/#!/Transform).
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Fetches a segmented page to be used in machine translation
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
@@ -898,16 +847,11 @@ paths:
       tags:
         - Page content
       summary: Fetches a segmented page to be used in machine translation
-      description: |
-        Use this end point to fetch the segmented content of a page. Clients should
-        use the returned content in conjunction with the [language transform
-        API](https://wikimedia.org/api/rest_v1/#!/Transform).
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Fetches a segmented page to be used in machine translation
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces
           required: true
           schema:
             type: string
@@ -967,31 +911,24 @@ paths:
       tags:
         - Mobile
       summary: Get mobile-optimized HTML sections for a title.
-      description: |
-        Retrieve the latest HTML for a page title optimised for viewing with
-        native mobile applications. Note that the output is split by sections.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get mobile-optimized HTML sections for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1055,38 +992,30 @@ paths:
       tags:
         - Mobile
       summary: Get mobile-optimized HTML sections for a title.
-      description: |
-        Retrieve the latest HTML for a page title optimised for viewing with
-        native mobile applications. Note that the output is split by sections.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get mobile-optimized HTML sections for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+          description: Optional page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1150,31 +1079,24 @@ paths:
       tags:
         - Mobile
       summary: Get mobile-optimized HTML lead section and metadata for a title.
-      description: |
-        Retrieve the lead section of the latest HTML for a page title optimised
-        for viewing with native mobile applications.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get mobile-optimized HTML lead section and metadata for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1225,38 +1147,31 @@ paths:
       tags:
         - Mobile
       summary: Get mobile-optimized HTML lead section and metadata for a title.
-      description: |
-        Retrieve the lead section of the latest HTML for a page title optimised
-        for viewing with native mobile applications.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get mobile-optimized HTML lead section and metadata for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
           description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+            Optional page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1307,32 +1222,24 @@ paths:
       tags:
         - Mobile
       summary: Get non-lead mobile-optimized HTML sections for a title.
-      description: |
-        Retrieve the remainder of the latest HTML (without the lead section) for
-        a page title optimised for viewing with native mobile applications,
-        provided as a JSON object containing the sections.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get non-lead mobile-optimized HTML sections for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1383,39 +1290,30 @@ paths:
       tags:
         - Mobile
       summary: Get non-lead mobile-optimized HTML sections for a title.
-      description: |
-        Retrieve the remainder of the latest HTML (without the lead section) for
-        a page title optimised for viewing with native mobile applications,
-        provided as a JSON object containing the sections.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get non-lead mobile-optimized HTML sections for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+          description: Optional page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
           description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
+            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1562,24 +1460,17 @@ paths:
       tags:
         - Page content
       summary: Get list of media files used on a page.
-      description: |
-        Gets the list of media items (images, audio, and video) in the order in which they appear on a
-        given wiki page.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get list of media files used on a page.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -1649,31 +1540,23 @@ paths:
       tags:
         - Page content
       summary: Get list of media files used on a page.
-      description: |
-        Gets the list of media items (images, audio, and video) in the order in which they appear on a
-        given wiki page.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get list of media files used on a page.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.'
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+          description: Optional page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -1743,49 +1626,17 @@ paths:
       tags:
         - Page content
       summary: Get page content HTML optimized for mobile consumption.
-      description: |
-        Gets the content HTML optimized for mobile consumption for the given page. This content
-        is derived from Parsoid HTML (see `/page/html/{title}` endpoint).
-        The difference to Parsoid HTML is roughly:
-        * Some elements and attributes not needed for the reading case are removed.
-        * LeadIntroductionTransform: The introductory paragraph is moved before an infobox.
-        * RedLinks: Red links are flattened (=turned into span elements).
-        * WidenImage: images that should be displayed in gallery are widened.
-        * Section headings are slightly changed by wrapping the headings inside a div and adding
-          a span element inside the new div for the edit buttons.
-        * Additional classes are added to img elements to fix issues with non-white backgrounds.
-          See Theme support below for instructions on how to enable that.
-        * Pagelib CSS files needed to display the content are referenced.
-        * LazyLoadTransform: server-side portion/prep for lazy loading of images.
-        * CollapseTable: server-side portion/prep for collapsing tables.
-
-        What's not included? What parts of the PageLibrary does a client still have to do?
-        * Theme support: Themes can be turned on by adding a theme class to the root <html> tag.
-          Possible class names are:
-          * `pagelib_theme_default`
-          * `pagelib_theme_dark`
-          * `pagelib_theme_black`
-          * `pagelib_theme_sepia`
-
-          The pagelib JS has functionality to do that: ThemeTransform.setTheme(document, theme).
-        * Dim images: DimImagesTransform.dim(window, enable)
-        * PlatformTransform.classify(window) to trigger Android and iOS app specific CSS rules
-        * LazyLoadTransformer: client side companion of LazyLoadTransform (note the extra *er*
-        here)
-        * FooterTransformer: seems to be more UI than content, requires I18N, too
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get page content HTML optimized for mobile consumption.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -1849,56 +1700,23 @@ paths:
       tags:
         - Page content
       summary: Get page content HTML optimized for mobile consumption.
-      description: |
-        Gets the content HTML optimized for mobile consumption for the given page. This content
-        is derived from Parsoid HTML (see `/page/html/{title}` endpoint).
-        The difference to Parsoid HTML is roughly:
-        * Some elements and attributes not needed for the reading case are removed.
-        * LeadIntroductionTransform: The introductory paragraph is moved before an infobox.
-        * RedLinks: Red links are flattened (=turned into span elements).
-        * WidenImage: images that should be displayed in gallery are widened.
-        * Section headings are slightly changed by wrapping the headings inside a div and adding
-          a span element inside the new div for the edit buttons.
-        * Additional classes are added to img elements to fix issues with non-white backgrounds.
-          See Theme support below for instructions on how to enable that.
-        * Pagelib CSS files needed to display the content are referenced.
-        * LazyLoadTransform: server-side portion/prep for lazy loading of images.
-        * CollapseTable: server-side portion/prep for collapsing tables.
-
-        What's not included? What parts of the PageLibrary does a client still have to do?
-        * Theme support: Themes can be turned on by adding a theme class to the root <html> tag.
-          Possible class names are:
-          * `pagelib_theme_default`
-          * `pagelib_theme_dark`
-          * `pagelib_theme_black`
-          * `pagelib_theme_sepia`
-
-          The pagelib JS has functionality to do that: ThemeTransform.setTheme(document, theme).
-        * Dim images: DimImagesTransform.dim(window, enable)
-        * PlatformTransform.classify(window) to trigger Android and iOS app specific CSS rules
-        * LazyLoadTransformer: client side companion of LazyLoadTransform (note the extra *er*
-        here)
-        * FooterTransformer: seems to be more UI than content, requires I18N, too
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get page content HTML optimized for mobile consumption.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+          description: Optional page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -2003,21 +1821,17 @@ paths:
         - Page content
         - offline
       summary: Get styles and scripts for offline consumption of mobile-html-formatted pages
-      description: |
-        Provides links to scripts and styles needed for viewing mobile-html-formatted pages offline.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get styles and scripts for offline consumption of mobile-html-formatted pages
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+          description: Optional page revision.
           required: true
           schema:
             type: integer
@@ -2088,10 +1902,7 @@ paths:
       tags:
         - Page content
       summary: Get content for a random page
-      description: |
-        Redirects the client to the URI for the desired format for a random page title.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Get content for a random page
       parameters:
         - name: format
           in: path
@@ -2125,21 +1936,17 @@ paths:
       tags:
         - Talk pages
       summary: Get structured talk page contents
-      description: |
-        Gets structured talk page contents for the provided title.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Experimental)
+      description: Get structured talk page contents
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -2213,28 +2020,23 @@ paths:
       tags:
         - Talk pages
       summary: Get structured talk page contents
-      description: |
-        Gets structured talk page contents for the provided title.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Experimental)
+      description: Get structured talk page contents
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
+          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision. Note that older revisions are not stored, so request latency with the revision would be higher.
+          description: Optional page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
           description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
             To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
@@ -2303,193 +2105,12 @@ paths:
                   shas:
                     html: /.+/
                     indicator: /.+/
-  /page/pdf/{title}:
-    get:
-      tags:
-        - Page content
-      summary: Get a page as PDF
-      description: |
-        Renders the page content as PDF. Format and type are optional parameters and
-        the default values are "a4" for format and "desktop" for type.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
-      parameters:
-        - name: title
-          in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The PDF render of an article
-          headers:
-            ETag:
-              description: |
-                Syntax: "{revision}/{tid}". Example: "701384379/154d7bca-c264-11e5-8c2f-1b51b33b59fc"
-              schema:
-                type: string
-          content:
-            application/pdf:
-              schema:
-                type: string
-        '404':
-          description: Unknown page title
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '503':
-          description: A response is unavailable because service queue is busy or full
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
-  /page/pdf/{title}/{format}:
-    get:
-      tags:
-        - Page content
-      summary: Get a page as PDF
-      description: |
-        Renders the page content as PDF. Format and type are optional parameters and
-        the default values are "a4" for format and "desktop" for type.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
-      parameters:
-        - name: title
-          in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: format
-          schema:
-            type: string
-            enum:
-              - a4
-              - letter
-              - legal
-          required: true
-          description: PDF format
-      responses:
-        '200':
-          description: The PDF render of an article
-          headers:
-            ETag:
-              description: |
-                Syntax: "{revision}/{tid}". Example: "701384379/154d7bca-c264-11e5-8c2f-1b51b33b59fc"
-              schema:
-                type: string
-          content:
-            application/pdf:
-              schema:
-                type: string
-        '404':
-          description: Unknown page title
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '503':
-          description: A response is unavailable because service queue is busy or full
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
-  /page/pdf/{title}/{format}/{type}:
-    get:
-      tags:
-        - Page content
-      summary: Get a page as PDF
-      description: |
-        Renders the page content as PDF. Format and type are optional parameters and
-        the default values are "a4" for format and "desktop" for type.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
-      parameters:
-        - name: title
-          in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: format
-          schema:
-            type: string
-            enum:
-              - a4
-              - letter
-              - legal
-          required: true
-          description: PDF format
-        - in: path
-          name: type
-          schema:
-            type: string
-            enum:
-              - mobile
-              - desktop
-            default: desktop
-          description: PDF type - `mobile` (optimized for reading on mobile devices) or `desktop` (regular PDF). `desktop` is the default render mode and it will used if param `type` is not passed
-      responses:
-        '200':
-          description: The PDF render of an article
-          headers:
-            ETag:
-              description: |
-                Syntax: "{revision}/{tid}". Example: "701384379/154d7bca-c264-11e5-8c2f-1b51b33b59fc"
-              schema:
-                type: string
-          content:
-            application/pdf:
-              schema:
-                type: string
-        '404':
-          description: Unknown page title
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '503':
-          description: A response is unavailable because service queue is busy or full
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
   /feed/featured/{yyyy}/{mm}/{dd}:
     get:
       tags:
         - Feed
       summary: Aggregated featured content
-      description: |
-        Provides the aggregated feed content for the given date. The endpoint returns
-        the featured article of the day, most read articles for the previous day, news
-        content and the featured image and video of the day.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Aggregated featured content
       parameters:
         - name: yyyy
           in: path
@@ -2529,10 +2150,7 @@ paths:
       tags:
         - Feed
       summary: Current announcements to display
-      description: |
-        Gets announcements for display in the official Wikipedia iOS and Android apps.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Current announcements to display
       responses:
         '200':
           description: Announcements for the given Wiki
@@ -2555,17 +2173,7 @@ paths:
       tags:
         - Feed
       summary: Events on this day
-      description: |
-        Provides events that historically happened on the provided day and month.
-        Supported types of events are:
-         - All: all of the following
-         - Selected: a list of a few selected anniversaries which occur on the provided day and month; often the entries are curated for the current year
-         - Births: a list of birthdays which happened on the provided day and month
-         - Deaths: a list of deaths which happened on the provided day and month
-         - Holidays: a list of fixed holidays celebrated on the provided day and month
-         - Events: a list of significant events which happened on the provided day and month and which are not covered by the other types yet
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Events on this day
       parameters:
         - name: type
           in: path
@@ -2624,18 +2232,7 @@ paths:
       tags:
         - Transforms
       summary: Transform HTML to Wikitext
-      description: |
-        Transform [Parsoid HTML](https://www.mediawiki.org/wiki/Parsoid/MediaWiki_DOM_spec)
-        to Wikitext.
-
-        When converting pre-existing (possibly modified) content, you should
-        pass in the `title`, `revision`, and `If-Match` header. This lets
-        [Parsoid](https://www.mediawiki.org/wiki/Parsoid) preserve small
-        syntactic variations in wikitext, which ensures that diffs are
-        readable.
-
-        - Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)
-        - Rate limit: 25 req/s
+      description: Transform HTML to Wikitext
       parameters:
         - name: if-match
           in: header
@@ -3469,11 +3066,7 @@ paths:
       tags:
         - Transforms
       summary: Fetch the dictionary meaning of a word
-      description: |
-        Fetches the dictionary meaning of a word from a language and displays
-        it in the target language.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Fetch the dictionary meaning of a word
       parameters:
         - name: from
           in: path
@@ -3507,11 +3100,7 @@ paths:
       tags:
         - Transforms
       summary: Fetch the dictionary meaning of a word
-      description: |
-        Fetches the dictionary meaning of a word from a language and displays
-        it in the target language.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Fetch the dictionary meaning of a word
       parameters:
         - name: from
           in: path
@@ -3628,11 +3217,7 @@ paths:
       tags:
         - Math
       summary: Get a previously-stored formula
-      description: |
-        Returns the previously-stored formula via `/media/math/check/{type}` for
-        the given hash.
-
-        Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).
+      description: Get a previously-stored formula
       parameters:
         - name: hash
           in: path
@@ -3661,84 +3246,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
       x-monitor: false
-  /media/math/render/{format}/{hash}:
-    get:
-      tags:
-        - Math
-      summary: Get rendered formula in the given format.
-      description: |
-        Given a request hash, renders a TeX formula into its mathematic
-        representation in the given format. When a request is issued to the
-        `/media/math/check/{format}` POST endpoint, the response contains the
-        `x-resource-location` header denoting the hash ID of the POST data. Once
-        obtained, this endpoint has to be used to obtain the actual render.
-
-        Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).
-      parameters:
-        - name: format
-          in: path
-          description: The output format; can be svg or mml
-          required: true
-          schema:
-            type: string
-            enum:
-              - svg
-              - mml
-              - png
-        - name: hash
-          in: path
-          description: The hash string of the previous POST data
-          required: true
-          schema:
-            minLength: 1
-            type: string
-      responses:
-        '200':
-          description: The rendered formula
-          content:
-            image/svg+xml:
-              schema:
-                type: string
-            application/mathml+xml:
-              schema:
-                type: string
-            image/png:
-              schema:
-                type: string
-                format: binary
-        '404':
-          description: Unknown format or hash ID
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
   /data/citation/{format}/{query}:
     get:
       tags:
         - Citation
       summary: Get citation data given an article identifier.
-      description: |
-        Generates citation data given a URL, DOI, PMID, ISBN, or PMCID.
-
-        See more at [Citoid service documentation](https://www.mediawiki.org/wiki/Citoid)
-
-        The citation data can be requested in one of the following formats:
-          - `mediawiki`: format designed for MediaWiki to be used with `templateData`.
-            Uses [Zotero field names](https://aurimasv.github.io/z2csl/typeMap.xml).
-          - `mediawiki-basefields`: `mediawiki` format with Zotero `basefield` field names.
-          - `zotero`: format used by [Zotero](https://www.zotero.org/).
-          - `bibtex`: format used in conjunction with LaTeX documents.
-            See [bibtex.org](http://www.bibtex.org/).
-          - `wikibase`: format designed for [Wikibase](https://www.mediawiki.org/wiki/Extension:Wikibase_Repository).
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Get citation data given an article identifier.
       parameters:
         - name: format
           in: path
@@ -3755,7 +3268,7 @@ paths:
         - name: query
           in: path
           description: |
-            URL of an article, DOI, ISBN, PMCID or PMID in the URL-encoded format. Note that on the Swagger-UI doc page you don't need to URI-encode the parameter manually, it will be done by the docs engine.
+            URL of an article, DOI, ISBN, PMCID or PMID in the URL-encoded format.
           required: true
           schema:
             type: string
@@ -3927,13 +3440,7 @@ paths:
       tags:
         - Recommendation
       summary: Recommend articles for translation.
-      description: |
-        Recommends articles to be translated from the source
-        to the domain language.
-
-        See more at [Recommendation API documentation](https://meta.wikimedia.org/wiki/Recommendation_API)
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Recommend articles for translation.
       parameters:
         - name: from_lang
           in: path
@@ -3966,13 +3473,7 @@ paths:
       tags:
         - Recommendation
       summary: Recommend articles for translation.
-      description: |
-        Recommends articles to be translated from the source
-        to the domain language.
-
-        See more at [Recommendation API documentation](https://meta.wikimedia.org/wiki/Recommendation_API)
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Recommend articles for translation.
       parameters:
         - name: from_lang
           in: path
@@ -4011,11 +3512,7 @@ paths:
       tags:
         - Recommendation
       summary: Recommend missing articles
-      description: |
-        Recommends articles similar to the seed article but are missing
-        from the domain language Wikipedia.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      description: Recommend missing articles
       parameters:
         - name: seed_article
           in: path
@@ -4037,117 +3534,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
       x-monitor: false
-  /data/css/mobile/{type}:
-    get:
-      tags:
-        - Mobile
-      summary: Get CSS for mobile apps.
-      description: |
-        Gets common CSS mobile apps need to properly display pages using Page Content Service.
-        In most cases all of the types are needed (preferably in this order):
-        * base (Common mobile CSS from ResourceLoader)
-        * site (Site-specific, mobile CSS from ResourceLoader, as defined in MediaWiki\:Mobile.css)
-        * pcs (CSS for the Page Content Service)
-
-        The `base` and `pcs` responses are the same regardless of what domain is used.
-        For these we suggest meta.wikimedia.org.
-
-        You can still pass pagelib for type, but this is a legacy version of the CSS for
-        existing app clients.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
-      parameters:
-        - name: type
-          in: path
-          description: The desired CSS bundle
-          schema:
-            type: string
-            enum:
-              - base
-              - pagelib
-              - pcs
-              - site
-          required: true
-      responses:
-        '200':
-          description: Success
-          headers:
-            ETag:
-              description: Different values indicate that the content has changed
-              schema:
-                type: string
-          content:
-            application/json; charset=utf-8; profile="https://www.mediawiki.org/wiki/Specs/CSS/1.0.0":
-              schema:
-                type: object
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
-  /data/javascript/mobile/{type}:
-    get:
-      tags:
-        - Mobile
-      summary: Get JavaScript for mobileapps
-      description: |
-        Gets the JavaScript bundle so that clients can have
-        convenient access to that for consuming the page HTML.
-        Amongst other things,
-        * it allows to detect the platform and through that enable platform specific CSS rules,
-        * has code to lazy load images on the page,
-        * code for collapsing and expanding tables.
-
-        Valid types are pagelib or pcs. Passing pcs will return the JavaScript for the
-        Page Content Service. Passing pagelib will return a deprecated legacy version
-        of the wikimedia-page-library JavaScript to support existing app clients.
-
-        Stability: [unstable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Unstable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
-      parameters:
-        - name: type
-          in: path
-          description: The desired JavaScript bundle
-          schema:
-            type: string
-            enum:
-              - pagelib
-              - pcs
-          required: true
-      responses:
-        '200':
-          description: Success
-          headers:
-            ETag:
-              description: Different values indicate that the content has changed
-              schema:
-                type: string
-          content:
-            application/json; charset=utf-8; profile="https://www.mediawiki.org/wiki/Specs/JavaScript/1.0.0":
-              schema:
-                type: object
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
   /data/i18n/{type}:
     get:
       tags:
         - Mobile
       summary: Get internationalization info
-      description: |
-        Gets internationalization information for the given site. Currently the only
-        supported type is pcs for the Page Content Service.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get internationalization info
       parameters:
         - name: type
           in: path
@@ -4837,3 +4229,4 @@ tags:
     description: contribution recommendations
 servers:
   - url: https://en.wikipedia.org/api/rest_v1
+ 
