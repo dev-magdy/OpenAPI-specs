@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "TV Maze - OpenAPI 3.0",
-    "description": "If you want to add TV information to your website or app then you've come to the right place!\n\nWe provide a free, fast and clean REST API that's easy to use, returns JSON and conforms to the HATEOAS and HAL principles. The root url is [https://api.tvmaze.com](https://api.tvmaze.com) and the available endpoints are documented below. If you have any questions or suggestions regarding the API, please post them on [our forums](http://www.tvmaze.com/forums/4/api).\n\nIn addition to the free public API, there's a user-level API available for all [Premium](https://www.tvmaze.com/premium) members. The documentation for the user API can be viewed [here](https://static.tvmaze.com/apidoc/).\n\nTo stay up to date with the latest changes, you can follow the changelog thread [here](http://www.tvmaze.com/threads/4/api-changelog?page=999).",
+    "description": "A REST API about TV information.
     "termsOfService": "https://www.tvmaze.com/site/tos",
     "contact": {
       "email": "example@email.com"
@@ -71,13 +71,12 @@
           "search"
         ],
         "summary": "Search through all the shows in our database by the show's name",
-        "description": "Provide search term to get the results",
+        "description": "Search all shows",
         "operationId": "searchShows",
         "parameters": [
           {
             "name": "q",
             "in": "query",
-            "description": "The term to search show names for.",
             "required": true,
             "schema": {
               "type": "string"
@@ -150,7 +149,6 @@
           {
             "name": "q",
             "in": "query",
-            "description": "The term to search show names for.",
             "required": true,
             "schema": {
               "type": "string"
@@ -211,7 +209,6 @@
           {
             "name": "tvrage",
             "in": "query",
-            "description": "The tvrage id",
             "schema": {
               "type": "integer"
             }
@@ -219,7 +216,6 @@
           {
             "name": "thetvdb",
             "in": "query",
-            "description": "The thetvdb id",
             "schema": {
               "type": "integer"
             }
@@ -227,7 +223,6 @@
           {
             "name": "imdb",
             "in": "query",
-            "description": "The imdb id",
             "schema": {
               "type": "string"
             }
@@ -309,13 +304,12 @@
           "search"
         ],
         "summary": "Search through all the people in our database",
-        "description": "Provide search term to get the results",
+        "description": "Search people",
         "operationId": "searchPeople",
         "parameters": [
           {
             "name": "q",
             "in": "query",
-            "description": "The term to search people names for.",
             "required": true,
             "schema": {
               "type": "string"
@@ -388,7 +382,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get",
             "required": true,
             "schema": {
               "type": "integer",
@@ -463,7 +456,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get episodes for",
             "required": true,
             "schema": {
               "type": "integer",
@@ -540,7 +532,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show the episode belongs to",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -550,7 +542,7 @@
           {
             "name": "season",
             "in": "query",
-            "description": "number of the season the episode belongs to",
+            "description": "number of season",
             "required": true,
             "schema": {
               "type": "integer",
@@ -643,14 +635,14 @@
         "tags": [
           "shows"
         ],
-        "summary": "Retrieve one episode from a show given season and episode numbers",
-        "description": "Retrieve one episode from a show given season and episode numbers",
+        "summary": "Retrieve one episode from a show given episode air date",
+        "description": "Retrieve one episode from a show given episode air date",
         "operationId": "getEpisodeBydate",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show the episode belongs to",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -749,7 +741,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get seasons for",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -807,14 +799,14 @@
         "tags": [
           "shows"
         ],
-        "summary": "Retrieve a list of episodes in this season. Specials are always included in this list",
-        "description": "Retrieve a list of episodes in this season. Specials are always included in this list",
+        "summary": "Retrieve a list of episodes in this season. Specials are always included.",
+        "description": "Retrieve a list of episodes in this season. Specials are always included.",
         "operationId": "getSeasonEpisodes",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of season to get episodes for",
+            "description": "ID of season",
             "required": true,
             "schema": {
               "type": "integer",
@@ -890,7 +882,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get main cast for",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -955,7 +947,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get crew for",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1029,7 +1021,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get aliases for",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1103,7 +1095,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show to get aliases for",
+            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1168,7 +1160,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of episode to get",
+            "description": "ID of episode",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1269,7 +1261,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of episode to get",
+            "description": "ID of episode",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1327,14 +1319,14 @@
         "tags": [
           "episodes"
         ],
-        "summary": "Retrieve all guest cast starring in an episode",
-        "description": "Retrieve all guest cast starring in an episode",
+        "summary": "Retrieve all guest crew working on an episode",
+        "description": "Retrieve all guest crew working on an episode",
         "operationId": "getEpisodeGuestCrew",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of episode to get",
+            "description": "ID of episode",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1408,7 +1400,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person to get",
+            "description": "ID of person",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1509,7 +1501,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person to get",
+            "description": "ID of person",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1613,7 +1605,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person to get",
+            "description": "ID of person",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1717,7 +1709,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person to get",
+            "description": "ID of person",
             "required": true,
             "schema": {
               "type": "integer",
