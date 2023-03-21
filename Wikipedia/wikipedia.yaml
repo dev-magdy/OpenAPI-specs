@@ -4,6 +4,10 @@ info:
   title: Wikimedia REST API
   description: |
     This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats.
+    ## General notes:
+      - For `title` parameter, use underscores or percent-encoding instead of spaces. Example: `Main_Page`.
+      - Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body. To get a 200 response instead, supply `false` to the `redirect` parameter.
+      - For `stash` parameter, use the desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
   termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
   contact:
     name: the Wikimedia Services team
@@ -38,11 +42,10 @@ paths:
       tags:
         - Page content
       summary: Get revision metadata for a title.
-      description: Returns the revision metadata for the given title.
+      description: Get revision metadata for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Example: `Main_Page`.'
           required: true
           schema:
             type: string
@@ -105,17 +108,16 @@ paths:
       tags:
         - Page content
       summary: Get revision metadata for a title.
-      description: Returns the revision metadata for the given title.
+      description: Get revision metadata for a title.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Example: `Main_Page`.'
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: The revision id
+          description: revision id
           required: true
           schema:
             type: integer
@@ -182,13 +184,12 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: The revision
+          description: revision id
           required: true
           schema:
             type: integer
@@ -200,8 +201,6 @@ paths:
             type: string
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
       responses:
@@ -266,17 +265,12 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: |
-            The lint errors for the given page and optionally revision.
-
-            See [the Linter extension docs](https://www.mediawiki.org/wiki/Extension:Linter) for more
-            details.
+          description: The lint errors for the given page and optionally revision.
           content:
             application/json:
               schema:
@@ -331,13 +325,12 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: The revision
+          description: revision id
           required: true
           schema:
             type: integer
@@ -489,7 +482,6 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
@@ -547,13 +539,12 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: The revision id
+          description: revision id
           required: true
           schema:
             type: integer
@@ -611,20 +602,15 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -692,26 +678,21 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: Optional page revision.
+          description: revision id
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -779,20 +760,15 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -847,27 +823,21 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: |
-            Optional page revision.
+          description: revision id
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -922,20 +892,15 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -990,26 +955,21 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: Optional page revision.
+          description: page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled.
           schema:
             type: string
       responses:
@@ -1060,32 +1020,19 @@ paths:
       tags:
         - Page content
       summary: Get basic metadata and simplified article introduction.
-      description: |
-        The summary response includes an extract of the first paragraph of the page in plain text
-        and HTML as well as the type of page. This is useful for page previews (fka. Hovercards,
-        aka. Popups) on the web and link previews in the apps.
-
-        Stability: [stable](https://www.mediawiki.org/wiki/Wikimedia_Product/Wikimedia_Product_Infrastructure_team/API_endpoint_stability_policy#Stable)
-
-        Please follow [wikitech-l](https://lists.wikimedia.org/mailman/listinfo/wikitech-l) or [mediawiki-api-announce](https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce) for announcements of breaking changes.
+      description: Get basic metadata and simplified article introduction.
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
           required: true
           schema:
             type: string
         - name: redirect
           in: query
-          description: |
-            Requests for [redirect pages](https://www.mediawiki.org/wiki/Help:Redirects) return HTTP 302 with a redirect target in `Location` header and content in the body.
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
         - name: Accept-Language
           in: header
-          description: |
-            The desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
           schema:
             type: string
       responses:
@@ -1160,14 +1107,11 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
       responses:
@@ -1240,20 +1184,17 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.'
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: Optional page revision.
+          description: page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
       responses:
@@ -1322,16 +1263,10 @@ paths:
       tags:
         - Page content
       summary: Get pages related to the given title
-      description: |
-        Returns summaries for 20 pages related to the given page. Summaries include
-        page title, namespace and id along with short text description of the page
-        and a thumbnail.
-
-        Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)
+      description: Get pages related to the given title
       parameters:
         - name: title
           in: path
-          description: 'Page title. Use underscores instead of spaces. Use percent-encoding. Example: `Main_Page`.'
           required: true
           schema:
             type: string
@@ -1399,14 +1334,11 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
       responses:
@@ -1483,20 +1415,17 @@ paths:
       parameters:
         - name: title
           in: path
-          description: Page title. Use underscores instead of spaces.
           required: true
           schema:
             type: string
         - name: revision
           in: path
-          description: Optional page revision.
+          description: page revision.
           required: true
           schema:
             type: integer
         - name: redirect
           in: query
-          description: |
-            To get a 200 response instead, supply `false` to the `redirect` parameter.
           schema:
             type: boolean
       responses:
@@ -2529,13 +2458,13 @@ paths:
       parameters:
         - name: from
           in: path
-          description: The source language code
+          description: source language code
           required: true
           schema:
             type: string
         - name: word
           in: path
-          description: The word to lookup
+          description: word to lookup
           required: true
           schema:
             type: string
@@ -2563,19 +2492,19 @@ paths:
       parameters:
         - name: from
           in: path
-          description: The source language code
+          description: source language code
           required: true
           schema:
             type: string
         - name: word
           in: path
-          description: The word to lookup
+          description: word to lookup
           required: true
           schema:
             type: string
         - name: provider
           in: path
-          description: The dictionary provider id
+          description: dictionary provider id
           required: true
           schema:
             type: string
@@ -2671,40 +2600,6 @@ paths:
             body:
               success: true
               checked: /.+/
-  /media/math/formula/{hash}:
-    get:
-      tags:
-        - Math
-      summary: Get a previously-stored formula
-      description: Get a previously-stored formula
-      parameters:
-        - name: hash
-          in: path
-          description: The hash string of the previous POST data
-          required: true
-          schema:
-            minLength: 1
-            type: string
-      responses:
-        '200':
-          description: Information about the checked formula
-          content:
-            application/json:
-              schema:
-                type: object
-        '404':
-          description: Data for the given hash cannot be found
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
   /data/citation/{format}/{query}:
     get:
       tags:
