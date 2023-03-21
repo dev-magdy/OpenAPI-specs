@@ -6,7 +6,7 @@ schemes:
 info:
   title: APSA Preprints Public API Documentation
   version: 0.0.84
-  description: 
+  description: An API for APSA Preprints publications by Cambridge University
 tags: []
 paths:
   /public-api/v1/categories:
@@ -24,9 +24,7 @@ paths:
         '400':
           description: Bad request
         '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
+          description: Too Many Requests, please throttle or talk to us if you think there's a problem
   /public-api/v1/items:
     get:
       summary: Search items
@@ -66,16 +64,12 @@ paths:
           in: query
         - type: string
           format: date
-          description: >-
-            Enter date in format of YYYY-MM-DD or in ISO format of
-            YYYY-MM-DDThh:mm:ssZ
+          description: Enter date in format of YYYY-MM-DD or in ISO format of YYYY-MM-DDThh:mm:ssZ
           name: searchDateFrom
           in: query
         - type: string
           format: date
-          description: >-
-            Enter date in format of YYYY-MM-DD or in ISO format of
-            YYYY-MM-DDThh:mm:ssZ
+          description: Enter date in format of YYYY-MM-DD or in ISO format of YYYY-MM-DDThh:mm:ssZ
           name: searchDateTo
           in: query
         - type: array
@@ -114,9 +108,7 @@ paths:
         '400':
           description: Bad request
         '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
+          description: Too Many Requests, please throttle or talk to us if you think there's a problem
   /public-api/v1/licenses:
     get:
       summary: Get all licenses with metadata
@@ -132,58 +124,7 @@ paths:
         '400':
           description: Bad request
         '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
-  /public-api/v1/oai:
-    get:
-      summary: Open Archives Initiative interface
-      operationId: getPublicapiV1Oai
-      description: Open Archives Initiative interface
-      parameters:
-        - type: string
-          enum:
-            - GetRecord
-            - Identify
-            - ListIdentifiers
-            - ListMetadataFormats
-            - ListRecords
-          name: verb
-          in: query
-        - type: string
-          name: identifier
-          in: query
-        - type: string
-          enum:
-            - oai_dc
-          name: metadataPrefix
-          in: query
-        - type: string
-          format: date
-          description: >-
-            Enter date in format of YYYY-MM-DD or in ISO format of
-            YYYY-MM-DDThh:mm:ssZ
-          name: from
-          in: query
-        - type: string
-          format: date
-          description: >-
-            Enter date in format of YYYY-MM-DD or in ISO format of
-            YYYY-MM-DDThh:mm:ssZ
-          name: until
-          in: query
-        - type: string
-          name: resumptionToken
-          in: query
-      tags:
-        - public-api/v1/oai
-      responses:
-        '400':
-          description: Bad request
-        '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
+          description: Too Many Requests, please throttle or talk to us if you think there's a problem
   /public-api/v1/version:
     get:
       summary: Get API version
@@ -199,9 +140,7 @@ paths:
         '400':
           description: Bad request
         '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
+          description: Too Many Requests, please throttle or talk to us if you think there's a problem
   /public-api/v1/items/{itemId}:
     get:
       summary: Get item metadata
@@ -229,9 +168,7 @@ paths:
         '410':
           description: Item has been withdrawn
         '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
+          description: Too Many Requests, please throttle or talk to us if you think there's a problem
   /public-api/v1/items/doi/{doi*2}:
     get:
       summary: Get item metadata based on item's doi
@@ -239,8 +176,9 @@ paths:
       description: Get item metadata based on item's doi
       parameters:
         - type: string
-          name: doi
+          name: doi*2
           in: path
+          required: true
       tags:
         - public-api/v1/items
       responses:
@@ -253,9 +191,7 @@ paths:
         '410':
           description: Item has been withdrawn
         '429':
-          description: >-
-            Too Many Requests, please throttle or talk to us if you think
-            there's a problem
+          description: Too Many Requests, please throttle or talk to us if you think there's a problem
 definitions:
   categoriesSchema:
     type: object
