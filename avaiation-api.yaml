@@ -1,7 +1,9 @@
 swagger: '2.0'
 info:
   title: AviationAPI API
-  description: AviationAPI was created for the use on VATSIM, but can be used for any application. It can be used to retrieve information about airports, airport charts and airport weather conditions.
+  description: |
+    AviationAPI was created for the use on VATSIM, but can be used for any application. It can be used to retrieve information about airports, airport charts and airport weather conditions.
+    The `apt` parameter takes FAA or ICAO airport identifier (KCLT or CLT), sometimes multiple identifiers separated by a comma.
   contact:
     name: Ian Cowan
     url: https://www.aviationapi.com
@@ -25,7 +27,7 @@ paths:
       parameters:
         - name: apt
           in: query
-          description: FAA or ICAO facility identifier (KAVL or AVL). Separate multiple entries with a comma
+          description: Separate multiple entries with a comma
           required: true
           type: string
       responses:
@@ -215,7 +217,7 @@ paths:
       parameters:
         - name: apt
           in: query
-          description: FAA or ICAO airport identifier (KAVL or AVL). Separate multiple entries with a comma
+          description: Separate multiple entries with a comma
           required: true
           type: string
         - name: group
@@ -307,7 +309,6 @@ paths:
       parameters:
         - name: apt
           in: query
-          description: FAA or ICAO airport identifier (KAVL or AVL)
           required: true
           type: string
         - name: chart_name
@@ -390,7 +391,6 @@ paths:
       parameters:
         - name: apt
           in: query
-          description: FAA or ICAO airport identifier (KCLT or CLT)
           required: true
           type: string
       responses:
