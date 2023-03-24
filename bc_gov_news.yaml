@@ -5,7 +5,7 @@ info:
   version: '1.0'
   title: BC Gov News API Service 1.0
   description: |
-    This is a a news API devoted to the news of British Columbia, Canada. It's used to retrieve news post from the https://news.gov.bc.ca/ website and social media posts. Also, the API hosts info about British Columbia ministries and services.
+    This is a news API devoted to the news of British Columbia, Canada. It's used to retrieve news post from the https://news.gov.bc.ca/ website and social media posts. Also, the API hosts info about British Columbia ministries and services.
     The `api-version` parameter is required in every endpoint. Always pass the string '1.0' in it.
   license:
     name: Apache 2.0
@@ -109,7 +109,7 @@ paths:
       tags:
         - Ministries
       summary: Get the Ministry associated with the ministry key
-      description: Get the Ministry associated with the ministry key
+      description: Get the Ministry by ministry key
       operationId: Ministries_GetOne
       parameters:
         - name: key
@@ -141,7 +141,7 @@ paths:
       tags:
         - Ministries
       summary: Get the Minister associated with the ministry key
-      description: Get the Minister associated with the ministry key
+      description: Get the Minister by the ministry key
       operationId: Ministries_GetMinister
       parameters:
         - name: key
@@ -312,38 +312,6 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Article'
-  /api/Newsletters/Images/{guid}:
-    get:
-      tags:
-        - Newsletters
-      summary: Get the image object reference by of a Newsletter Edition associated with the image guid
-      description: Get the image object reference by of a Newsletter Edition associated with the image guid
-      operationId: Newsletters_GetImage
-      parameters:
-        - name: guid
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: '1.0'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/EditionImage'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EditionImage'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/EditionImage'
   /api/Posts/{key}:
     get:
       tags:
@@ -381,7 +349,7 @@ paths:
       tags:
         - Posts
       summary: Get the posts associated with the keys in the list passed in.
-      description: Get the posts associated with the keys in the list passed in.
+      description: Get the posts by their keys.
       operationId: Posts_Get
       parameters:
         - name: postKeys
@@ -435,7 +403,7 @@ paths:
             type: string
         - name: indexKey
           in: path
-          description: default or one key of the categories (ministries, sectors, services, tags, themes)
+          description: default or one key of categories (ministries, sectors, services, tags, themes)
           required: true
           schema:
             type: string
@@ -588,39 +556,6 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/KeyValuePair_2'
-  /api/Posts/LatestMediaUri/{mediaType}:
-    get:
-      tags:
-        - Posts
-      summary: Gets the latest Social Media post for the social media type passed in.
-      description: Gets the latest Social Media post for the social media type passed in.
-      operationId: Posts_GetLatestMediaUri
-      parameters:
-        - name: mediaType
-          in: path
-          description: Either 'flickr' or 'youtube'
-          required: true
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: '1.0'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-            text/json:
-              schema:
-                type: string
   /api/ResourceLinks:
     get:
       tags:
@@ -692,7 +627,7 @@ paths:
       tags:
         - Sectors
       summary: Get the sector associated with the key
-      description: Get the sector associated with the key
+      description: Get the sector by key
       operationId: Sectors_GetOne
       parameters:
         - name: key
@@ -757,7 +692,7 @@ paths:
       tags:
         - Services
       summary: Get the service associated with the passed key
-      description: Get the service associated with the passed key
+      description: Get a service by key
       operationId: Services_GetOne
       parameters:
         - name: key
@@ -789,7 +724,7 @@ paths:
       tags:
         - Slides
       summary: Get the slide associated to the id
-      description: Get the slide associated to the id
+      description: Get a slide by id
       operationId: Slides_GetOne
       parameters:
         - name: id
@@ -887,7 +822,7 @@ paths:
       tags:
         - Tags
       summary: Get the Tag associated with the key
-      description: Get the Tag associated with the key
+      description: Get a Tag by key
       operationId: Tags_GetOne
       parameters:
         - name: key
@@ -952,7 +887,7 @@ paths:
       tags:
         - Themes
       summary: Get the Theme associated with the key
-      description: Get the Theme associated with the key
+      description: Get a Theme by key
       operationId: Themes_GetOne
       parameters:
         - name: key
