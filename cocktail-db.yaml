@@ -1,14 +1,10 @@
-# Every Open API file needs this
 openapi: 3.0.0
-
-#docs metadata
 info:
   version: 0.0.2
   title: TheCocktailDB
   description: |
     # TheCocktailDB Overview
     TheCocktailDB is an open, crowdsourced database of cocktails and other drinks from around the world. Its JSON API lets users search for drinks based on various criteria, from a drink's name to the glass it's served in.
-    
 servers:
   - url: https://www.thecocktaildb.com/api/json/v1
     description: Public server
@@ -17,13 +13,14 @@ paths:
     get:
       operationId: searchDrinks
       summary: Searches for drinks by name or by their first letter. Can also search for ingredients. Searches are not case sensitive.
-      tags: 
+      description: Searches for drinks by name or by their first letter. Can also search for ingredients. Searches are not case sensitive.
+      tags:
         - Public
       parameters:
         - name: s
-          description: | 
+          description: |
             Modifies the endpoint to search for drinks by name. Includes partial matches. For example, "jito" will return "Mojito" as well as "Mojito Extra" and "Blueberry Mojito."
-          
+
             Returns null if no results are found. Otherwise, returns an array containing one or more **drinkObject**.
           in: query
           schema:
@@ -32,8 +29,6 @@ paths:
         - name: f
           description: |
             Modifies the endpoint to search for drinks by the first letter of their names. For example, "m" will return will return "Mojito" but not "Blueberry Mojito."
-          
-            Returns null if no results are found. Otherwise, returns an array containing one or more **drinkObject**.
           in: query
           schema:
             type: string
@@ -41,14 +36,12 @@ paths:
         - name: i
           description: |
             Modifies the endpoint to search for ingredients by name. Does not include partial matches. For example, "gin" will return "Gin," but not "ginger."
-          
-            Returns null if no results are found. Otherwise, returns an array containing an **ingredientObject**.
           in: query
           schema:
             type: string
           required: false
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             application/json:
@@ -56,19 +49,17 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/searchResultDrink'
                   - $ref: '#/components/schemas/searchResultIngredient'
-        
   /1/lookup.php:
     get:
       summary: Searches for drinks or ingredients by their exact ID in the database.
+      description: Searches for drinks or ingredients by their exact ID in the database.
       operationId: lookupDrinks
-      tags: 
+      tags:
         - Public
       parameters:
         - name: i
           description: |
             Modifies the endpoint to search for drinks by exact ID.
-          
-            Returns null if no results are found. Otherwise, returns an array containing a **drinkObject**.
           in: query
           schema:
             type: string
@@ -76,14 +67,12 @@ paths:
         - name: iid
           description: |
             Modifies the endpoint to search for ingredients by exact ID.
-          
-            Returns null if no results are found. Otherwise, returns an array containing an **ingredientObject**.
           in: query
           schema:
             type: string
           required: false
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             application/json:
@@ -91,35 +80,31 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/searchResultDrink'
                   - $ref: '#/components/schemas/searchResultIngredient'
-      
   /1/random.php:
     get:
       summary: Returns a random drink.
+      description: Returns a random drink.
       operationId: randomDrinks
-      tags: 
+      tags:
         - Public
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/searchResultDrink'
-                
-                
   /1/filter.php:
     get:
       summary: Filters drinks based on search criteria.
+      description: Filters drinks based on search criteria.
       operationId: filterDrinks
-      tags: 
+      tags:
         - Public
       parameters:
-        
         - name: i
           description: |
-            Searches for drinks by ingredient. 
-            
-            Returns the string "None Found" if no result is found. Otherwise, returns an array containing one or more **filterObject**.
+            Ingredient to search drinks by.
           in: query
           schema:
             type: string
@@ -127,17 +112,13 @@ paths:
         - name: a
           description: |
             Searches for drinks by alcohol content.
-            
-            Returns an array containing one or more **filterObject**.
           in: query
           schema:
             type: string
           required: false
         - name: c
-          description: | 
+          description: |
             Searches for drinks by their category.
-            
-            Returns an array containing one or more **filterObject**.
           in: query
           schema:
             type: string
@@ -145,71 +126,64 @@ paths:
         - name: g
           description: |
             Searches for drinks by their serving glass.
-            
-            Returns an array containing one or more **filterObject**.
           in: query
           schema:
             type: string
           required: false
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             application/json:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/searchResultFilter'
-        
   /1/list.php:
     get:
       summary: Returns the list of options for each parameter of the **filter** endpoint.
+      description: Returns the list of options for each parameter of the **filter** endpoint.
       operationId: listDrinks
-      tags: 
+      tags:
         - Public
       parameters:
-        
         - name: c
           description: |
             Lists the **c** (category) parameter's options.
-            
-            Returns an array containing one or more **categoryListObject.**
           in: query
           schema:
             type: string
-            enum: [list]
+            enum:
+              - list
           required: false
         - name: g
           description: |
             Lists the **g** (glass) parameter's options.
-            
-            Returns an array containing one or more **glassListObject.**
           in: query
           schema:
             type: string
-            enum: [list]
+            enum:
+              - list
           required: false
         - name: i
           description: |
             Lists the **i** (ingredient) parameter's options.
-            
-            Returns an array containing one or more **ingredientListObject.**
           in: query
           schema:
             type: string
-            enum: [list]
+            enum:
+              - list
           required: false
         - name: a
           description: |
             Lists the **a** (alcoholic) parameter's options.
-            
-            Returns an array containing one or more **alcoholicListObject.**
           in: query
           schema:
             type: string
-            enum: [list]
+            enum:
+              - list
           required: false
       responses:
-        200:
+        '200':
           description: Successful response
           content:
             application/json:
@@ -219,7 +193,6 @@ paths:
                   - $ref: '#/components/schemas/searchResultListGlass'
                   - $ref: '#/components/schemas/searchResultListIngredient'
                   - $ref: '#/components/schemas/searchResultListAlcoholic'
-            
 components:
   schemas:
     searchResultDrink:
@@ -234,7 +207,7 @@ components:
       properties:
         idDrink:
           type: integer
-          description: The ID number of the drink in the database. 
+          description: The ID number of the drink in the database.
         strDrink:
           type: string
           description: The name of the drink.
@@ -246,7 +219,7 @@ components:
           description: All of the drink's metadata tags.
         strVideo:
           type: string
-          description: The URL for the video associated with the drink. 
+          description: The URL for the video associated with the drink.
         strCategory:
           type: string
           description: The metadata tag describing the drink's type.
@@ -369,7 +342,7 @@ components:
           description: The exact amount of the fourteenth ingredient.
         strMeasure15:
           type: string
-          description: The exact amount of the fifteenth ingredient.   
+          description: The exact amount of the fifteenth ingredient.
         strImageSource:
           type: string
           description: The drink image's URL.
@@ -394,7 +367,7 @@ components:
       properties:
         idIngredient:
           type: integer
-          description: The ID number of the ingredient in the database. 
+          description: The ID number of the ingredient in the database.
         strIngredient:
           type: string
           description: The name of the ingredient.
@@ -428,7 +401,7 @@ components:
           description: The URL of the thumbnail of the drink's image.
         idDrink:
           type: integer
-          description: The ID number of the drink in the database. 
+          description: The ID number of the drink in the database.
     searchResultListCategory:
       type: object
       properties:
