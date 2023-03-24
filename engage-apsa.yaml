@@ -12,7 +12,7 @@ paths:
   /public-api/v1/categories:
     get:
       summary: Get all categories with metadata
-      operationId: getPublicapiV1Categories
+      operationId: getCategories
       description: Get all categories with metadata
       tags:
         - categories
@@ -28,7 +28,7 @@ paths:
   /public-api/v1/items:
     get:
       summary: Search items
-      operationId: getPublicapiV1Items
+      operationId: searchItems
       description: Search items by feeding a search query in the `term` parameter and using other parameters for sorting and filtering
       parameters:
         - type: string
@@ -116,8 +116,7 @@ paths:
   /public-api/v1/licenses:
     get:
       summary: Get all licenses with metadata
-      operationId: getPublicapiV1Licenses
-      description: Get all licenses with metadata
+      operationId: getLicenses
       tags:
         - public-api/v1/licenses
       responses:
@@ -132,8 +131,7 @@ paths:
   /public-api/v1/version:
     get:
       summary: Get API version
-      operationId: getPublicapiV1Version
-      description: Get API version
+      operationId: getVersion
       tags:
         - public-api/v1/version
       responses:
@@ -148,8 +146,8 @@ paths:
   /public-api/v1/items/{itemId}:
     get:
       summary: Get item metadata
-      operationId: getPublicapiV1ItemsItemid
-      description: Get item metadata
+      operationId: getItemid
+      description: Get item metadata based on item's id
       parameters:
         - type: string
           x-constraint:
@@ -176,7 +174,7 @@ paths:
   /public-api/v1/items/doi/{doi*2}:
     get:
       summary: Get item metadata based on item's doi
-      operationId: getPublicapiV1ItemsDoiDoi2
+      operationId: getItemsDoi2
       description: Get item metadata based on item's doi
       parameters:
         - type: string
