@@ -1,32 +1,36 @@
 openapi: 3.0.0
 servers:
-  - url: 'https://news.api.gov.bc.ca/'
+  - url: https://news.api.gov.bc.ca/
 info:
   version: '1.0'
   title: BC Gov News API Service 1.0
-  description: News API version '1.0'
+  description: |
+    This is a a news API devoted to the news of British Columbia, Canada. It's used to retrieve news post from the https://news.gov.bc.ca/ website and social media posts. Also, the API hosts info about British Columbia ministries and services.
+    The `api-version` parameter is required in every endpoint. Always pass the string '1.0' in it.
   license:
     name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+    url: https://www.apache.org/licenses/LICENSE-2.0
 paths:
   /api/FacebookPosts/ByUri:
     get:
       tags:
         - FacebookPosts
       summary: Get a Facebook post based on a Uri
+      description: Get a Facebook post based on a Uri
       operationId: FacebookPosts_GetByUri
       parameters:
         - name: uri
           in: query
-          description: ''
           required: false
           schema:
             type: string
+            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -45,6 +49,7 @@ paths:
       tags:
         - Home
       summary: Returns the top level content for the home page
+      description: Get the top level content for the home page
       operationId: Home_Get
       parameters:
         - name: api-version
@@ -52,6 +57,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -70,6 +76,7 @@ paths:
       tags:
         - Ministries
       summary: Get all ministries
+      description: Get all ministries
       operationId: Ministries_GetAll
       parameters:
         - name: api-version
@@ -77,6 +84,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -96,16 +104,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Ministry'
-  '/api/Ministries/{key}':
+  /api/Ministries/{key}:
     get:
       tags:
         - Ministries
       summary: Get the Ministry associated with the ministry key
+      description: Get the Ministry associated with the ministry key
       operationId: Ministries_GetOne
       parameters:
         - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -114,6 +122,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -127,16 +136,16 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Ministry'
-  '/api/Ministries/{key}/Minister':
+  /api/Ministries/{key}/Minister:
     get:
       tags:
         - Ministries
       summary: Get the Minister associated with the ministry key
+      description: Get the Minister associated with the ministry key
       operationId: Ministries_GetMinister
       parameters:
         - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -145,6 +154,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -163,6 +173,7 @@ paths:
       tags:
         - Newsletters
       summary: Get all newsletters
+      description: Get all newsletters
       operationId: Newsletters_GetAll
       parameters:
         - name: api-version
@@ -170,6 +181,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -189,11 +201,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Newsletter'
-  '/api/Newsletters/{newsletterKey}':
+  /api/Newsletters/{newsletterKey}:
     get:
       tags:
         - Newsletters
       summary: Get a specific newsletter
+      description: Get a specific newsletter by key
       operationId: Newsletters_GetOne
       parameters:
         - name: newsletterKey
@@ -206,6 +219,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -219,22 +233,21 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Newsletter'
-  '/api/Newsletters/{newsletterKey}/Editions/{editionKey}':
+  /api/Newsletters/{newsletterKey}/Editions/{editionKey}:
     get:
       tags:
         - Newsletters
       summary: Returns a specific edition of a newsletter
+      description: Get a specific edition of a newsletter by newsletterKey and editionKey
       operationId: Newsletters_GetEdition
       parameters:
         - name: newsletterKey
           in: path
-          description: ''
           required: true
           schema:
             type: string
         - name: editionKey
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -243,6 +256,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -256,28 +270,26 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Edition'
-  '/api/Newsletters/{newsletterKey}/Editions/{editionKey}/Articles/{articleKey}':
+  /api/Newsletters/{newsletterKey}/Editions/{editionKey}/Articles/{articleKey}:
     get:
       tags:
         - Newsletters
       summary: Get an article belonging to a Newsletter edition
+      description: Get an article belonging to a Newsletter edition
       operationId: Newsletters_GetArticle
       parameters:
         - name: newsletterKey
           in: path
-          description: ''
           required: true
           schema:
             type: string
         - name: editionKey
           in: path
-          description: ''
           required: true
           schema:
             type: string
         - name: articleKey
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -286,6 +298,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -299,18 +312,16 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Article'
-  '/api/Newsletters/Images/{guid}':
+  /api/Newsletters/Images/{guid}:
     get:
       tags:
         - Newsletters
-      summary: >-
-        Get the image object reference by of a Newsletter Edition associated
-        with the image guid
+      summary: Get the image object reference by of a Newsletter Edition associated with the image guid
+      description: Get the image object reference by of a Newsletter Edition associated with the image guid
       operationId: Newsletters_GetImage
       parameters:
         - name: guid
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -319,6 +330,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -332,16 +344,16 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/EditionImage'
-  '/api/Posts/{key}':
+  /api/Posts/{key}:
     get:
       tags:
         - Posts
       summary: Get the post associated with the key
+      description: Get the post associated with the key
       operationId: Posts_GetOne
       parameters:
         - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -350,6 +362,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -368,22 +381,25 @@ paths:
       tags:
         - Posts
       summary: Get the posts associated with the keys in the list passed in.
+      description: Get the posts associated with the keys in the list passed in.
       operationId: Posts_Get
       parameters:
         - name: postKeys
           in: query
-          description: ''
+          description: One or more post keys
           required: false
           explode: true
           schema:
             type: array
             items:
               type: string
+            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -403,12 +419,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post'
-  '/api/Posts/Latest/{indexKind}/{indexKey}':
+  /api/Posts/Latest/{indexKind}/{indexKey}:
     get:
       tags:
         - Posts
-      summary: >-
-        Get the latest posts of postKind for the specified index (default or category)
+      summary: Get the latest posts of postKind for the specified index (default or category)
+      description: Get the latest posts of postKind for the specified index (default or category)
       operationId: Posts_GetLatest
       parameters:
         - name: indexKind
@@ -419,18 +435,17 @@ paths:
             type: string
         - name: indexKey
           in: path
-          description: >-
-            default or one key of the categories (ministries, sectors, services, tags, themes)
+          description: default or one key of the categories (ministries, sectors, services, tags, themes)
           required: true
           schema:
             type: string
         - name: postKind
           in: query
-          description: >-
-            One of: releases, stories, factsheets, updates or default (releases+stories except top/feature)
+          description: 'One of: releases, stories, factsheets, updates or default (releases+stories except top/feature)'
           required: false
           schema:
             type: string
+            default: ''
         - name: count
           in: query
           description: number of posts to return
@@ -438,6 +453,7 @@ paths:
           schema:
             type: integer
             format: int32
+            default: ''
         - name: skip
           in: query
           description: number of posts to skip
@@ -445,11 +461,13 @@ paths:
           schema:
             type: integer
             format: int32
+            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -469,11 +487,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post'
-  '/api/Posts/Keys/{indexKind}/{indexKey}':
+  /api/Posts/Keys/{indexKind}/{indexKey}:
     get:
       tags:
         - Posts
       summary: Get all keys for the specified index (newsroom or category)
+      description: Get all keys for the specified index (newsroom or category)
       operationId: Posts_GetAllKeys
       parameters:
         - name: indexKind
@@ -484,18 +503,17 @@ paths:
             type: string
         - name: indexKey
           in: path
-          description: >-
-            default or one key of the categories (ministries, sectors, services, tags, themes)
+          description: default or one key of the categories (ministries, sectors, services, tags, themes)
           required: true
           schema:
             type: string
         - name: postKind
           in: query
-          description: >-
-            One of: releases, stories, factsheets, updates or default (releases+stories+factsheets)
+          description: 'One of: releases, stories, factsheets, updates or default (releases+stories+factsheets)'
           required: false
           schema:
             type: string
+            default: ''
         - name: count
           in: query
           description: number of posts to return
@@ -503,6 +521,7 @@ paths:
           schema:
             type: integer
             format: int32
+            default: ''
         - name: skip
           in: query
           description: number of posts to skip
@@ -510,11 +529,13 @@ paths:
           schema:
             type: integer
             format: int32
+            default: ''
         - name: api-version
           in: query
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -534,11 +555,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/KeyValuePair_2'
-  '/api/Posts/Keys/{reference}':
+  /api/Posts/Keys/{reference}:
     get:
       tags:
         - Posts
       summary: Get the post key associated with the reference.
+      description: Get the post key associated with the reference.
       operationId: Posts_GetKeyFromReference
       parameters:
         - name: reference
@@ -552,6 +574,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -565,11 +588,45 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/KeyValuePair_2'
+  /api/Posts/LatestMediaUri/{mediaType}:
+    get:
+      tags:
+        - Posts
+      summary: Gets the latest Social Media post for the social media type passed in.
+      description: Gets the latest Social Media post for the social media type passed in.
+      operationId: Posts_GetLatestMediaUri
+      parameters:
+        - name: mediaType
+          in: path
+          description: Either 'flickr' or 'youtube'
+          required: true
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: '1.0'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
   /api/ResourceLinks:
     get:
       tags:
         - ResourceLinks
       summary: Get all resource links
+      description: Get all resource links
       operationId: ResourceLinks_GetAll
       parameters:
         - name: api-version
@@ -577,6 +634,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -601,6 +659,7 @@ paths:
       tags:
         - Sectors
       summary: Get all Sectors
+      description: Get all Sectors
       operationId: Sectors_GetAll
       parameters:
         - name: api-version
@@ -608,6 +667,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -627,16 +687,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sector'
-  '/api/Sectors/{key}':
+  /api/Sectors/{key}:
     get:
       tags:
         - Sectors
       summary: Get the sector associated with the key
+      description: Get the sector associated with the key
       operationId: Sectors_GetOne
       parameters:
         - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -645,6 +705,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -658,16 +719,49 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Sector'
-  '/api/Slides/{id}':
+  /api/Services:
     get:
       tags:
-        - Slides
-      summary: Get the slide associated to the id
-      operationId: Slides_GetOne
+        - Services
+      summary: Get all Services
+      description: Get all Services
+      operationId: Services_GetAll
       parameters:
-        - name: id
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: '1.0'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+  /api/Services/{key}:
+    get:
+      tags:
+        - Services
+      summary: Get the service associated with the passed key
+      description: Get the service associated with the passed key
+      operationId: Services_GetOne
+      parameters:
+        - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -676,6 +770,39 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Service'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+  /api/Slides/{id}:
+    get:
+      tags:
+        - Slides
+      summary: Get the slide associated to the id
+      description: Get the slide associated to the id
+      operationId: Slides_GetOne
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -694,6 +821,7 @@ paths:
       tags:
         - Slides
       summary: Get all Slides
+      description: Get all Slides
       operationId: Slides_GetAll
       parameters:
         - name: api-version
@@ -701,6 +829,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -725,6 +854,7 @@ paths:
       tags:
         - Tags
       summary: Get all Tags
+      description: Get all Tags
       operationId: Tags_GetAll
       parameters:
         - name: api-version
@@ -732,6 +862,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -751,16 +882,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Tag'
-  '/api/Tags/{key}':
+  /api/Tags/{key}:
     get:
       tags:
         - Tags
       summary: Get the Tag associated with the key
+      description: Get the Tag associated with the key
       operationId: Tags_GetOne
       parameters:
         - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -769,6 +900,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -787,6 +919,7 @@ paths:
       tags:
         - Themes
       summary: Get all Themes
+      description: Get all Themes
       operationId: Themes_GetAll
       parameters:
         - name: api-version
@@ -794,6 +927,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
@@ -813,16 +947,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Theme'
-  '/api/Themes/{key}':
+  /api/Themes/{key}:
     get:
       tags:
         - Themes
       summary: Get the Theme associated with the key
+      description: Get the Theme associated with the key
       operationId: Themes_GetOne
       parameters:
         - name: key
           in: path
-          description: ''
           required: true
           schema:
             type: string
@@ -831,6 +965,7 @@ paths:
           required: true
           schema:
             type: string
+            default: '1.0'
       responses:
         '200':
           description: Success
