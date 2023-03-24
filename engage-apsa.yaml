@@ -6,7 +6,7 @@ schemes:
 info:
   title: APSA Preprints Public API Documentation
   version: 0.0.84
-  description: An API for APSA Preprints publications by Cambridge University
+  description: The API hosts early research outputs, such as preprints, conference posters, data, as well as other types of open content such as grey literature. This content is hosted within a rich ecosystem that incorporates content uploaded to Cambridge Open Engage and partner sites, across multiple disciplines. This particular API hosts American Political Sciense Association preprints.
 tags: []
 paths:
   /public-api/v1/categories:
@@ -29,7 +29,7 @@ paths:
     get:
       summary: Search items
       operationId: getPublicapiV1Items
-      description: Search items
+      description: Search items by feeding a search query in the `term` parameter and using other parameters for sorting and filtering
       parameters:
         - type: string
           default: ''
@@ -39,11 +39,13 @@ paths:
           default: 0
           name: skip
           in: query
+          description: skip the given number of results
         - type: number
           default: 10
           maximum: 50
           name: limit
           in: query
+          description: limit the number of results
         - type: string
           default: PUBLISHED_DATE_DESC
           enum:
@@ -85,6 +87,7 @@ paths:
           collectionFormat: multi
           name: categoryIds
           in: query
+          description: one or more category id to filter results by
         - type: array
           x-constraint:
             single: true
@@ -98,6 +101,7 @@ paths:
           collectionFormat: multi
           name: subjectIds
           in: query
+          description: one or more subject id to filter results by
       tags:
         - public-api/v1/items
       responses:
