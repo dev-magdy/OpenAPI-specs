@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: AviationAPI API
-  description: AviationAPI was created for the use on VATSIM, but can be used for any application.
+  description: AviationAPI was created for the use on VATSIM, but can be used for any application. It can be used to retrieve information about airports, airport charts and airport weather conditions.
   contact:
     name: Ian Cowan
     url: https://www.aviationapi.com
@@ -215,15 +215,12 @@ paths:
       parameters:
         - name: apt
           in: query
-          description: >-
-            FAA or ICAO airport identifier (KAVL or AVL). Separate multiple
-            entries with a comma
+          description: FAA or ICAO airport identifier (KAVL or AVL). Separate multiple entries with a comma
           required: true
           type: string
         - name: group
           in: query
-          description: >-
-            Optional grouping of the charts. 1 -> General, Departures, Arrivals, Approaches; 2 -> Airport Diagram only; 3 -> General only; 4 -> Departures only; 5 -> Arrivals only; 6 -> Approaches only; 7 -> Everything but General
+          description: Optional grouping of the charts. 1 -> General, Departures, Arrivals, Approaches; 2 -> Airport Diagram only; 3 -> General only; 4 -> Departures only; 5 -> Arrivals only; 6 -> Approaches only; 7 -> Everything but General
           required: false
           type: integer
       responses:
@@ -370,8 +367,7 @@ paths:
               pdf_path:
                 description: URL to the chart comparison PDF
                 type: string
-                example: >-
-                  https://charts.aviationapi.com/AIRAC_190103/DDTPPE_190103/compare_pdf/00078WEAZL_CMP.PDF
+                example: https://charts.aviationapi.com/AIRAC_190103/DDTPPE_190103/compare_pdf/00078WEAZL_CMP.PDF
             type: object
         '404':
           description: No airport specified
@@ -425,8 +421,7 @@ paths:
               pdf_path:
                 description: URL to the AFD PDF
                 type: string
-                example: >-
-                  https://charts.aviationapi.com/AFD/AIRAC_190103/2_single_page_PDFs/SE_269_03JAN2019.PDF
+                example: https://charts.aviationapi.com/AFD/AIRAC_190103/2_single_page_PDFs/SE_269_03JAN2019.PDF
             type: object
         '404':
           description: No airport specified
@@ -641,8 +636,7 @@ paths:
           examples:
             status: error
             status_code: '500'
-            message: >-
-              It appears you searched with an ICAO identifier. Please use the FAA 3 letter identifier.
+            message: It appears you searched with an ICAO identifier. Please use the FAA 3 letter identifier.
   /vatsim/pilots:
     get:
       tags:
@@ -655,9 +649,7 @@ paths:
       parameters:
         - name: apt
           in: query
-          description: >-
-            FAA or ICAO airport identifier (KATL or ATL). Separate multiple
-            entries with a comma
+          description: FAA or ICAO airport identifier (KATL or ATL). Separate multiple entries with a comma
           required: true
           type: string
         - name: dep
@@ -740,8 +732,7 @@ paths:
                 type: string
                 example: KAJIN2 STNGA MLU YUYUN BEREE1
               flight_rules:
-                description: >-
-                  Flight rules, VFR -> Visual Flight Rules, IFR -> Instrument Flight Rules
+                description: Flight rules, VFR -> Visual Flight Rules, IFR -> Instrument Flight Rules
                 type: string
                 example: IFR
               filed_altitude:
@@ -763,8 +754,7 @@ paths:
               remarks:
                 description: Flightplan remarks
                 type: string
-                example: >-
-                  +VFPS+/V/PBN/A1B1C1D1S1S2 DOF/190128 REG/N806SB EET/KZME0030 KZFW0059 OPR/AAL PER/C RMK/TCAS SIMBRIEF
+                example: +VFPS+/V/PBN/A1B1C1D1S1S2 DOF/190128 REG/N806SB EET/KZME0030 KZFW0059 OPR/AAL PER/C RMK/TCAS SIMBRIEF
               stage_of_flight:
                 description: Estimated current stage of flight
                 type: string
@@ -791,8 +781,7 @@ paths:
       parameters:
         - name: fac
           in: query
-          description: >-
-            Airport facility identifier. This should be what is used in the callsign on VATSIM (CLT). Separate multiple entries with a comma
+          description: Airport facility identifier. This should be what is used in the callsign on VATSIM (CLT). Separate multiple entries with a comma
           required: true
           type: string
       responses:
@@ -822,7 +811,7 @@ paths:
                 example: $ rw.liveatc.net/ZAU_134.870
               time_logon:
                 description: Controller logon date and time
-                type: timestamp
+                type: string
                 example: '2019-01-28 14:14:04'
               time_online:
                 description: Amount of time the controller has been logged on in hours, minutes, and seconds
@@ -843,7 +832,7 @@ paths:
       tags:
         - weather
       summary: Get the METAR for a specified airport
-      description: Search for an airport's METAR
+      description: Get the METAR weather conditions for a specified airport
       operationId: weather_metar
       produces:
         - application/json
@@ -891,8 +880,7 @@ paths:
                 type: string
                 example: '29.89'
               alt_mb:
-                description: >-
-                  Altimeter setting (atmospheric pressure), in millibars, if applicable
+                description: Altimeter setting (atmospheric pressure), in millibars, if applicable
                 type: string
                 example: '1012.19'
               wx:
@@ -904,8 +892,7 @@ paths:
                 type: boolean
                 example: 'true'
               sky_conditions:
-                description: >-
-                  List of all the applicable cloud types and bases. Clear skys will be reported with no bases
+                description: List of all the applicable cloud types and bases. Clear skys will be reported with no bases
                 type: array
                 items:
                   properties:
@@ -918,19 +905,16 @@ paths:
                       type: string
                       example: '9000'
               category:
-                description: >-
-                  Current flight category classification, VFR -> VFR, MVFR -> Marginal VFR, IFR -> IFR, LIFR -> Low IFR
+                description: Current flight category classification, VFR -> VFR, MVFR -> Marginal VFR, IFR -> IFR, LIFR -> Low IFR
                 type: string
                 example: VFR
               report_type:
-                description: >-
-                  Type of report, METAR -> Routine hourly report, SPECI ->
-                  Special report
+                description: Type of report, METAR -> Routine hourly report, SPECI -> Special report
                 type: string
                 example: METAR
               time_of_obs:
                 description: Observation time
-                type: timestamp
+                type: string
                 example: '2019-01-28T15:15:00Z'
             type: object
         '403':
@@ -956,7 +940,7 @@ paths:
       tags:
         - weather
       summary: Get the TAF for a specified airport
-      description: Search for an airport's TAF
+      description: Get the TAF weather conditions for a specified airport
       operationId: weather_taf
       produces:
         - application/json
@@ -981,11 +965,11 @@ paths:
                 example: KAVL 301133Z 3012/3112 32008KT P6SM SKC FM301500 33015G25KT P6SM FEW250
               issue_time:
                 description: Time the report was issued
-                type: timestamp
+                type: string
                 example: '2019-01-30T11:33:00Z'
               valid_time:
                 description: Range of the report's valid time
-                type: timestamp
+                type: string
                 example: 2019-01-30T12:00:00Z - 2019-01-31T12:00:00Z
               line_by_line:
                 description: TAF split into each line of the report
@@ -1048,18 +1032,12 @@ definitions:
     type: object
 tags:
   - name: charts
-    description: >-
-      Get charts and chart changes with different sorting and searching options,
-      automatically updated every 28 days
+    description: Get charts and chart changes with different sorting and searching options, automatically updated every 28 days
   - name: airports
     description: Get airport data, automatically updated daily
   - name: preferred routes
     description: Get FAA preferred routes, automatically updated daily
   - name: weather
-    description: >-
-      Get weather information (METAR/TAF) for any airport in the world,
-      automatically updates on request
+    description: Get weather information (METAR/TAF) for any airport in the world, automatically updates on request
   - name: VATSIM
-    description: >-
-      Get VATSIM pilot and controller connections, automatically updated every
-      two minutes
+    description: Get VATSIM pilot and controller connections, automatically updated every two minutes
