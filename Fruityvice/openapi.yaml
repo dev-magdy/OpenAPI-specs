@@ -1,8 +1,7 @@
 openapi: 3.0.3
 info:
   title: Fruityvice - OpenAPI 3.0
-  description: |-
-    A powerful webservice which provides data for all kinds of fruit! You can use Fruityvice to find out interesting information about fruit and educate yourself. The webservice is completely free to use and contribute to.
+  description: A powerful webservice which provides data for all kinds of fruit! You can use Fruityvice to find out interesting information about fruit and educate yourself. The webservice is completely free to use and contribute to.
   version: 1.0.1
 externalDocs:
   description: Find out more about Fruityvice
@@ -22,7 +21,7 @@ paths:
         - fruit
       summary: Gets list of all fruits in the database
       description: Gets list of all fruits in the database
-      operationId: getAll
+      operationId: getAllFruits
       responses:
         '200':
           description: successful operation
@@ -31,7 +30,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Fruit'          
+                  $ref: '#/components/schemas/Fruit'
         '500':
           description: Internal server error
           content:
@@ -47,7 +46,7 @@ paths:
       tags:
         - fruit
       summary: Searches database for fruits satisfying given conditions
-      description: Get Fruits with given nutrition between min and max parameter. At least one query parameter has to be given.
+      description: Get fruits with given nutrition between min and max parameters. At least the nutrition parameter is required.
       operationId: findFruitsByNutrition
       parameters:
         - name: nutrition
@@ -64,13 +63,13 @@ paths:
               - sugar
         - name: min
           in: query
-          description: minimum value for given nutrition
+          description: Optional minimum nutrition value [default:0]
           required: false
           schema:
             type: number
         - name: max
           in: query
-          description: maximum value for given nutrition
+          description: Optional maximum nutrition value [default:100]
           required: false
           schema:
             type: number
@@ -118,8 +117,8 @@ paths:
       tags:
         - fruit
       summary: Get all Fruits available in the database which belong to a given family
-      description: Gets a list of fruits
-      operationId: getFamily
+      description: Gets a list of fruits which belong to a given family
+      operationId: findFruitsByFamily
       parameters:
         - name: family
           in: path
@@ -161,8 +160,8 @@ paths:
       tags:
         - fruit
       summary: Get all fruits available in the database which belong to a given genus
-      description: Gets a list of fruits
-      operationId: getGenus
+      description: Gets a list of fruits which belong to a given genus
+      operationId: findFruitsByGenus
       parameters:
         - name: genus
           in: path
@@ -204,8 +203,8 @@ paths:
       tags:
         - fruit
       summary: Get all fruits available in the database which belong to a given order
-      description: Gets a list of fruits
-      operationId: getOrder
+      description: Gets a list of fruits belong to a given order
+      operationId: findFruitsByOrder
       parameters:
         - name: order
           in: path
@@ -291,4 +290,4 @@ components:
           description: Order of the Fruit.
           example: Zingiberales
         nutritions:
-            $ref: '#/components/schemas/Nutritions'
+          $ref: '#/components/schemas/Nutritions'
