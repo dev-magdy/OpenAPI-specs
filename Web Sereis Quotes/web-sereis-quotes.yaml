@@ -38,12 +38,12 @@ paths:
             description: Get quote with id <code>Series name required </code>
           name: id
           in: query
-        - description: True if all quote of series to be returned
+        - description: True if all quote of the selected series are to be returned
           required: false
           schema:
             title: All
             type: boolean
-            description: True if all quote of series to be returned
+            description: True if all quote of the selected series are to be returned
           name: all
           in: query
       responses:
