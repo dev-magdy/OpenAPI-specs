@@ -16,7 +16,7 @@ paths:
       tags:
         - Coins
       summary: Coins with global avg prices
-      description: Coin List with global average prices order with market cap.
+      description: List of coins with their global average price, volume, market cap, available supply, total supply ordered from the highest market cap to the lowest.
       operationId: coinsWithGlobalAvgPrices
       parameters:
         - name: skip
@@ -585,7 +585,7 @@ paths:
       tags:
         - Coins
       summary: Coin with global avg prices
-      description: Coin with global average prices order with market cap.
+      description: List of coins with their global average price, volume, market cap, available supply, total supply ordered from the highest market cap to the lowest.
       operationId: coinWithGlobalAvgPrices
       parameters:
         - name: currency
@@ -1144,7 +1144,7 @@ paths:
       tags:
         - Coins
       summary: Historical global avg price chart
-      description: Get coins chart
+      description: Returns chart data for a particular coin filtered based on available periods. 
       operationId: historicalGlobalAvgPriceChart
       parameters:
         - name: period
@@ -1152,7 +1152,7 @@ paths:
           schema:
             type: string
             example: 1m
-          description: available periods - 24h | 1w | 1m | 3m | 6m | 1y |all
+          description: available periods - 24h | 1w | 1m | 3m | 6m | 1y | all
         - name: coinId
           in: query
           schema:
@@ -1783,7 +1783,7 @@ paths:
       tags:
         - Exchange Tickers
       summary: Get Markets
-      description: Returns market prices across all exchanges specified coin is trading in
+      description: Returns market prices and trading volume across all exchanges the specified coin is trading in.
       operationId: getMarkets
       parameters:
         - name: coinId
@@ -5312,7 +5312,7 @@ paths:
       tags:
         - Exchange Tickers
       summary: Get Tickers
-      description: Get tickers prices for exchange and a coin
+      description: Get tickers prices for an exchange and a coin
       operationId: getTickers
       parameters:
         - name: exchange
@@ -5411,7 +5411,7 @@ paths:
       tags:
         - Fiat currencies
       summary: Get Fiats
-      description: Get Fiat Currencies
+      description: Returns a list of fiat currencies
       operationId: getFiats
       responses:
         '200':
