@@ -6394,6 +6394,11 @@ paths:
           schema:
             type: string
             example: '20'
+        - name: filter
+          in: query
+          schema:
+            type: string
+            example: 'handpicked'
       responses:
         '200':
           description: ''
