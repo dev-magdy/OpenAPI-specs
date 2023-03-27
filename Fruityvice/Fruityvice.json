@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Fruityvice - OpenAPI 3.0",
-    "description": "A powerful webservice which provides data for all kinds of fruit! You can use Fruityvice to find out interesting information about fruit and educate yourself. The webservice is completely free to use and contribute to.",
+    "description": "A powerful webservice which provides data for all kinds of fruit! You can use Fruityvice to find out interesting information about fruit and educate yourself. All nutrition facts are given in gm per 100 gm.",
     "version": "1.0.1"
   },
   "externalDocs": {
