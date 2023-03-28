@@ -3,10 +3,10 @@ info:
   version: 1.0.0
   title: Wikimedia REST API
   description: |
-    This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats.
+    This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats. Wikipedia is a free online and open encyclopedia editable by anyone.  
     ## General notes:
       - For `title` parameter, use underscores or percent-encoding instead of spaces. Example: `Main_Page`.
-      - Requests for redirect pages return HTTP 302. To get a 200 response, supply `false` to the `redirect` parameter.
+     
       - For `stash` parameter, use the desired language variant code for wikis where LanguageConverter is enabled. Example: `sr-el` for Latin transcription of the Serbian language.
   termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
   contact:
@@ -17,26 +17,6 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0
 x-host-basePath: /api/rest_v1
 paths:
-  /page/:
-    get:
-      tags:
-        - Page content
-      summary: List page-related API entry points.
-      description: List page-related API entry points.
-      responses:
-        '200':
-          description: A list of page-related API end points.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/listing'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
   /page/title/{title}:
     get:
       tags:
@@ -103,159 +83,7 @@ paths:
                   tid: /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
                   comment: /.*/
                   page_language: en
-  /page/title/{title}/{revision}:
-    get:
-      tags:
-        - Page content
-      summary: Get revision metadata for a title.
-      description: Get revision metadata for a title.
-      parameters:
-        - name: title
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: revision
-          in: path
-          description: revision id
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: The latest revision metadata for the provided title.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/revision'
-        '301':
-          description: |
-            A permanent redirect is returned if the supplied article title was not in the normalized form.
-            To avoid these redirects, you can use the [mediawiki-title](https://github.com/wikimedia/mediawiki-title) library to perform
-            title normalization client side.
-
-            Beware that redirected pre-flighted cross-origin requests (such as those sending custom request headers like `Api-User-Agent`)
-            will fail in most current browsers [due to a spec bug](https://github.com/whatwg/fetch/issues/204).
-        '302':
-          description: |
-            The page is a [redirect page](https://www.mediawiki.org/wiki/Help:Redirects).
-            The `location` header points to the redirect target.
-            If you would like to avoid automatically following redirect pages, set the `redirect=false` query parameter.
-
-            Beware that redirected pre-flighted cross-origin requests (such as those sending custom request headers like `Api-User-Agent`)
-            will fail in most current browsers [due to a spec bug](https://github.com/whatwg/fetch/issues/204).
-        '404':
-          description: Unknown page title or no revisions found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
-      x-amples:
-        - title: Get rev by title from storage
-          request:
-            params:
-              domain: en.wikipedia.org
-              title: User:BSitzmann_(WMF)/MCS/Test/Frankenstein
-          response:
-            status: 200
-            headers:
-              etag: /.+/
-              content-type: application/json
-            body:
-              items:
-                - title: User:BSitzmann_(WMF)/MCS/Test/Frankenstein
-                  rev: /\d+/
-                  tid: /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-                  comment: /.*/
-                  page_language: en
-  /page/data-parsoid/{title}/{revision}/{tid}:
-    get:
-      tags:
-        - Page content
-      summary: Get data-parsoid metadata for a specific title/revision/tid.
-      description: Get data-parsoid metadata for a specific title/revision/tid.
-      parameters:
-        - name: title
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: revision
-          in: path
-          description: revision id
-          required: true
-          schema:
-            type: integer
-        - name: tid
-          in: path
-          description: The revision's time ID
-          required: true
-          schema:
-            type: string
-        - name: redirect
-          in: query
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: The latest Parsoid data for the given page
-          headers:
-            ETag:
-              description: 'Revision / tid: "701384379/154d7bca-c264-11e5-8c2f-1b51b33b59fc"'
-              schema:
-                type: string
-          content:
-            application/json; charset=utf-8; profile="https://www.mediawiki.org/wiki/Specs/data-parsoid/2.1.0:
-              schema:
-                $ref: '#/components/schemas/data-parsoid'
-        '301':
-          description: |
-            A permanent redirect is returned if the supplied article title was not in the normalized form.
-            To avoid this kind of redirect, you can use the [mediawiki-title](https://github.com/wikimedia/mediawiki-title) library to perform
-            title normalization client-side.
-
-            Beware that redirected pre-flighted cross-origin requests (such as those sending custom request headers like `Api-User-Agent`)
-            will fail in most current browsers [due to a spec bug](https://github.com/whatwg/fetch/issues/204).
-        '302':
-          description: |
-            The page is a [redirect page](https://www.mediawiki.org/wiki/Help:Redirects).
-            The `location` header points to the redirect target, and the body contains the actual data-parsoid for the redirect page.
-            If you would like to avoid automatically following redirect pages, set the `redirect=false` query parameter.
-
-            Beware that redirected pre-flighted cross-origin requests (such as those sending custom request headers like `Api-User-Agent`)
-            will fail in most current browsers [due to a spec bug](https://github.com/whatwg/fetch/issues/204).
-        '400':
-          description: Invalid revision
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '403':
-          description: Access to the specific revision is restricted
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '404':
-          description: Unknown page, revision or tid
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
+ 
   /page/segments/{title}:
     get:
       tags:
@@ -268,69 +96,6 @@ paths:
           required: true
           schema:
             type: string
-      responses:
-        '200':
-          description: The segmented page for the given title and revision
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  sourceLanguage:
-                    type: string
-                    description: The source language of the page
-                  title:
-                    type: string
-                    description: The title of the segmented page returned
-                  revision:
-                    type: integer
-                    description: The revision ID of the segmented page
-                  segmentedContent:
-                    type: string
-                    description: The segmented HTML body of the contents of the page
-        '400':
-          description: Invalid revision
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '403':
-          description: Access to the specific revision is restricted
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        '404':
-          description: Unknown page or revision
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
-  /page/segments/{title}/{revision}:
-    get:
-      tags:
-        - Page content
-      summary: Fetches a segmented page to be used in machine translation
-      description: Fetches a segmented page to be used in machine translation
-      parameters:
-        - name: title
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: revision
-          in: path
-          description: revision id
-          required: true
-          schema:
-            type: integer
       responses:
         '200':
           description: The segmented page for the given title and revision
@@ -518,89 +283,6 @@ paths:
                 $ref: '#/components/schemas/problem'
       operationId: getContent-media-list
       x-monitor: true
-      x-amples:
-        - title: Get media-list from storage
-          request:
-            params:
-              domain: en.wikipedia.org
-              title: User:BSitzmann_(WMF)/MCS/Test/Frankenstein
-          response:
-            status: 200
-            headers:
-              etag: /.+/
-              content-type: /^application\/json/
-            body:
-              revision: /\d+/
-              tid: /.+/
-              items:
-                - type: /.+/
-                  section_id: /\d+/
-                  showInGallery: /.+/
-  /page/media-list/{title}/{revision}:
-    get:
-      tags:
-        - Page content
-      summary: Get list of media files used on a page.
-      description: Get list of media files used on a page.
-      parameters:
-        - name: title
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: revision
-          in: path
-          description: page revision.
-          required: true
-          schema:
-            type: integer
-        - name: redirect
-          in: query
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: JSON containing metadata of media items appearing on the given page.
-          headers:
-            ETag:
-              description: |
-                Syntax: "{revision}/{tid}". Example: "701384379/154d7bca-c264-11e5-8c2f-1b51b33b59fc"
-              schema:
-                type: string
-          content:
-            application/json; charset=utf-8; profile="https://www.mediawiki.org/wiki/Specs/Media/1.3.1":
-              schema:
-                $ref: '#/components/schemas/media_list'
-        '301':
-          description: |
-            A permanent redirect is returned if the supplied article title was not in the normalized form.
-            To avoid this kind of redirect, you can use the [mediawiki-title](https://github.com/wikimedia/mediawiki-title) library to perform
-            title normalization client-side.
-
-            Beware that redirected pre-flighted cross-origin requests (such as those sending custom request headers like `Api-User-Agent`)
-            will fail in most current browsers [due to a spec bug](https://github.com/whatwg/fetch/issues/204).
-        '302':
-          description: |
-            The page is a [redirect page](https://www.mediawiki.org/wiki/Help:Redirects).
-            The `location` header points to the redirect target.
-            If you would like to avoid automatically following redirect pages, set the `redirect=false` query parameter.
-
-            Beware that redirected pre-flighted cross-origin requests (such as those sending custom request headers like `Api-User-Agent`)
-            will fail in most current browsers [due to a spec bug](https://github.com/whatwg/fetch/issues/204).
-        '404':
-          description: Unknown page title
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      operationId: getContentWithRevision-media-list
-      x-monitor: false
       x-amples:
         - title: Get media-list from storage
           request:
@@ -842,114 +524,6 @@ paths:
                 $ref: '#/components/schemas/problem'
       x-monitor: false
       operationId: doDict
-  /transform/word/from/{from}/{word}/{provider}:
-    get:
-      tags:
-        - Transforms
-      summary: Fetch the dictionary meaning of a word
-      description: Fetch the dictionary meaning of a word
-      parameters:
-        - name: from
-          in: path
-          description: source language code
-          required: true
-          schema:
-            type: string
-        - name: word
-          in: path
-          description: word to lookup
-          required: true
-          schema:
-            type: string
-        - name: provider
-          in: path
-          description: dictionary provider id
-          required: true
-          schema:
-            type: string
-            enum:
-              - JsonDict
-              - Dictd
-      responses:
-        '200':
-          description: the dictionary translation for the given word
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/cx_dict'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
-      operationId: doDictProvider
-  /media/math/check/{type}:
-    post:
-      tags:
-        - Math
-      summary: Check and normalize a TeX formula.
-      description: Check and normalize a TeX formula.
-      parameters:
-        - name: type
-          in: path
-          description: The input type of the given formula; can be tex or inline-tex
-          required: true
-          schema:
-            type: string
-            enum:
-              - tex
-              - inline-tex
-              - chem
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              required:
-                - q
-              properties:
-                q:
-                  type: string
-                  description: The formula to check
-        required: true
-      responses:
-        '200':
-          description: Information about the checked formula
-          content:
-            application/json:
-              schema:
-                type: object
-        '400':
-          description: Invalid type
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: true
-      x-amples:
-        - title: Mathoid - check test formula
-          request:
-            params:
-              domain: wikimedia.org
-              type: tex
-            body:
-              q: E=mc^{2}
-          response:
-            status: 200
-            headers:
-              content-type: /^application\/json/
-              x-resource-location: /.+/
-              cache-control: no-cache
-            body:
-              success: true
-              checked: /.+/
   /data/recommendation/article/creation/translation/{from_lang}:
     get:
       tags:
@@ -1049,82 +623,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/problem'
       x-monitor: false
-  /data/i18n/{type}:
-    get:
-      tags:
-        - Mobile
-      summary: Get internationalization info
-      description: Get internationalization info
-      parameters:
-        - name: type
-          in: path
-          description: The desired internationalization bundle
-          schema:
-            type: string
-            enum:
-              - pcs
-          required: true
-      responses:
-        '200':
-          description: Success
-          headers:
-            ETag:
-              description: Different values indicate that the content has changed
-              schema:
-                type: string
-          content:
-            application/json; charset=utf-8; profile="https://www.mediawiki.org/wiki/Specs/i18n/0.0.1":
-              schema:
-                type: object
-        default:
-          description: Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/problem'
-      x-monitor: false
 components:
   schemas:
-    revisions:
-      description: The result format for revision listing
-      required:
-        - items
-      type: object
-      properties:
-        items:
-          $ref: '#/components/schemas/revisionIdentifier'
-    listing:
-      description: The result format for listings
-      required:
-        - items
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: string
-        _links:
-          type: object
-          properties:
-            next:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: Relative link to next result page.
-    data-parsoid:
-      description: Result format for Parsoid data queries
-      required:
-        - counter
-        - ids
-      type: object
-      properties:
-        counter:
-          type: integer
-          format: int32
-        ids:
-          type: object
-          properties: {}
     revision:
       description: Result format for revision items
       required:
@@ -1173,15 +673,7 @@ components:
           type: boolean
         page_language:
           type: string
-    revisionIdentifier:
-      type: object
-      description: Unique revision identifier
-      properties:
-        revision:
-          type: integer
-          format: int32
-        tid:
-          type: string
+    
     titles_set:
       type: object
       properties:
@@ -1374,12 +866,7 @@ components:
         - extract
         - lang
         - titles
-    cx_mt:
-      type: object
-      properties:
-        contents:
-          type: string
-          description: the translated content
+   
     cx_dict:
       type: object
       properties:
@@ -1597,94 +1084,8 @@ components:
           $ref: '#/components/schemas/onthisday'
         selected:
           $ref: '#/components/schemas/onthisday'
-    result:
-      required:
-        - title
-        - url
-        - itemType
-      type: object
-      properties:
-        itemType:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
-    list_read:
-      title: list
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 42
-        name:
-          type: string
-          example: Planets
-        description:
-          type: string
-          example: Planets of the Solar System
-        created:
-          type: string
-          format: date-time
-          description: Creation date (in ISO 8601)
-        updated:
-          type: string
-          format: date-time
-          description: Last modification date (in ISO 8601)
-      required:
-        - id
-        - name
-        - created
-        - updated
-    list_write:
-      title: list
-      type: object
-      properties:
-        name:
-          type: string
-          example: Planets
-        description:
-          type: string
-          example: Planets of the Solar System
-      required:
-        - name
-    list_entry_read:
-      title: list_entry
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 64
-        project:
-          type: string
-          description: Domain of the wiki containing the page.
-          example: https://en.wikipedia.org
-        title:
-          type: string
-          description: Title of the page containing the page, in database format.
-          example: Barack_Obama
-        created:
-          type: string
-          format: date-time
-          description: Creation date (in ISO 8601)
-        updated:
-          type: string
-          format: date-time
-          description: Last modification date (in ISO 8601)
-    list_entry_write:
-      type: object
-      properties:
-        project:
-          type: string
-          description: Domain of the wiki containing the page.
-          example: https://en.wikipedia.org
-        title:
-          type: string
-          description: Title of the page containing the page, in database format.
-          example: Barack_Obama
-      required:
-        - project
-        - title
+   
+    
     recommendation_result:
       type: object
       properties:
