@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "TV Maze - OpenAPI 3.0",
-    "description": "A REST API about TV information.",
+    "description": "A REST API about TV shows information.",
     "termsOfService": "https://www.tvmaze.com/site/tos",
     "contact": {
       "email": "example@email.com"
@@ -71,7 +71,6 @@
           "search"
         ],
         "summary": "Search through all the shows in our database by the show's name",
-        "description": "Search all shows",
         "operationId": "searchShows",
         "parameters": [
           {
@@ -143,7 +142,7 @@
           "search"
         ],
         "summary": "Finds single search result",
-        "description": "Finds single search result.",
+        "description": "Returns a single show in search result.",
         "operationId": "singlesearch",
         "parameters": [
           {
@@ -304,7 +303,6 @@
           "search"
         ],
         "summary": "Search through all the people in our database",
-        "description": "Search people",
         "operationId": "searchPeople",
         "parameters": [
           {
@@ -642,7 +640,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show",
+            "description": "Id of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -741,7 +739,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -806,7 +803,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of season",
+            "description": "season id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -882,7 +879,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show",
+            "description": "show id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -947,7 +944,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show",
+            "description": "show id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1021,7 +1018,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1095,7 +1091,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of show",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1160,7 +1155,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of episode",
+            "description": "Episode id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1261,7 +1256,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of episode",
+            "description": "Episode id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1326,7 +1321,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of episode",
+            "description": "Episode id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1400,7 +1395,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person",
+            "description": "person id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1501,7 +1496,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person",
+            "description": "person id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1605,7 +1600,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person",
+            "description": "person id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1709,7 +1704,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of person",
+            "description": "person id",
             "required": true,
             "schema": {
               "type": "integer",

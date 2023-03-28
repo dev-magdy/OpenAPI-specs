@@ -1,0 +1,262 @@
+openapi: 3.0.0
+info:
+  title: Basketball Mania
+  version: 1.0.0
+  description: |
+    Welcome to the Basketball Mania API!
+    You can use our free API to access NBA related data. No email required. No API key required.
+servers:
+  - url: https://www.balldontlie.io
+tags:
+  - name: players
+  - name: teams
+  - name: games
+  - name: stats
+paths:
+  /api/v1/players:
+    get:
+      tags:
+        - players
+      summary: all players (search)
+      operationId: searchPlayers
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: lebron
+          description: Used to filter players based on their name. For example, ?search=davis will return players that have 'davis' in their first or last name.
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: The page number, used for pagination.
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 25
+          description: The number of results returned per call, used for pagination. Max 100.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/players/{playerId}:
+    get:
+      tags:
+        - players
+      summary: specific player
+      operationId: getPlayerById
+      parameters:
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/teams:
+    get:
+      tags:
+        - teams
+      summary: all teams
+      operationId: getAllTeams
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: The page number, used for pagination.
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: The number of results returned per call, used for pagination.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/teams/{teamId}:
+    get:
+      tags:
+        - teams
+      summary: specific team
+      operationId: getTeamById
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+            default: 123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/games:
+    get:
+      tags:
+        - games
+      summary: all games (example parameters)
+      operationId: searchTeams
+      parameters:
+        - name: seasons[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: integer
+          description: An array of seasons
+          example: '2018'
+        - name: team_ids[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: integer
+          example: '1'
+        - name: dates[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: string
+          description: An array of dates formatted in 'YYYY-MM-DD'
+        - name: start_date
+          in: query
+          schema: 
+            type: array
+            items: 
+              type: string
+          description: A single date in 'YYYY-MM-DD' format. This is used to select games that occur on or after this date.
+        - name: end_date
+          in: query
+          schema: 
+            type: string
+          description: A single date in 'YYYY-MM-DD' format. This is used to select games that occur on or before this date.
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: The page number, used for pagination.
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 25
+          description: The number of results returned per call, used for pagination. Max 100.
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/games/{gameId}:
+    get:
+      tags:
+        - games
+      summary: specific game
+      operationId: getGameByID
+      parameters:
+        - name: gameId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/stats:
+    get:
+      tags:
+        - stats
+      summary: all stats (example parameters)
+      operationId: getStats
+      parameters:
+        - name: seasons[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: integer 
+          example: '2018'
+        - name: player_ids[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: integer
+          example: '1'
+        - name: dates[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: string
+        - name: start_date
+          in: query
+          schema: 
+            type: string
+        - name: end_date
+          in: query
+          schema: 
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: The page number, used for pagination.
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 25
+          description: The number of results returned per call, used for pagination. Max 100.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  
+  /api/v1/season_averages:
+    get:
+      tags: 
+      - stats
+      - players
+      summary: get season averages
+      operationId: getAverages
+      parameters:
+        - name: season
+          in: query
+          schema:
+            type: integer
+            default: current_season
+          description: A single season
+        - name: player_ids[]
+          in: query
+          schema:
+            type: array
+            items: 
+              type: integer
+            default: current_season
+          description: An array of player_ids
+      responses:
+          '200':
+            description: Successful response
+            content:
+              application/json: {}
