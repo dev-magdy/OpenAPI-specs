@@ -1,0 +1,525 @@
+openapi: 3.0.0
+servers:
+  - description: Earthquake Database
+    url: https://earthquake.usgs.gov/fdsnws/event/1
+info:
+  version: 1.0.0
+  title: earthquake-db
+  description: Discover recent or historical earthquakes, along with curated lists and details about notable seismic events. Access earthquake resources both at the state level and from around the globe.
+paths:
+  /application.json:
+    get:
+      summary: Get Application Information including catalogs, contributors, event types, product types and magnitude types
+      operationId: getInfo
+      description: Request parameter values for the interface.
+      responses:
+        '200':
+          description: Application information
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApplicationResponse'
+  /count:
+    get:
+      summary: Get Count
+      operationId: getCount
+      description: Get count of earthquakes that match the given criteria
+      parameters:
+        - in: query
+          name: format
+          description: format to return data
+          schema:
+            type: string
+            enum:
+              - geojson
+              - text
+              - xml
+            default: geojson
+        - in: query
+          name: endtime
+          description: End time, default now.
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: starttime
+          description: Start time, defaults; now - 30 days.
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: updatedAfter
+          description: Limit to events updated after the specified time. 
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: minlatitude
+          description: 'Minimum latitude'
+          schema:
+            maximum: 90
+            minimum: -90
+            type: number
+        - description: 'minimum latitude'
+          in: query
+          name: minlongitude
+          schema:
+            maximum: 360
+            minimum: -360
+            type: number
+        - description: 'maximum latitude'
+          in: query
+          name: maxlatitude
+          schema:
+            maximum: 90
+            minimum: -90
+            type: number
+        - description: 'maximum longitude'
+          in: query
+          name: maxlongitude
+          schema:
+            maximum: 360
+            minimum: -360
+            type: number
+        - description: latitude for radius search.
+          in: query
+          name: latitude
+          schema:
+            maximum: 90
+            minimum: -90
+            type: number
+        - description: longitude for radius search.
+          in: query
+          name: longitude
+          schema:
+            maximum: 180
+            minimum: -180
+            type: number
+        - description: 'maximum degrees from  point with latitude and longitude parameters'
+          in: query
+          name: maxradius
+          schema:
+            type: number
+        - description: 'maximum kilometers from the point with latitude and longitude'
+          in: query
+          name: maxradiuskm
+          schema:
+            type: number
+        - description: 'filter by catalog'
+          in: query
+          name: catalog
+          schema:
+            type: string
+        - description: 'filter by contributor'
+          in: query
+          name: contributor
+          schema:
+            type: string
+        - description: 'Select a specific event'
+          in: query
+          name: eventid
+          schema:
+            type: string
+  
+        - description: 'limit events'
+          in: query
+          name: limit
+          schema:
+            maximum: 20000
+            minimum: 1
+            type: integer
+        - description: limit depth
+          in: query
+          name: maxdepth
+          schema:
+            type: number
+        - description: limit magnitude
+          in: query
+          name: maxmagnitude
+          schema:
+            type: number
+        - description: minimum depth.
+          in: query
+          name: mindepth
+          schema:
+            type: number
+        - description: minimum magnitude
+          in: query
+          name: minmagnitude
+          schema:
+            type: number
+        - description: set offset
+          in: query
+          name: offset
+          schema:
+            type: integer
+        - description: Order the results.
+          in: query
+          name: orderby
+          schema:
+            type: string
+            enum:
+              - time
+              - time-asc
+              - magnitude
+              - magnitude-asc
+        - description: Limit to events with a specific PAGER alert level
+          in: query
+          name: alertlevel
+          schema:
+            type: string
+            enum:
+              - green
+              - yellow
+              - orange
+              - red
+    
+        - description: 'Limit to event type'
+          in: query
+          name: eventtype
+          schema:
+            type: string
+        - description: Limit to product type
+          in: query
+          name: producttype
+          schema:
+            type: string
+        - description: limit to product code.
+          in: query
+          name: productcode
+          schema:
+            type: string
+          example:
+          - nn00458749
+        - description: 'Limit to review status'
+          in: query
+          name: reviewstatus
+          schema:
+            enum:
+              - automatic
+              - reviewed
+            type: string
+      responses:
+        '200':
+          description: catalog information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountResponse'
+  /query:
+    get:
+      tags:
+        - Query
+      description: Search the Earthquake Database for seismic events matching the given criteria.
+      operationId: queryDB
+      parameters:
+        - in: query
+          name: format
+          description: format to return data
+          schema:
+            type: string
+            enum:
+              - geojson
+              - text
+              - xml
+            default: geojson
+        - in: query
+          name: endtime
+          description: End time, default now.
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: starttime
+          description: Start time, defaults; now - 30 days.
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: updatedAfter
+          description: Limit to events updated after the specified time. 
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: minlatitude
+          description: 'Minimum latitude'
+          schema:
+            maximum: 90
+            minimum: -90
+            type: number
+        - description: 'minimum latitude'
+          in: query
+          name: minlongitude
+          schema:
+            maximum: 360
+            minimum: -360
+            type: number
+        - description: 'maximum latitude'
+          in: query
+          name: maxlatitude
+          schema:
+            maximum: 90
+            minimum: -90
+            type: number
+        - description: 'maximum longitude'
+          in: query
+          name: maxlongitude
+          schema:
+            maximum: 360
+            minimum: -360
+            type: number
+        - description: latitude for radius search.
+          in: query
+          name: latitude
+          schema:
+            maximum: 90
+            minimum: -90
+            type: number
+        - description: longitude for radius search.
+          in: query
+          name: longitude
+          schema:
+            maximum: 180
+            minimum: -180
+            type: number
+        - description: 'maximum degrees from  point with latitude and longitude parameters'
+          in: query
+          name: maxradius
+          schema:
+            type: number
+        - description: 'maximum kilometers from the point with latitude and longitude'
+          in: query
+          name: maxradiuskm
+          schema:
+            type: number
+        - description: 'filter by catalog'
+          in: query
+          name: catalog
+          schema:
+            type: string
+        - description: 'filter by contributor'
+          in: query
+          name: contributor
+          schema:
+            type: string
+        - description: 'Select a specific event'
+          in: query
+          name: eventid
+          schema:
+            type: string
+  
+        - description: 'limit events'
+          in: query
+          name: limit
+          schema:
+            maximum: 20000
+            minimum: 1
+            type: integer
+        - description: limit depth
+          in: query
+          name: maxdepth
+          schema:
+            type: number
+        - description: limit magnitude
+          in: query
+          name: maxmagnitude
+          schema:
+            type: number
+        - description: minimum depth.
+          in: query
+          name: mindepth
+          schema:
+            type: number
+        - description: minimum magnitude
+          in: query
+          name: minmagnitude
+          schema:
+            type: number
+        - description: set offset
+          in: query
+          name: offset
+          schema:
+            type: integer
+        - description: Order the results.
+          in: query
+          name: orderby
+          schema:
+            type: string
+            enum:
+              - time
+              - time-asc
+              - magnitude
+              - magnitude-asc
+        - description: Limit to events with a specific PAGER alert level
+          in: query
+          name: alertlevel
+          schema:
+            type: string
+            enum:
+              - green
+              - yellow
+              - orange
+              - red
+    
+        - description: 'Limit to event type'
+          in: query
+          name: eventtype
+          schema:
+            type: string
+        - description: Limit to product type
+          in: query
+          name: producttype
+          schema:
+            type: string
+        - description: limit to productcode.
+          in: query
+          name: productcode
+          schema:
+            type: string
+          example:
+          - nn00458749
+        - description: 'Limit to review status'
+          in: query
+          name: reviewstatus
+          schema:
+            enum:
+              - automatic
+              - reviewed
+            type: string
+      responses:
+        '200':
+          description: Earthquakes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+components:
+  schemas:
+    QueryResponse:
+      type: object
+      properties:
+        type:
+          type: string
+        metadata:
+          type: object
+          properties:
+            generated:
+              type: integer
+            url:
+              type: string
+            title:
+              type: string
+            status:
+              type: integer
+            api:
+              type: string
+            limit:
+              type: integer
+            offset:
+              type: integer
+            count:
+              type: integer
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              properties:
+                type: object
+                properties:
+                  mag:
+                    type: number
+                  place:
+                    type: string
+                  time:
+                    type: integer
+                  updated:
+                    type: integer
+                  tz:
+                    type: string
+                  url:
+                    type: string
+                  detail:
+                    type: string
+                  felt:
+                    type: string
+                  cdi:
+                    type: string
+                  mmi:
+                    type: string
+                  alert:
+                    type: string
+                  status:
+                    type: string
+                  tsunami:
+                    type: integer
+                  sig:
+                    type: integer
+                  net:
+                    type: string
+                  code:
+                    type: string
+                  ids:
+                    type: string
+                  sources:
+                    type: string
+                  types:
+                    type: string
+                  nst:
+                    type: integer
+                  dmin:
+                    type: number
+                  rms:
+                    type: number
+                  gap:
+                    type: integer
+                  magType:
+                    type: string
+                  type:
+                    type: string
+                  title:
+                    type: string
+              geometry:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  coordinates:
+                    type: array
+                    items:
+                      type: number
+              id:
+                type: string
+    CountResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        maxAllowed:
+          type: integer
+    ApplicationResponse:
+      type: object
+      properties:
+        catalogs:
+          type: array
+          items:
+            type: string
+        contributors:
+          type: array
+          items:
+            type: string
+        producttypes:
+          type: array
+          items:
+            type: string
+        eventtypes:
+          type: array
+          items:
+            type: string
+        magnitudetypes:
+          type: array
+          items:
+            type: string
