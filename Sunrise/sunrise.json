@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Sunrise Sunset - OpenAPI 3.0",
-    "description": "We offer a free API that provides sunset and sunrise times for a given latitude and longitude.\n\nPlease note that attribution is required if you use our API. Check \"Usage limits and attribution\" section below for more information.",
+    "description": "We offer a free API that provides sunset and sunrise times for a given latitude and longitude.\n\nPlease note that attribution is required if you use our API. Check \"Usage limits and attribution\" section below for more information.\nNOTE: All times are in UTC and summer time adjustments are not included in the returned data.",
     "version": "1.0.0"
   },
   "externalDocs": {
