@@ -1,0 +1,194 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Free API for Public APIs",
+    "version": "1.0.0",
+    "contact": {},
+    "description": "The API offers multiple endpoints, enabling users to explore information on various publicly accessible APIs."
+  },
+  "servers": [
+    {
+      "url": "https://api.publicapis.org"
+    }
+  ],
+  "paths": {
+    "/entries": {
+      "get": {
+        "tags": ["Entries"],
+        "summary": "/entries",
+        "operationId": "searchAPIs",
+        "description": "search for APIs based on several query parameters, including title, description, auth, https, cors, and category.",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "name of entry (matches via substring - i.e. \"at\" would return \"cat\" and \"atlas\")"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "description of entry (matches via substring)"
+          },
+          {
+            "name": "auth",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "auth type of entry (can only be values matching in project or null)"
+          },
+          {
+            "name": "https",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "return entries that support HTTPS or not"
+          },
+          {
+            "name": "cors",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "CORS support for entry (\"yes\", \"no\", or \"unknown\")"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "return entries of a specific category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/random": {
+      "get": {
+        "tags": ["Random"],
+        "summary": "/random",
+        "description": "retrieve a random API based on the same query parameters as the /entries endpoint.",
+        "operationId": "getRandom",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "name of entry (matches via substring - i.e. \"at\" would return \"cat\" and \"atlas\")"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "description of entry (matches via substring)"
+          },
+          {
+            "name": "auth",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "auth type of entry (can only be values matching in project or null)"
+          },
+          {
+            "name": "https",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "return entries that support HTTPS or not"
+          },
+          {
+            "name": "cors",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "CORS support for entry (\"yes\", \"no\", or \"unknown\")"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": ""
+            },
+            "description": "return entries of a specific category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "/categories",
+        "description": "Returns a list of available API categories.",
+        "operationId": "getCategories",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "/health",
+        "description": "Check the status of the API.",
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Entries"
+    },
+    {
+      "name": "Random"
+    },
+    {
+      "name": "Categories"
+    },
+    {
+      "name": "Health"
+    }
+  ]
+}
