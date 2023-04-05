@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  description: >-
-    Own crypto in multiple exchanges and wallets? Sync them to CoinStats so you
-    track and manage them from one place. Track 8000+ coins and 300+ exchanges.
+  description: |
+    Own crypto in multiple exchanges and wallets? Sync them to CoinStats so you can track and manage them from one place. Track 8000+ coins and 300+ exchanges.
+    For the `currency` parameter, always use ISO 4217 Code, e.g. "USD", "EUR", or "GBP".
   title: CoinStat API
   version: 1.0.0
   contact:
