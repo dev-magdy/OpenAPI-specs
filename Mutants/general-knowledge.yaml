@@ -1,0 +1,426 @@
+openapi: 3.0.1
+info:
+  title: General Knowledge
+  description: Free to use, user-contributed trivia question database.
+  version: '1'
+servers:
+  - url: https://opentdb.com
+paths:
+  /api_count.php:
+    get:
+      description: Get questions count against a category
+      operationId: countByCategory
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: integer
+          required: false
+          example: 10
+      responses:
+        '200':
+          description: Total count against a category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category_id:
+                    type: integer
+                  category_question_count:
+                    type: object
+                    properties:
+                      total_hard_question_count:
+                        type: integer
+                      total_easy_question_count:
+                        type: integer
+                      total_medium_question_count:
+                        type: integer
+                      total_question_count:
+                        type: integer
+  /api_count_global.php:
+    get:
+      description: Get questions count against all categories
+      operationId: globalCount
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  overall:
+                    type: object
+                    properties:
+                      total_num_of_verified_questions:
+                        type: integer
+                      total_num_of_questions:
+                        type: integer
+                      total_num_of_pending_questions:
+                        type: integer
+                      total_num_of_rejected_questions:
+                        type: integer
+                  categories:
+                    type: object
+                    properties:
+                      '9':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '10':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '11':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '12':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '13':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '14':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '15':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '16':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '17':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '18':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '19':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '20':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '21':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '22':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '23':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '24':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '25':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '26':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '27':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '28':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '29':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '30':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '31':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+                      '32':
+                        type: object
+                        properties:
+                          total_num_of_verified_questions:
+                            type: integer
+                          total_num_of_questions:
+                            type: integer
+                          total_num_of_pending_questions:
+                            type: integer
+                          total_num_of_rejected_questions:
+                            type: integer
+  /api.php:
+    get:
+      description: Get specific questions with different parameters
+      operationId: searchQuestions
+      parameters:
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+            enum:
+              - easy
+              - medium
+              - hard
+          required: false
+          example: easy
+        - name: encode
+          in: query
+          schema:
+            type: string
+            enum:
+              - urlLegacy
+              - url3986
+              - base64
+          required: false
+          example: url3986
+        - name: amount
+          in: query
+          schema:
+            type: integer
+          required: true
+          example: 10
+        - name: category
+          in: query
+          schema:
+            type: integer
+          required: false
+          example: 23
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - boolean
+              - multiple
+          required: false
+          example: multiple
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        difficulty:
+                          type: string
+                        question:
+                          type: string
+                        correct_answer:
+                          type: string
+                        incorrect_answers:
+                          type: array
+                          items:
+                            type: string
+                        category:
+                          type: string
+                        type:
+                          type: string
+  /api_category.php:
+    get:
+      description: Categories for questions
+      operationId: listCategories
+      responses:
+        '200':
+          description: Categories for questions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trivia_categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        id:
+                          type: integer
