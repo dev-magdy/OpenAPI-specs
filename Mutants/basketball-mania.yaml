@@ -108,7 +108,7 @@ paths:
       tags:
         - games
       summary: all games (example parameters)
-      operationId: searchTeams
+      operationId: searchGames
       parameters:
         - name: seasons[]
           in: query
