@@ -103,7 +103,7 @@
       "get": {
         "tags": ["LongWeekend"],
         "summary": "Get long weekends for a given country",
-        "operationId": "isLongWeekend",
+        "operationId": "getLongWeekend",
         "description": "Retrieve information about long weekends for a specific country and year, including start and end dates, day count, and whether a bridge day is needed.",
         "parameters": [
           {
