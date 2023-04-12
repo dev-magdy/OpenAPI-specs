@@ -62,8 +62,8 @@ paths:
         - Air Quality
       summary: 5 day air quality forecast for coordinates
       description: |
-        This endpoint accepts a geographical coordinate, and returns a list of weather variables and responds with a JSON hourly air quality forecast for 5 days. Time always starts at 0:00 today.
-        Forecast is based on the 11 kilometer CAMS European air quality forecast and the 40 kilometer CAMS global atmospheric composition forecasts. The European and global domain are not coupled and may show different forecasts.
+        This endpoint accepts a geographical coordinate and a list of air quality variables and responds with a JSON hourly air quality forecast for 5 days. Time always starts at 0:00 today.
+        Forecast is based on the 11 kilometer CAMS European air quality forecast and the 40 kilometer CAMS global atmospheric composition forecasts. The two domains are not coupled and may show different forecasts.
       parameters:
         - name: latitude
           in: query
@@ -89,7 +89,7 @@ paths:
               type: string
         - name: domains
           in: query
-          description: Automatically combine both domains specify one. Defaults to 'auto'
+          description: Automatically combine both domains or specify one. Defaults to 'auto'
           schema:
             type: string
             enum:
@@ -97,7 +97,7 @@ paths:
               - cams_europe
               - cams_global
         - name: timeformat
-          description: Deafaults to 'iso8601'
+          description: Defaults to 'iso8601'
           in: query
           schema:
             type: string
@@ -121,19 +121,19 @@ paths:
               - 2
         - name: start_date
           in: query
-          description: The start date of the time interval as ISO8601 date
+          description: The start date of the interval as ISO8601 date
           schema:
             type: string
           example: '2022-06-30'
         - name: end_date
           in: query
-          description: The end date of the time interval as ISO8601 date
+          description: The end date of the interval as ISO8601 date
           schema:
             type: string
           example: '2022-07-13'
         - name: cell_selection
           in: query
-          description: Set a preference how grid-cells are selected. The default 'land' finds a suitable grid-cell on land with similar elevation to the requested coordinates using a 90-meter digital elevation model. 'sea' prefers grid-cells on sea. 'nearest' selects the nearest possible grid-cell.
+          description: Set a preference how grid-cells are selected.
           schema:
             type: string
             enum:
