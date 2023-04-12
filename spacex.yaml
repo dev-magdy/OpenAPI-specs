@@ -1,8 +1,9 @@
 openapi: 3.0.3
 info:
-  title: r/SpaceX API V4
+  title: SpaceX API V4
   version: 1.0.0
   contact: {}
+  description: Open Source REST API for launch, rocket, core, capsule, starlink, launchpad, and landing pad data.
 servers:
 - url: https://api.spacexdata.com
 paths:
