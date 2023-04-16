@@ -584,9 +584,9 @@ paths:
     get:
       tags:
         - Coins
-      summary: Coin with global avg prices
-      description: List of coins with their global average price, volume, market cap, available supply, total supply ordered from the highest market cap to the lowest.
-      operationId: coinWithGlobalAvgPrices
+      summary: Bitcoin against currency
+      description: Get the price of bitcoin in the chosen currency with market cap
+      operationId: btcVScurrency
       parameters:
         - name: currency
           in: query
