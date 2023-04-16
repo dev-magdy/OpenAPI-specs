@@ -16,10 +16,19 @@ schemes:
   - http
 paths:
   /{lang}/calendars:
-    parameters:
-      - $ref: '#/parameters/lang'
     get:
       description: Lists available calendars
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
       responses:
         200:
           description: Calendars
@@ -32,11 +41,41 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
     get:
       description: Calendar description
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
       responses:
         200:
           schema:
@@ -44,12 +83,46 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}/yesterday:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
-      - $ref: '#/parameters/date_header'
     get:
       description: Calendar entry for yesterday
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
+        - name: Date
+          in: header
+          required: false
+          type: string
+          format: date
       responses:
         200:
           schema:
@@ -57,12 +130,46 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}/today:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
-      - $ref: '#/parameters/date_header'
     get:
       description: Calendar entry for today
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
+        - name: Date
+          in: header
+          required: false
+          type: string
+          format: date
       responses:
         200:
           schema:
@@ -70,12 +177,46 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}/tomorrow:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
-      - $ref: '#/parameters/date_header'
     get:
       description: Calendar entry for tomorrow
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
+        - name: Date
+          in: header
+          required: false
+          type: string
+          format: date
       responses:
         200:
           schema:
@@ -83,12 +224,48 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}/{year}:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
-      - $ref: '#/parameters/year'
     get:
       description: General characteristics of a liturgical year
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
+        - name: year
+          in: path
+          required: true
+          type: integer
+          minimum: 1970
+          description: |
+            Year must be greater than or equal to the promulgation year of the calendar system.
       responses:
         200:
           schema:
@@ -103,6 +280,52 @@ paths:
       - $ref: '#/parameters/month'
     get:
       description: Calendar entries for a whole month
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
+        - name: year
+          in: path
+          required: true
+          type: integer
+          minimum: 1970
+          description: |
+            Year must be greater than or equal to the promulgation year of the calendar system.
+        - name: month
+          in: path
+          required: true
+          type: integer
+          minimum: 1
+          maximum: 12
       responses:
         200:
           schema:
@@ -120,6 +343,58 @@ paths:
       - $ref: '#/parameters/day'
     get:
       description: Calendar entry for the specified day
+      parameters:
+        - name: lang
+          in: path
+          required: true
+          type: string
+          enum:
+            - cs
+            - en
+            - fr
+            - it
+            - la
+        - name: calendar
+          in: path
+          required: true
+          type: string
+          enum:
+            - general-en
+            - general-la
+            - general-fr
+            - general-it
+            - czech
+            - czech-cechy
+            - czech-morava
+            - czech-pha
+            - czech-ltm
+            - czech-hk
+            - czech-cb
+            - czech-plz
+            - czech-olm
+            - czech-brn
+            - czech-oo
+            - default
+          description: Identifier of the calendar to query.
+        - name: year
+          in: path
+          required: true
+          type: integer
+          minimum: 1970
+          description: |
+            Year must be greater than or equal to the promulgation year of the calendar system.
+        - name: month
+          in: path
+          required: true
+          type: integer
+          minimum: 1
+          maximum: 12
+        - name: day
+          in: path
+          required: true
+          type: integer
+          minimum: 1
+          maximum: 31
       responses:
         200:
           schema:
