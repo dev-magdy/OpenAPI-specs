@@ -1,7 +1,13 @@
 swagger: '2.0'
 info:
   title: Liturgical Calendar API
-  description: Roman Catholic liturgical calendar
+  description: |
+    Roman Catholic liturgical calendar.
+    ### Parameters:
+      - The `lang` parameter specifies language used for titles of temporale feasts, Sundays and ferials, as well as other localized strings (mentioned as such in this documentation). Please note that while titles of sanctorale feasts are taken from the calendar, titles of abovementioned temporale celebrations are determined by the locale. So you have to choose a correct combination of locale and calendar in order to retrieve coherent data in one language. Possible values are: 'cs', 'en', 'fr', 'it', 'la'
+      - The `calendar` parameter is the identifier of the calendar to query. Possible values are: 'general-en', 'general-la', 'general-fr', 'general-it', 'czech', 'czech-cechy', 'czech-morava', 'czech-pha', 'czech-ltm', 'czech-hk', 'czech-cb', 'czech-plz', 'czech-olm', 'czech-brn', 'czech-oo', 'default'
+      - The `Date` parameter is a local date and time at which the message was originated, in RFC 1123 date format. If provided, the API server respects it and returns data relative to the client's today, specified in the header, instead of relative to it's own local today (which is default behaviour).
+      - The `year` parameter must be greater than or equal to the promulgation year of the calendar system. Minimum is 1970.
   contact:
     email: jkb.pavlik@gmail.com
   version: v0
