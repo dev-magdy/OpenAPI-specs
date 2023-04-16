@@ -273,11 +273,6 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}/{year}/{month}:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
-      - $ref: '#/parameters/year'
-      - $ref: '#/parameters/month'
     get:
       description: Calendar entries for a whole month
       parameters:
@@ -335,12 +330,6 @@ paths:
           default:
             $ref: '#/responses/UnexpectedError'
   /{lang}/calendars/{calendar}/{year}/{month}/{day}:
-    parameters:
-      - $ref: '#/parameters/lang'
-      - $ref: '#/parameters/calendar'
-      - $ref: '#/parameters/year'
-      - $ref: '#/parameters/month'
-      - $ref: '#/parameters/day'
     get:
       description: Calendar entry for the specified day
       parameters:
