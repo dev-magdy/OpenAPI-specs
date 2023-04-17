@@ -254,7 +254,7 @@ paths:
             items:
               type: string
           example:
-            - connections/from/departure	
+            - connections/from/departure
             - connections/to/departure
       responses:
         '200':
