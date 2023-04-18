@@ -71,34 +71,11 @@ paths:
         - name: product_tags
           in: query
           explode: true
+          description: "a list of tags - possible values are: 'Canadian', 'CertClean', 'Chemical Free', 'Dairy Free', 'EWG Verified', 'EcoCert', 'Fair Trade', 'Gluten Free', 'Hypoallergenic', 'Natural', 'No Talc', 'Non-GMO', 'Organic', 'Peanut Free Product', 'Sugar Free', 'USDA Organic', 'Vegan', 'alcohol free', 'cruelty free', 'oil free', 'purpicks', 'silicone free', 'water free'"
           schema:
             type: array
             items:
               type: string
-              enum:
-                - Canadian
-                - CertClean
-                - Chemical Free
-                - Dairy Free
-                - EWG Verified
-                - EcoCert
-                - Fair Trade
-                - Gluten Free
-                - Hypoallergenic
-                - Natural
-                - No Talc
-                - Non-GMO
-                - Organic
-                - Peanut Free Product
-                - Sugar Free
-                - USDA Organic
-                - Vegan
-                - alcohol free
-                - cruelty free
-                - oil free
-                - purpicks
-                - silicone free
-                - water free
         - name: brand
           in: query
           schema:
