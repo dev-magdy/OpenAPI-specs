@@ -8,7 +8,7 @@ info:
     
     For query endpoints, you can paginate and filter the results as needed using the following rules:
       - In the `query` object, you can add key-value pairs, such as {"success": false"} or {"date_utc": {"$lt": "2007-03-21T01:10:00.000Z"}}. Full documentation for this is available here: https://www.mongodb.com/docs/manual/tutorial/query-documents/
-      - In the `options` object, you can add pagination related paroperties, such as:
+      - In the `options` object, you can add pagination related properties, such as:
         - offset, the number of items to skip
         - page, the page number to retrieve
         - limit, the number of items per page
