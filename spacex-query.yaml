@@ -16,16 +16,6 @@ info:
 servers:
 - url: https://api.spacexdata.com
 paths:
-  /v4/capsules:
-    get:
-      tags:
-      - Capsules
-      summary: Get all capsules
-      description: Get all capsules
-      operationId: getAllCapsules
-      responses:
-        '200':
-          description: ''
   /v4/capsules/{capsuleID}:
     get:
       tags:
@@ -67,16 +57,6 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/cores:
-    get:
-      tags:
-      - Cores
-      summary: Get all Cores
-      description: Get all Cores
-      operationId: getAllCores
-      responses:
-        '200':
-          description: ''
   /v4/cores/{coreID}:
     get:
       tags:
@@ -108,16 +88,6 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/crew:
-    get:
-      tags:
-      - Crew
-      summary: Get all Crew
-      description: Get all Crew
-      operationId: getAllCrew
-      responses:
-        '200':
-          description: ''
   /v4/crew/{id}:
     get:
       tags:
@@ -146,16 +116,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Query'
-      responses:
-        '200':
-          description: ''
-  /v4/dragons:
-    get:
-      tags:
-      - Dragons
-      summary: Get all Dragons
-      description: Get all Dragons
-      operationId: getAllDragons
       responses:
         '200':
           description: ''
@@ -341,16 +301,6 @@ paths:
       summary: Get Roadster Info
       description: Get Roadster Info
       operationId: getRoadsterInfo
-      responses:
-        '200':
-          description: ''
-  /v4/rockets:
-    get:
-      tags:
-      - Rockets
-      summary: Get all Rockets
-      description: Get all Rockets
-      operationId: getAllRockets
       responses:
         '200':
           description: ''
