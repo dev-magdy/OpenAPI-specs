@@ -3,7 +3,16 @@ info:
   title: SpaceX API V4
   version: 1.0.0
   contact: {}
-  description: Open Source REST API for launch, rocket, core, capsule, starlink, launchpad, and landing pad data.
+  description: |
+    Open Source REST API for launch, rocket, core, capsule, starlink, launchpad, and landing pad data.
+    
+    For query endpoints, you can paginate and filter the results as needed using the following rules:
+      - In the `query` object, you can add key-value pairs, such as {"success": false"} or {"date_utc": {"$lt": "2007-03-21T01:10:00.000Z"}}. Full documentation for this is available here: https://www.mongodb.com/docs/manual/tutorial/query-documents/
+      - In the `options` object, you can add pagination related paroperties, such as:
+        - offset, the number of items to skip
+        - page, the page number to retrieve
+        - limit, the number of items per page
+        - sort, a space delimited string listing the fields to sort the results by and the sort direction. Direction is _ascending_ by default, use '-' for _descending_. Example: {"sort": "date_utc -details"}.
 servers:
 - url: https://api.spacexdata.com
 paths:
@@ -181,16 +190,6 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/landpads:
-    get:
-      tags:
-      - Landpads
-      summary: Get all Landpads
-      description: Get all Landpads
-      operationId: getAllLandpads
-      responses:
-        '200':
-          description: ''
   /v4/landpads{id}:
     get:
       tags:
@@ -219,16 +218,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Query'
-      responses:
-        '200':
-          description: ''
-  /v4/launches:
-    get:
-      tags:
-      - Launches
-      summary: Get all Launches
-      description: Get all Launches
-      operationId: getAllLaunches
       responses:
         '200':
           description: ''
@@ -263,26 +252,6 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/launches/past:
-    get:
-      tags:
-      - Launches
-      summary: Get past Launches
-      description: Get past Launches
-      operationId: getPastLaunches
-      responses:
-        '200':
-          description: ''
-  /v4/launches/upcoming:
-    get:
-      tags:
-      - Launches
-      summary: Get upcoming Launches
-      description: Get upcoming Launches
-      operationId: getUpcomingLaunches
-      responses:
-        '200':
-          description: ''
   /v4/launches/latest:
     get:
       tags:
@@ -300,16 +269,6 @@ paths:
       summary: Get next Launch
       description: Get next Launch
       operationId: getNextLaunch
-      responses:
-        '200':
-          description: ''
-  /v4/launchpads:
-    get:
-      tags:
-      - Launchpads
-      summary: Get all Launchpads
-      description: Get all Launchpads
-      operationId: getAllLaunchpads
       responses:
         '200':
           description: ''
@@ -341,16 +300,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Query'
-      responses:
-        '200':
-          description: ''
-  /v4/payloads:
-    get:
-      tags:
-      - Payloads
-      summary: Get all Payloads
-      description: Get all Payloads
-      operationId: getAllPayloads
       responses:
         '200':
           description: ''
@@ -436,16 +385,6 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/ships:
-    get:
-      tags:
-      - Ships
-      summary: Get all Ships
-      description: Get all Ships
-      operationId: getAllShips
-      responses:
-        '200':
-          description: ''
   /v4/ships/{id}:
     get:
       tags:
@@ -463,22 +402,17 @@ paths:
         '200':
           description: ''
   /v4/ships/query:
-    get:
+    post:
       tags:
       - Ships
       summary: Query Ships
       description: Query Ships
       operationId: queryShips
-      responses:
-        '200':
-          description: ''
-  /v4/starlink:
-    get:
-      tags:
-      - Starlink
-      summary: Get all Starlink sats
-      description: Get all Starlink sats
-      operationId: getAllStarlinkSats
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Query'
       responses:
         '200':
           description: ''
