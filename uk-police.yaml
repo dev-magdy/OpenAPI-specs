@@ -51,7 +51,6 @@ paths:
       summary: List forces
       description: A list of all the police forces available via the API except the British Transport Police
       operationId: listForces
-      parameters:
       responses:
         '200':
           description: successful operation
