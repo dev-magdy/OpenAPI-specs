@@ -72,7 +72,7 @@ paths:
       tags:
         - Force
       summary: Get single force
-      description: Details of a single force by id
+      description: Get a single force by id
       operationId: getForceById
       parameters:
         - name: id
@@ -138,7 +138,7 @@ paths:
       tags:
         - Crime
       summary: Crime categories list
-      description: Returns a list of valid categories for a given data set date
+      description: Returns a list of valid categories for a given dataset date
       operationId: listCrimeCats
       parameters:
         - name: date
@@ -173,18 +173,16 @@ paths:
       parameters:
         - name: category
           in: path
-          description: category of the crime to be returned
+          description: category of the crime
           required: true
           schema:
             type: string
         - name: lat
           in: query
-          description: Latitude of the requested crime area
           schema:
             type: number
         - name: lng
           in: query
-          description: Longitude of the requested crime area
           schema:
             type: number
         - name: poly
@@ -220,12 +218,10 @@ paths:
             type: integer
         - name: lat
           in: query
-          description: Latitude of the requested crime area
           schema:
             type: number
         - name: lng
           in: query
-          description: Longitude of the requested crime area
           schema:
             type: number
         - name: poly
@@ -278,12 +274,10 @@ paths:
             type: integer
         - name: lat
           in: query
-          description: Latitude of the requested crime location
           schema:
             type: number
         - name: lng
           in: query
-          description: Longitude of the requested crime location
           schema:
             type: number
         - name: date
@@ -339,7 +333,7 @@ paths:
       tags:
         - Crime
       summary: Last update of database
-      description: Crime data in the API is updated once a month. Find out when it was last updated.
+      description: Find out when API data was last updated.
       operationId: getLastUpdate
       responses:
         '200':
@@ -363,7 +357,6 @@ paths:
       parameters:
         - name: forceId
           in: path
-          description: force id
           required: true
           schema:
             type: string
@@ -395,7 +388,6 @@ paths:
       parameters:
         - name: forceId
           in: path
-          description: force id
           required: true
           schema:
             type: string
@@ -424,7 +416,6 @@ paths:
       parameters:
         - name: forceId
           in: path
-          description: force id
           required: true
           schema:
             type: string
@@ -460,7 +451,6 @@ paths:
       parameters:
         - name: forceId
           in: path
-          description: force id
           required: true
           schema:
             type: string
@@ -491,7 +481,6 @@ paths:
       parameters:
         - name: forceId
           in: path
-          description: force id
           required: true
           schema:
             type: string
@@ -544,7 +533,6 @@ paths:
       parameters:
         - name: forceId
           in: path
-          description: force id
           required: true
           schema:
             type: string
@@ -620,12 +608,10 @@ paths:
       parameters:
         - name: lat
           in: query
-          description: Latitude of the requested area
           schema:
             type: number
         - name: lng
           in: query
-          description: Longitude of the requested area
           schema:
             type: number
         - name: poly
