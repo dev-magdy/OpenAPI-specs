@@ -2,11 +2,7 @@ openapi: 3.0.3
 info:
   title: UK Police - OpenAPI 3.0
   description: |-
-    The API provides a rich data source for information, including:
-      - Neighbourhood team members
-      - Upcoming events
-      - Street-level crime and outcome data
-      - Nearest police stations
+    The API provides a rich data source for information related to UK Police activities.
 
     ### Parameters:
       - The `date` parameter takes date in the format (YYYY-MM). It limits results to a specific month. The latest month will be shown by default if omitted.
@@ -326,25 +322,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Crime'
-        '404':
-          description: Not found
-  /crime-last-updated:
-    get:
-      tags:
-        - Crime
-      summary: Last update of database
-      description: Find out when API data was last updated.
-      operationId: getLastUpdate
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  date:
-                    type: string
         '404':
           description: Not found
   /{forceId}/neighbourhoods:
