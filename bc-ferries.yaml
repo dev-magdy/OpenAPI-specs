@@ -32,8 +32,8 @@ paths:
             type: string
         - name: destination_terminal
           in: path
-          required: false
-          description: Optionally filter by destination terminal. If no ferries sail from departure terminal to this terminal, an error is returned.
+          required: true
+          description: Optionally filter by destination terminal, pass an empty string otherwise. If no ferries sail from departure terminal to this terminal, an error is returned.
           schema:
             type: string
       responses:
