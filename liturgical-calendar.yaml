@@ -16,7 +16,6 @@ externalDocs:
     url: http://37.157.198.11:9000/api-doc
     consumes: [application/json]
     produces: [application/json]
-host: calapi.inadiutorium.cz
 basePath: /api/v0
 schemes:
   - http
