@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Ulvis - OpenAPI 3.0
   description: |-
-    ulvis.net is a free Url Shortener API (free api without key). The shortened url can be optionally made private, protected by password, set an expiration data, or set a certain number of 'uses' after which the url will be inactive.
+    ulvis.net is a free Url Shortener API (free api without key). The shortened url can optionally be made private, protected by password, you can set an expiration data, or set a certain number of 'uses' after which the url will be inactive.
   version: 1.0.0
 servers:
 - url: https://ulvis.net
