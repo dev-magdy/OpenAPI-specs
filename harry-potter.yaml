@@ -55,6 +55,11 @@ paths:
           required: true
           schema:
             type: string
+            enum:
+             - gryffindor
+             - hufflepuff
+             - ravenclaw
+             - slytherin
       responses:
         '200':
           description: Successful operation
@@ -68,7 +73,7 @@ paths:
     get:
       summary: All spells
       description: List all spells
-      operationId: listSpells
+      operationId: listSpills
       responses:
         '200':
           description: Successful operation
