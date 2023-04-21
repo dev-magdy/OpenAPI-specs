@@ -7,8 +7,8 @@ info:
 servers:
 - url: https://ulvis.net
 paths:
-  /api/write/post:
-    post:
+  /API/write/get:
+    get:
       summary: Send URL to be shortened
       description: Send URL to be shortened
       operationId: writeURL
