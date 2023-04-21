@@ -68,7 +68,7 @@ paths:
     get:
       summary: All spells
       description: List all spells
-      operationId: listSpills
+      operationId: listSpells
       responses:
         '200':
           description: Successful operation
