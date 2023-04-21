@@ -33,7 +33,7 @@ paths:
           schema:
             type: string
             enum:
-              - student
+              - students
               - staff
       responses:
         '200':
