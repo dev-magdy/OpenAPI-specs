@@ -51,7 +51,7 @@ paths:
             default: 5
         - name: maxDuration
           in: query
-          description: Maximum travel duration, in minutes. Default is *infinite*
+          description: Maximum travel duration, in minutes.
           schema:
             type: integer
         - name: language
@@ -157,7 +157,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: stop/station ID to show departures for
+          description: stop/station ID
           required: true
           schema:
             type: string
@@ -179,7 +179,7 @@ paths:
             default: 10
         - name: results
           in: query
-          description: 'Max. number of departures. – Default: *whatever HAFAS wants'
+          description: Max. number of departures.
           schema:
             type: integer
         - name: linesOfStops
@@ -226,7 +226,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: stop/station ID to show arrivals for
+          description: stop/station ID
           required: true
           schema:
             type: string
@@ -248,7 +248,7 @@ paths:
             default: 10
         - name: results
           in: query
-          description: 'Max. number of departures. – Default: *whatever HAFAS wants*'
+          description: Max. number of departures.
           schema:
             type: integer
         - name: linesOfStops
@@ -296,14 +296,14 @@ paths:
         - name: departure
           in: query
           description: >-
-            Compute journeys departing at this date/time. Mutually exclusive with `arrival`. – Default: *now*
+            Compute journeys departing at this date/time. Mutually exclusive with `arrival`.
           schema:
             type: string
             format: date-time
         - name: arrival
           in: query
           description: >-
-            Compute journeys arriving at this date/time. Mutually exclusive with `departure`. – Default: *now*
+            Compute journeys arriving at this date/time. Mutually exclusive with `departure`.
           schema:
             type: string
             format: date-time
@@ -330,7 +330,7 @@ paths:
             default: false
         - name: transfers
           in: query
-          description: 'Maximum number of transfers. – Default: *let HAFAS decide*'
+          description: Maximum number of transfers.
           schema:
             type: integer
         - name: transferTime
@@ -436,171 +436,21 @@ paths:
                     type: string
                 required:
                   - journeys
-  /trips/{id}:
-    get:
-      summary: Fetches a trip by ID.
-      description: Fetch a trip by ID.
-      parameters:
-        - name: id
-          in: path
-          description: trip ID
-          required: true
-          schema:
-            type: string
-        - name: stopovers
-          in: query
-          schema:
-            type: boolean
-            default: true
-        - name: remarks
-          in: query
-          schema:
-            type: boolean
-            default: true
-        - name: polyline
-          in: query
-          description: Fetch & parse the geographic shape of the trip? Defaults to 'false'
-          schema:
-            type: boolean
-            default: false
-        - name: language
-          in: query
-          schema:
-            type: string
-            default: en
-        - name: pretty
-          in: query
-          schema:
-            type: boolean
-      responses:
-        2XX:
-          description: >-
-            An object with the trip, in the [`hafas-client`
-            format](https://github.com/public-transport/hafas-client/blob/6/docs/trip.md).
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  trip:
-                    type: object
-                  realtimeDataUpdatedAt:
-                    type: integer
-                required:
-                  - trip
-  /trips:
-    get:
-      summary: >-
-        Fetches all trips within a specified time frame (default: *now*) that match certain criteria.
-      description: Query trips.
-      parameters:
-        - name: query
-          in: query
-          description: line name or Fahrtnummer
-          schema:
-            type: string
-            default: '*'
-        - name: when
-          in: query
-          schema:
-            type: string
-            format: date-time
-        - name: fromWhen
-          in: query
-          description: >-
-            Together with untilWhen, forms a time frame to get trips for.
-            Mutually exclusive with `when`. – Default: *now*
-          schema:
-            type: string
-            format: date-time
-        - name: untilWhen
-          in: query
-          description: >-
-            Together with fromWhen, forms a time frame to get trips for.
-            Mutually exclusive with `when`. – Default: *now*
-          schema:
-            type: string
-            format: date-time
-        - name: onlyCurrentlyRunning
-          in: query
-          description: Only return trips that run within the specified time frame.
-          schema:
-            type: boolean
-            default: true
-        - name: currentlyStoppingAt
-          in: query
-          description: >-
-            Only return trips that stop at the specified stop within the
-            specified time frame.
-          schema:
-            type: string
-        - name: lineName
-          in: query
-          description: Only return trips with the specified line name.
-          schema:
-            type: string
-        - name: operatorNames
-          in: query
-          description: >-
-            Only return trips operated by operators specified by their names, separated by commas.
-          schema:
-            type: array
-            items:
-              type: string
-        - name: stopovers
-          in: query
-          schema:
-            type: boolean
-            default: true
-        - name: remarks
-          in: query
-          schema:
-            type: boolean
-            default: true
-        - name: subStops
-          in: query
-          description: Parse & return sub-stops of stations?
-          schema:
-            type: boolean
-            default: true
-        - name: entrances
-          in: query
-          description: Parse & return entrances of stops/stations?
-          schema:
-            type: boolean
-            default: true
-        - name: language
-          in: query
-          schema:
-            type: string
-            default: en
-        - name: pretty
-          in: query
-          schema:
-            type: boolean
-      responses:
-        2XX:
-          description: >-
-            An object with a list of trips, in the [`hafas-client`
-            format](https://github.com/public-transport/hafas-client/blob/6/docs/trips-by-name.md).
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  trips:
-                    type: array
-                    items:
-                      type: object
-                  realtimeDataUpdatedAt:
-                    type: integer
-                required:
-                  - trips
   /locations/nearby:
     get:
       summary: Finds stops/stations & POIs close to a geolocation.
       description: Find stops/stations & POIs close to the given geolocation.
       parameters:
+        - name: latitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: longitude
+          in: query
+          required: true
+          schema:
+            type: number
         - name: results
           in: query
           description: maximum number of results
@@ -609,7 +459,7 @@ paths:
             default: 8
         - name: distance
           in: query
-          description: 'maximum walking distance in meters – Default: –'
+          description: maximum walking distance in meters
           schema:
             type: integer
         - name: stops
@@ -771,84 +621,6 @@ paths:
                     type: integer
                 required:
                   - movements
-  /journeys/{ref}:
-    get:
-      summary: Fetches up-to-date realtime data for a journey computed before.
-      description: >-
-        "refresh" a journey, using its `refreshToken`.
-        The journey will be the same (equal `from`, `to`, `via`, date/time & vehicles used), but you can get up-to-date real-time data, like delays & cancellations.
-      parameters:
-        - name: ref
-          in: path
-          description: The journey's `refreshToken`.
-          required: true
-          schema:
-            type: string
-        - name: stopovers
-          in: query
-          schema:
-            type: boolean
-            default: false
-        - name: tickets
-          in: query
-          description: Return information about available tickets? Defaults to 'false'
-          schema:
-            type: boolean
-            default: false
-        - name: polylines
-          in: query
-          description: Fetch & parse a shape for each journey leg? Defaults to 'false'
-          schema:
-            type: boolean
-            default: false
-        - name: subStops
-          in: query
-          description: Parse & return sub-stops of stations?
-          schema:
-            type: boolean
-            default: true
-        - name: entrances
-          in: query
-          description: Parse & return entrances of stops/stations?
-          schema:
-            type: boolean
-            default: true
-        - name: remarks
-          in: query
-          schema:
-            type: boolean
-            default: true
-        - name: scheduledDays
-          in: query
-          description: Parse & return dates the journey is valid on? Defaults to 'false'
-          schema:
-            type: boolean
-            default: false
-        - name: language
-          in: query
-          schema:
-            type: string
-            default: en
-        - name: pretty
-          in: query
-          schema:
-            type: boolean
-      responses:
-        2XX:
-          description: >-
-            An object with the up-to-date journey, in the [`hafas-client`
-            format](https://github.com/public-transport/hafas-client/blob/6/docs/refresh-journey.md).
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  journey:
-                    type: object
-                  realtimeDataUpdatedAt:
-                    type: integer
-                required:
-                  - journey
   /stations:
     get:
       summary: Autocompletes stops/stations by name or filters stops/stations.
@@ -977,26 +749,6 @@ paths:
           description: >-
             A line, in the [`vbb-lines`
             format](https://github.com/derhuerst/vbb-lines/blob/master/readme.md).
-          content:
-            application/json:
-              schema:
-                type: object
-  /shapes/{id}:
-    get:
-      summary: Returns a shape from `vbb-shapes`.
-      description: Returns a shape by its id
-      parameters:
-        - name: id
-          in: path
-          description: Shape ID.
-          required: true
-          schema:
-            type: string
-      responses:
-        2XX:
-          description: >-
-            A shape, in the [`vbb-shapes`
-            format](https://github.com/derhuerst/vbb-shapes/blob/master/readme.md).
           content:
             application/json:
               schema:
