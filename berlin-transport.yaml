@@ -59,41 +59,6 @@ paths:
           schema:
             type: string
             default: en
-        - name: suburban
-          in: query
-          description: Include S-Bahn (S)?
-          schema:
-            type: boolean
-        - name: subway
-          in: query
-          description: Include U-Bahn (U)?
-          schema:
-            type: boolean
-        - name: tram
-          in: query
-          description: Include Tram (T)?
-          schema:
-            type: boolean
-        - name: bus
-          in: query
-          description: Include Bus (B)?
-          schema:
-            type: boolean
-        - name: ferry
-          in: query
-          description: Include ferries (F)?
-          schema:
-            type: boolean
-        - name: express
-          in: query
-          description: Include IC/ICE (E)?
-          schema:
-            type: boolean
-        - name: regional
-          in: query
-          description: Include RB/RE (R)?
-          schema:
-            type: boolean
         - name: pretty
           in: query
           schema:
@@ -150,7 +115,7 @@ paths:
             application/json:
               schema:
                 type: object
-  /stops/{id}/departures:
+  /stops/{id}/{arrdep}:
     get:
       summary: Fetches departures at a stop/station.
       description: Query departures at a stop/station.
@@ -161,6 +126,14 @@ paths:
           required: true
           schema:
             type: string
+        - name: arrdep
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - departures
+              - arrivals
         - name: when
           in: query
           schema:
@@ -168,18 +141,18 @@ paths:
             format: date-time
         - name: direction
           in: query
-          description: Filter departures by direction.
+          description: Filter by direction.
           schema:
             type: string
         - name: duration
           in: query
-          description: Show departures for how many minutes? Default is 10.
+          description: Show results for how many minutes? Default is 10.
           schema:
             type: integer
             default: 10
         - name: results
           in: query
-          description: Max. number of departures.
+          description: Max. number of results.
           schema:
             type: integer
         - name: linesOfStops
@@ -237,18 +210,18 @@ paths:
             format: date-time
         - name: direction
           in: query
-          description: Filter departures by direction.
+          description: Filter by direction.
           schema:
             type: string
         - name: duration
           in: query
-          description: Show departures for how many minutes? Default is 10.
+          description: Show arrivals for how many minutes? Default is 10.
           schema:
             type: integer
             default: 10
         - name: results
           in: query
-          description: Max. number of departures.
+          description: Max. number of arrivals.
           schema:
             type: integer
         - name: linesOfStops
@@ -565,62 +538,6 @@ paths:
                 type: array
                 items:
                   type: object
-  /radar:
-    get:
-      summary: Finds all vehicles currently in an area.
-      description: Find all vehicles currently in an area, as well as their movements.
-      parameters:
-        - name: results
-          in: query
-          description: Max. number of vehicles.
-          schema:
-            type: integer
-            default: 256
-        - name: duration
-          in: query
-          description: Compute frames for the next `n` seconds. Defaults to 30
-          schema:
-            type: integer
-            default: 30
-        - name: frames
-          in: query
-          description: Number of frames to compute. Defaults to 3.
-          schema:
-            type: integer
-            default: 3
-        - name: polylines
-          in: query
-          description: Fetch & parse a geographic shape for the movement of each vehicle?
-          schema:
-            type: boolean
-            default: true
-        - name: language
-          in: query
-          schema:
-            type: string
-            default: en
-        - name: pretty
-          in: query
-          schema:
-            type: boolean
-      responses:
-        2XX:
-          description: >-
-            An object with an array of movements, in the [`hafas-client`
-            format](https://github.com/public-transport/hafas-client/blob/6/docs/radar.md).
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  movements:
-                    type: array
-                    items:
-                      type: object
-                  realtimeDataUpdatedAt:
-                    type: integer
-                required:
-                  - movements
   /stations:
     get:
       summary: Autocompletes stops/stations by name or filters stops/stations.
