@@ -11,6 +11,7 @@ info:
       - The `linesOfStops` parameter defaults to 'false'. If set to 'true', this parameter ensures the response includes lines of each stop/station.
       - The `stopovers` parameter defaults to 'false'. If set to 'true', it fetches stopovers on the way.
       - The `remarks` parameter defaults to 'false', If set to 'true', it returns hints & warnings.
+      - The `results` parameter limits the number of results in the response.
       - Default `language` is 'en'.
   contact:
     url: https://github.com/derhuerst/vbb-rest/tree/6
@@ -116,11 +117,10 @@ paths:
   /stops/{id}/{arrdep}:
     get:
       summary: Fetches departures at a stop/station.
-      description: Query departures at a stop/station.
+      description: stop/station liveboard
       parameters:
         - name: id
           in: path
-          description: stop/station ID
           required: true
           schema:
             type: string
@@ -139,18 +139,16 @@ paths:
             format: date-time
         - name: direction
           in: query
-          description: Filter by direction.
           schema:
             type: string
         - name: duration
           in: query
-          description: Show results for how many minutes? Default is 10
+          description: How many minutes? Default is 10
           schema:
             type: integer
             default: 10
         - name: results
           in: query
-          description: Max. number of results
           schema:
             type: integer
         - name: linesOfStops
@@ -214,12 +212,11 @@ paths:
             type: string
         - name: laterThan
           in: query
-          description: Compute journeys "after" an `laterRef`
+          description: Compute journeys "after" a `laterRef`
           schema:
             type: string
         - name: results
           in: query
-          description: Max. number of journeys
           schema:
             type: integer
             default: 3
@@ -230,18 +227,18 @@ paths:
             default: false
         - name: transfers
           in: query
-          description: Maximum number of transfers
+          description: Max number of transfers
           schema:
             type: integer
         - name: transferTime
           in: query
-          description: Minimum time in minutes for a single transfer
+          description: Min time in minutes for a single transfer
           schema:
             type: integer
             default: 0
         - name: accessibility
           in: query
-          description: 'Default: *not accessible*'
+          description: 'Default: not accessible'
           schema:
             type: string
             enum:
@@ -272,25 +269,19 @@ paths:
               - fast
         - name: tickets
           in: query
-          description: Return info about tickets? Defaults to 'false'
-          schema:
-            type: boolean
-            default: false
-        - name: polylines
-          in: query
-          description: Fetch a shape for each journey leg? Defaults to 'false'
+          description: tickets info? Defaults to 'false'
           schema:
             type: boolean
             default: false
         - name: subStops
           in: query
-          description: return sub-stops of stations?
+          description: get sub-stops of stations?
           schema:
             type: boolean
             default: true
         - name: entrances
           in: query
-          description: return entrances of stops/stations?
+          description: get entrances of stops/stations?
           schema:
             type: boolean
             default: true
@@ -301,7 +292,7 @@ paths:
             default: true
         - name: scheduledDays
           in: query
-          description: return dates for each journey?
+          description: get dates for each journey?
           schema:
             type: boolean
             default: false
@@ -343,7 +334,6 @@ paths:
       parameters:
         - name: query
           in: query
-          description: search term
           required: true
           schema:
             type: string
@@ -355,25 +345,24 @@ paths:
             default: true
         - name: results
           in: query
-          description: How many stations to return? Defaults to 10
           schema:
             type: integer
             default: 10
         - name: stops
           in: query
-          description: Show stops/stations?
+          description: show stops/stations?
           schema:
             type: boolean
             default: true
         - name: addresses
           in: query
-          description: Show addresses?
+          description: show addresses?
           schema:
             type: boolean
             default: true
         - name: poi
           in: query
-          description: Show points of interest?
+          description: show POIs?
           schema:
             type: boolean
             default: true
@@ -444,7 +433,7 @@ paths:
   /stations/{id}:
     get:
       summary: Returns a stop/station from `vbb-stations`.
-      description: Returns a station by its id
+      description: Get a station by id
       parameters:
         - name: id
           in: path
@@ -463,21 +452,21 @@ paths:
   /lines:
     get:
       summary: Filters the lines in `vbb-lines`.
-      description: Filters the lines
+      description: Search lines
       parameters:
         - name: id
           in: query
-          description: Filter by ID.
+          description: Filter by ID
           schema:
             type: string
         - name: name
           in: query
-          description: Filter by name.
+          description: Filter by name
           schema:
             type: string
         - name: operator
           in: query
-          description: Filter by operator id.
+          description: Filter by operator id
           schema:
             type: string
         - name: variants
@@ -494,8 +483,7 @@ paths:
             type: string
         - name: product
           in: query
-          description: >-
-            Filter by product
+          description: Filter by product
           schema:
             type: string
       responses:
@@ -512,7 +500,7 @@ paths:
   /lines/{id}:
     get:
       summary: Returns a line from `vbb-lines`.
-      description: Returns a line by id
+      description: Get a line by id
       parameters:
         - name: id
           in: path
