@@ -9,83 +9,6 @@ servers:
   - url: https://api.disneyapi.dev
     description: "Main server"
 paths:
-  /characters:
-    get:
-      tags:
-        - "Characters"
-      description: Retrieves a paginated list of available characters
-      operationId: getAll
-      parameters:
-        - name: page
-          in: query
-          description: "The page number to get. Default: 1"
-          schema:
-            type: integer
-        - name: pageSize
-          in: query
-          description: "The number of items per page. Default: 50"
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Successfully returned a list of characters
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        films:
-                          type: array
-                          description: The films in which the character participates.
-                          items:
-                            type: string
-                        shortFilms:
-                          type: array
-                          description: Short films in which the character participates.
-                          items:
-                            type: string
-                        tvShows:
-                          type: array
-                          description: TV shows in which the character participates.
-                          items:
-                            type: string
-                        videoGames:
-                          type: array
-                          description: Video games in which the character participates.
-                          items:
-                            type: string
-                        parkAttractions:
-                          type: array
-                          description: Park attractions where the character is featured.
-                          items:
-                            type: string
-                        allies:
-                          type: array
-                          description: Character's allies.
-                          items:
-                            type: string
-                        enemies:
-                          type: array
-                          description: Character's enemies.
-                          items:
-                            type: string
-                        _id:
-                          type: integer
-                          description: Character's ID.
-                        name:
-                          type: string
-                          description: Character's name.
-                        imageUrl:
-                          type: string
-                          description: URL with the character's image.
-                        url:
-                          type: string
-                          description: API URL for the character's detail.
   /character:
     get:
       tags:
@@ -105,6 +28,14 @@ paths:
           in: query
           schema:
             type: string
+        - name: allies
+          in: query
+          schema:
+            type: string
+        - name: enemies
+          in: query
+          schema:
+            type: string
         - name: parkAttractions
           in: query
           schema:
@@ -113,6 +44,16 @@ paths:
           in: query
           schema:
             type: string
+        - name: pageSize
+          in: query
+          description: Number of characters to fetch, used for pagination
+          schema:
+            type: integer
+        - name: page
+          description: numbering starts at 1. used for pagination
+          in: query
+          schema:
+            type: integer
       responses:
         "200":
           description: Successfully returned a list of characters
