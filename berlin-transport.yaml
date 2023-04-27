@@ -7,11 +7,11 @@ info:
     ### Parameter notes:
       - The `pretty` parameter determines whether the response will be pretty-printed JSON. Defaults to 'true'.
       - The date and time parameters, e.g. the `when` parameter, take the format 'YYYY-MM-ddThh:mm:ss+00:00'. Defaults to *now*.
-      - All boolean parameters default to 'true' unless otherwise is explicitly indicated.
+      - All boolean parameters default to 'true' unless otherwise indicated.
       - The `linesOfStops` parameter defaults to 'false'. If set to 'true', this parameter ensures the response includes lines of each stop/station.
-      - The `stopovers` parameter defaults to 'false'. If set to 'true', it fetches & parses stopovers on the way.
-      - The `remarks` parameter defaults to 'false', If set to 'true', if parses & returns hints & warnings.
-      - The default value for the `language` parameter is 'en'.
+      - The `stopovers` parameter defaults to 'false'. If set to 'true', it fetches stopovers on the way.
+      - The `remarks` parameter defaults to 'false', If set to 'true', it returns hints & warnings.
+      - Default `language` is 'en'.
   contact:
     url: https://github.com/derhuerst/vbb-rest/tree/6
   version: 6.0.3
@@ -336,69 +336,6 @@ paths:
                     type: string
                 required:
                   - journeys
-  /locations/nearby:
-    get:
-      summary: Finds stops/stations & POIs close to a geolocation.
-      description: Find stops/stations & POIs close to the given geolocation.
-      parameters:
-        - name: latitude
-          in: query
-          required: true
-          schema:
-            type: number
-        - name: longitude
-          in: query
-          required: true
-          schema:
-            type: number
-        - name: results
-          in: query
-          description: maximum number of results
-          schema:
-            type: integer
-            default: 8
-        - name: distance
-          in: query
-          description: maximum walking distance in meters
-          schema:
-            type: integer
-        - name: stops
-          in: query
-          description: Return stops/stations?
-          schema:
-            type: boolean
-            default: true
-        - name: poi
-          in: query
-          description: Return points of interest? Defaults to 'false'
-          schema:
-            type: boolean
-            default: false
-        - name: linesOfStops
-          in: query
-          schema:
-            type: boolean
-            default: false
-        - name: language
-          in: query
-          schema:
-            type: string
-            default: en
-        - name: pretty
-          in: query
-          schema:
-            type: boolean
-      responses:
-        2XX:
-          description: >-
-            An array of locations, in the [`hafas-client`
-            format](https://github.com/public-transport/hafas-client/blob/6/docs/nearby.md).
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
   /locations:
     get:
       summary: Finds stops/stations, POIs and addresses matching a query.
