@@ -45,13 +45,12 @@ paths:
             format: date-time
         - name: maxTransfers
           in: query
-          description: Maximum number of transfers.
           schema:
             type: integer
             default: 5
         - name: maxDuration
           in: query
-          description: Maximum travel duration, in minutes.
+          description: Maximum travel duration in minutes.
           schema:
             type: integer
         - name: language
@@ -88,7 +87,6 @@ paths:
       parameters:
         - name: id
           in: path
-          description: stop/station ID
           required: true
           schema:
             type: string
@@ -545,8 +543,7 @@ paths:
             type: string
         - name: operator
           in: query
-          description: >-
-            Filter by operator id.
+          description: Filter by operator id.
           schema:
             type: string
         - name: variants
@@ -558,16 +555,13 @@ paths:
         - name: mode
           in: query
           description: >-
-            Filter by mode of transport as in [*Friendly Public Transport
-            Format*
-            `1.2.1`](https://github.com/public-transport/friendly-public-transport-format/blob/1.2.1/spec/readme.md).
+            Filter by mode of transport as in https://github.com/public-transport/friendly-public-transport-format/blob/1.2.1/spec/readme.md
           schema:
             type: string
         - name: product
           in: query
           description: >-
-            Filter by
-            [product](https://github.com/public-transport/hafas-client/blob/6/p/vbb/products.js).
+            Filter by product
           schema:
             type: string
       responses:
@@ -588,7 +582,6 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Line ID.
           required: true
           schema:
             type: string
