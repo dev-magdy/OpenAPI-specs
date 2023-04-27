@@ -50,7 +50,7 @@ paths:
             default: 5
         - name: maxDuration
           in: query
-          description: Maximum travel duration in minutes.
+          description: Maximum travel duration in minutes
           schema:
             type: integer
         - name: language
@@ -82,8 +82,8 @@ paths:
                   - reachable
   /stops/{id}:
     get:
-      summary: Finds a stop/station by ID.
-      description: Find a stop/station by ID.
+      summary: Finds a stop by ID.
+      description: Find a stop by ID.
       parameters:
         - name: id
           in: path
@@ -144,13 +144,13 @@ paths:
             type: string
         - name: duration
           in: query
-          description: Show results for how many minutes? Default is 10.
+          description: Show results for how many minutes? Default is 10
           schema:
             type: integer
             default: 10
         - name: results
           in: query
-          description: Max. number of results.
+          description: Max. number of results
           schema:
             type: integer
         - name: linesOfStops
@@ -193,35 +193,33 @@ paths:
   /journeys:
     get:
       summary: Finds journeys from A to B.
-      description: Find journeys from A (`from`) to B (`to`).
+      description: Find journeys from A (`from`) to B (`to`)
       parameters:
         - name: departure
           in: query
-          description: >-
-            Compute journeys departing at this date/time. Mutually exclusive with `arrival`.
+          description: departure date/time. Mutually exclusive with `arrival`.
           schema:
             type: string
             format: date-time
         - name: arrival
           in: query
-          description: >-
-            Compute journeys arriving at this date/time. Mutually exclusive with `departure`.
+          description: arrival date/time. Mutually exclusive with `departure`.
           schema:
             type: string
             format: date-time
         - name: earlierThan
           in: query
-          description: Compute journeys "before" an `ealierRef`.
+          description: Compute journeys "before" an `ealierRef`
           schema:
             type: string
         - name: laterThan
           in: query
-          description: Compute journeys "after" an `laterRef`.
+          description: Compute journeys "after" an `laterRef`
           schema:
             type: string
         - name: results
           in: query
-          description: Max. number of journeys.
+          description: Max. number of journeys
           schema:
             type: integer
             default: 3
@@ -232,12 +230,12 @@ paths:
             default: false
         - name: transfers
           in: query
-          description: Maximum number of transfers.
+          description: Maximum number of transfers
           schema:
             type: integer
         - name: transferTime
           in: query
-          description: Minimum time in minutes for a single transfer.
+          description: Minimum time in minutes for a single transfer
           schema:
             type: integer
             default: 0
@@ -252,13 +250,13 @@ paths:
               - complete
         - name: bike
           in: query
-          description: Compute only bike-friendly journeys? Default is 'false'
+          description: bike-friendly? Default is 'false'
           schema:
             type: boolean
             default: false
         - name: startWithWalking
           in: query
-          description: Consider walking to nearby stations at the beginning of a journey?
+          description: Can you start by walking?
           schema:
             type: boolean
             default: true
@@ -274,25 +272,25 @@ paths:
               - fast
         - name: tickets
           in: query
-          description: Return information about available tickets? Defaults to 'false'
+          description: Return info about tickets? Defaults to 'false'
           schema:
             type: boolean
             default: false
         - name: polylines
           in: query
-          description: Fetch & parse a shape for each journey leg? Defaults to 'false'
+          description: Fetch a shape for each journey leg? Defaults to 'false'
           schema:
             type: boolean
             default: false
         - name: subStops
           in: query
-          description: Parse & return sub-stops of stations?
+          description: return sub-stops of stations?
           schema:
             type: boolean
             default: true
         - name: entrances
           in: query
-          description: Parse & return entrances of stops/stations?
+          description: return entrances of stops/stations?
           schema:
             type: boolean
             default: true
@@ -303,7 +301,7 @@ paths:
             default: true
         - name: scheduledDays
           in: query
-          description: Parse & return dates each journey is valid on?
+          description: return dates for each journey?
           schema:
             type: boolean
             default: false
@@ -408,19 +406,19 @@ paths:
       parameters:
         - name: query
           in: query
-          description: The term to search for.
+          description: search term
           required: true
           schema:
             type: string
         - name: fuzzy
           in: query
-          description: Find more than exact matches?
+          description: use fuzzy matching?
           schema:
             type: boolean
             default: true
         - name: results
           in: query
-          description: How many stations shall be shown? Defaults to 10.
+          description: How many stations to return? Defaults to 10
           schema:
             type: integer
             default: 10
@@ -480,19 +478,19 @@ paths:
             type: string
         - name: limit
           in: query
-          description: If `query` is used:* Return at most `n` stations. Defaults to 3.
+          description: Defaults to 3
           schema:
             type: integer
             default: 3
         - name: fuzzy
           in: query
-          description: If `query` is used:* Find stations despite typos. Defaults to 'false'
+          description: Find stations despite typos. Defaults to 'false'
           schema:
             type: boolean
             default: false
         - name: completion
           in: query
-          description: "If `query` is used: Autocomplete stations."
+          description: If `query` is used, Autocomplete stations
           schema:
             type: boolean
             default: true
@@ -509,11 +507,10 @@ paths:
   /stations/{id}:
     get:
       summary: Returns a stop/station from `vbb-stations`.
-      description: Returns a stop/station by its id
+      description: Returns a station by its id
       parameters:
         - name: id
           in: path
-          description: Stop/station ID.
           required: true
           schema:
             type: string
@@ -578,7 +575,7 @@ paths:
   /lines/{id}:
     get:
       summary: Returns a line from `vbb-lines`.
-      description: Returns a line by its id.
+      description: Returns a line by id
       parameters:
         - name: id
           in: path
