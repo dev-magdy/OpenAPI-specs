@@ -3,6 +3,8 @@ info:
   title: Cite Bikes API
   description: |
     Information about bike sharing networks.
+
+    You can use the `fields` parameter to choose the properties to return in the response
   version: 2.0.0
 servers:
   - url: http://api.citybik.es/v2
@@ -38,7 +40,8 @@ paths:
       operationId: getNetwork
       parameters:
         - name: network_id
-          in: query
+          in: path
+          required: true
           schema:
             type: string
         - name: fields
