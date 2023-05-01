@@ -9,7 +9,7 @@ paths:
   /digimon:
     get:
       summary: All digimons
-      description: Returns an array of all Digimon in our database.
+      description: Returns an array of all Digimons in our database.
       responses:
         '200':
           description: Success
@@ -41,7 +41,7 @@ paths:
   /digimon/level/{level}:
     get:
       summary: Search by level
-      description: Returns an array of Digimon based on their level.
+      description: Returns an array of Digimons based on their level.
       parameters:
         - name: level
           in: path
