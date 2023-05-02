@@ -92,6 +92,12 @@ paths:
               - askstories
               - showstories
               - jobstories
+        - name: print
+          in: query
+          schema:
+            type: string
+            enum:
+              - pretty
       responses:
         '200':
           description: Success
@@ -119,6 +125,12 @@ paths:
               - topstories
               - newstories
               - beststories
+        - name: print
+          in: query
+          schema:
+            type: string
+            enum:
+              - pretty
       responses:
         '200':
           description: Success
@@ -136,6 +148,13 @@ paths:
       summary: Updates
       description: Get the item and profile changes
       operationId: getUpdates
+      parameters:
+        - name: print
+          in: query
+          schema:
+            type: string
+            enum:
+              - pretty
       responses:
         '200':
           description: Success
