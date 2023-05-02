@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Hello, Salut API
   description: |
-    Say hello to your anyone in their native language!
+    Say hello to anyone in their native language!
 
   version: 1.0.1
 servers:
