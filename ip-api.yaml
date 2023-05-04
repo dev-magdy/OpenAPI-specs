@@ -80,20 +80,10 @@ paths:
               - country_population
               - asn
               - org
-        - name: accept
-          in: header
-          required: false
-          schema:
-            type: string
-            enum:
-              - text/plain
       responses:
         '200':
           description: Success
           content:
-            application/json:
-              schema:
-                type: string
             text/plain:
               schema:
                 type: string
