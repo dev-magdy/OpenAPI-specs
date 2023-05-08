@@ -8,7 +8,7 @@
   "info": {
     "title": "Raider.IO Developer API",
     "version": "0.62.4",
-    "description": "Raider.IO provides detailed character and guild rankings for Raiding and Mythic+ content.",
+    "description": "Raider.IO provides detailed character and guild rankings for Raiding and Mythic+ content. \n\n ### Common parameters:\n- The `realm` parameter can be in slug or title format, e.g. \"Altar of Storms\" or \"altar-of-storms\".\n- The `expansion_id` parameter takes these one of: 9 = Dragonflight, 8 = Shadowlands, 7 = Battle for Azeroth, 6 = Legion.\n- The `raid` parameter can be the raid's full name (\"Tomb of Sargeras\") or its name in slug form: \"tomb-of-sargeras\".",
     "contact": {
       "name": "Raider.IO",
       "email": "hello@raider.io",
@@ -72,7 +72,6 @@
           },
           {
             "type": "string",
-            "description": "Name of realm that character is on. This can be in slug or title format, e.g. \"Altar of Storms\" or \"altar-of-storms\"",
             "x-convert": {
               "trim": true
             },
@@ -143,7 +142,6 @@
           },
           {
             "type": "string",
-            "description": "Name of realm that guild is on. This can be in slug or title format, e.g. \"Altar of Storms\" or \"altar-of-storms\"",
             "x-convert": {
               "trim": true
             },
@@ -164,7 +162,6 @@
           },
           {
             "type": "string",
-            "description": "Raid slug to look up",
             "enum": [
               "aberrus-the-shadowed-crucible",
               "vault-of-the-incarnates",
@@ -257,7 +254,6 @@
           },
           {
             "type": "string",
-            "description": "Name of realm that guild is on. This can be in slug or title format, e.g. \"Altar of Storms\" or \"altar-of-storms\"",
             "x-convert": {
               "trim": true
             },
@@ -429,7 +425,7 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Name of the season to retrieve (season-df-1, etc.). Defaults to current season.",
+            "description": "Name of the season to retrieve (season-df-1, etc.).",
             "x-convert": {
               "trim": true
             },
@@ -544,7 +540,7 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Name of the season to retrieve (season-bfa-1, etc.). Defaults to current season.",
+            "description": "Name of the season to retrieve (season-bfa-1, etc.).",
             "x-convert": {
               "trim": true
             },
@@ -619,7 +615,6 @@
         "parameters": [
           {
             "type": "integer",
-            "description": "Expansion ID to get slugs for. 9 = Dragonflight, 8 = Shadowlands, 7 = Battle for Azeroth, 6 = Legion",
             "name": "expansion_id",
             "in": "query",
             "required": true
@@ -645,7 +640,6 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Raid to look up. This can be the raid's full name (\"Tomb of Sargeras\") or its name in slug form: \"tomb-of-sargeras\"",
             "enum": [
               "aberrus-the-shadowed-crucible",
               "vault-of-the-incarnates",
@@ -740,7 +734,6 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Raid to look up. This can be the raid's full name (\"Tomb of Sargeras\") or its name in slug form: \"tomb-of-sargeras\"",
             "enum": [
               "aberrus-the-shadowed-crucible",
               "vault-of-the-incarnates",
@@ -821,7 +814,6 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Raid to look up. This can be the raid's full name (\"Tomb of Sargeras\") or its name in slug form: \"tomb-of-sargeras\"",
             "enum": [
               "aberrus-the-shadowed-crucible",
               "vault-of-the-incarnates",
@@ -902,7 +894,6 @@
         "parameters": [
           {
             "type": "string",
-            "description": "Raid to look up. This can be the raid's full name (\"Tomb of Sargeras\") or its name in slug form: \"tomb-of-sargeras\"",
             "enum": [
               "aberrus-the-shadowed-crucible",
               "vault-of-the-incarnates",
@@ -1007,7 +998,6 @@
         "parameters": [
           {
             "type": "integer",
-            "description": "Expansion ID to get slugs for. 9 = Dragonflight, 8 = Shadowlands, 7 = Battle for Azeroth, 6 = Legion",
             "name": "expansion_id",
             "in": "query",
             "required": true
