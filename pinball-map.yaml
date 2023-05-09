@@ -1,13 +1,7 @@
 openapi: 3.0.1
 info:
   title: Pinball Map API
-  description: An API to fetch data about pinball machine locations, operators, and scores. 
-
-    For pagination the following parameters are used - 
-      
-      1. Skip - This signifies the offset to be used
-      
-      2. Take - This signifies the number of items to be fetched
+  description: An API to fetch data about pinball machine locations, operators, and scores.
   version: v1
 servers:
   - url: https://pinballmap.com/api/v1
@@ -114,7 +108,7 @@ paths:
         - Location machine xrefs
       summary: Top N machines
       description: Show the top N machines
-      operationId: GetBillTypes
+      operationId: getTopN
       parameters:
         - name: n
           in: query
@@ -168,62 +162,50 @@ paths:
             type: string
         - name: by_location_name
           in: query
-          description: Name of location to search for
           schema:
             type: string
         - name: by_location_id
           in: query
-          description: Location ID to search for
           schema:
             type: integer
         - name: by_machine_id
           in: query
-          description: Machine ID to find in locations
           schema:
             type: integer
         - name: by_ipdb_id
           in: query
-          description: IPDB ID to find in locations
           schema:
             type: integer
         - name: by_opdb_id
           in: query
-          description: OPDB ID to find in locations
           schema:
             type: integer
         - name: by_machine_name
           in: query
-          description: Find machine name in locations
           schema:
             type: string
         - name: by_city_id
           in: query
-          description: City to search for
           schema:
             type: string
         - name: by_state_id
           in: query
-          description: State to search for
           schema:
             type: string
         - name: by_machine_group_id
           in: query
-          description: Machine Group to search for
           schema:
             type: string
         - name: by_zone_id
           in: query
-          description: Zone ID to search by
           schema:
             type: integer
         - name: by_operator_id
           in: query
-          description: Operator ID to search by
           schema:
             type: integer
         - name: by_type_id
           in: query
-          description: Location type ID to search by
           schema:
             type: integer
         - name: by_at_least_n_machines_type
@@ -280,17 +262,14 @@ paths:
             type: string
         - name: by_type_id
           in: query
-          description: Location type ID to search by
           schema:
             type: integer
         - name: by_machine_id
           in: query
-          description: Machine ID to find in locations
           schema:
             type: integer
         - name: by_operator_id
           in: query
-          description: Operator ID to search by
           schema:
             type: integer
         - name: by_at_least_n_machines_type
@@ -357,17 +336,14 @@ paths:
             type: string
         - name: by_type_id
           in: query
-          description: Location type ID to search by
           schema:
             type: integer
         - name: by_machine_id
           in: query
-          description: Machine ID to find in locations
           schema:
             type: integer
         - name: by_operator_id
           in: query
-          description: Operator ID to search by
           schema:
             type: integer
         - name: by_at_least_n_machines_type
@@ -409,7 +385,7 @@ paths:
             type: integer
         - name: no_details
           in: query
-          description: Omit lmx/condition data from pull
+          description: Omit lmx/condition data
           schema:
             type: integer
       responses:
@@ -628,29 +604,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Operator'
-  /operators/{id}.json:
-    get:
-      tags:
-        - Operators
-      summary: Single operator
-      description: Fetch information for a single operator
-      operationId: getOperatorById
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  operator:
-                    $ref: '#/components/schemas/Operator'
   /regions/location_and_machine_counts.json:
     get:
       tags:
