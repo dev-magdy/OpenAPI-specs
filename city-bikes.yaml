@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: Cite Bikes API
+  title: City Bikes API
   description: |
     Information about bike sharing networks.
 
     You can use the `fields` parameter to choose the properties to return in the response
-  version: 2.0.0
+  version: 2.0.1
 servers:
   - url: http://api.citybik.es/v2
 paths:
@@ -16,7 +16,10 @@ paths:
       operationId: listNetworks
       parameters:
         - name: fields
+          description: "Options are: company, location, name, id, href."
           in: query
+          style: form
+          explode: false
           schema:
             type: array
             items:
@@ -45,7 +48,10 @@ paths:
           schema:
             type: string
         - name: fields
+          description: "Options are: company, location, name, id, href, stations."
           in: query
+          style: form
+          explode: false
           schema:
             type: array
             items:
@@ -136,5 +142,5 @@ components:
           example: 1 Slough Train Station
         timestamp:
           type: string
-          definition: Last time data was available
+          description: Last time data was available
           example: 2022-09-06T06:03:13.967000Z
