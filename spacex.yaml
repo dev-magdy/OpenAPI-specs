@@ -171,7 +171,7 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/landpads{id}:
+  /v4/landpads/{id}:
     get:
       tags:
       - Landpads
@@ -207,7 +207,7 @@ paths:
       responses:
         '200':
           description: ''
-  /v4/launches{id}:
+  /v4/launches/{id}:
     get:
       tags:
       - Launches
