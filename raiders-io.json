@@ -1,0 +1,2137 @@
+{
+  "swagger": "2.0",
+  "host": "raider.io",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "info": {
+    "title": "Raider.IO Developer API",
+    "version": "0.62.4",
+    "description": "Raider.IO provides detailed character and guild rankings for Raiding and Mythic+ content. \n\n ### Common parameters:\n- The `realm` parameter can be in slug or title format, e.g. \"Altar of Storms\" or \"altar-of-storms\".\n- The `expansion_id` parameter takes these one of: 9 = Dragonflight, 8 = Shadowlands, 7 = Battle for Azeroth, 6 = Legion.\n- The `raid` parameter can be the raid's full name (\"Tomb of Sargeras\") or its name in slug form: \"tomb-of-sargeras\".",
+    "contact": {
+      "name": "Raider.IO",
+      "email": "hello@raider.io",
+      "url": "https://support.raider.io"
+    }
+  },
+  "tags": [
+    {
+      "name": "mythic_plus",
+      "description": "Mythic Plus APIs"
+    },
+    {
+      "name": "character",
+      "description": "Character APIs"
+    },
+    {
+      "name": "guild",
+      "description": "Guild APIs"
+    },
+    {
+      "name": "raiding",
+      "description": "Raiding APIs"
+    }
+  ],
+  "paths": {
+    "/api/v1/periods": {
+      "get": {
+        "summary": "Retrieve the current, previous, and next period ids and date ranges",
+        "operationId": "getApiV1Periods",
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/characters/profile": {
+      "get": {
+        "summary": "Retrieve information about a character.",
+        "operationId": "getApiV1CharactersProfile",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "realm",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of the character to look up. This is not case sensitive.",
+            "pattern": "^[^\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\?\\>\\<\\;\\:]+$",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "name",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of fields to retrieve for this character.\n\nGeneral fields:\n- gear\n- talents\n- talents:categorized\n- guild\n- covenant\n\nRaiding fields:\n- raid_progression\n\nMythic Plus fields:\n- mythic_plus_scores_by_season\n- mythic_plus_ranks\n- mythic_plus_recent_runs\n- mythic_plus_best_runs\n- mythic_plus_alternate_runs\n- mythic_plus_highest_level_runs\n- mythic_plus_weekly_highest_level_runs\n- mythic_plus_previous_weekly_highest_level_runs\n- previous_mythic_plus_ranks\n\nOther fields:\n- raid_achievement_meta\n- raid_achievement_curve",
+            "default": "",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "fields",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "character"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Model2"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/guilds/boss-kill": {
+      "get": {
+        "summary": "Retrieve information about a guild boss kill.",
+        "operationId": "getApiV1GuildsBosskill",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "realm",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of the guild to look up. This is not case sensitive.",
+            "pattern": "^[^\\!\\@\\#\\$\\%\\^\\&\\*\\?\\>\\<\\;\\:]+$",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "guild",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "aberrus-the-shadowed-crucible",
+              "vault-of-the-incarnates",
+              "fated-sepulcher-of-the-first-ones",
+              "fated-sanctum-of-domination",
+              "fated-castle-nathria",
+              "sepulcher-of-the-first-ones",
+              "sanctum-of-domination",
+              "castle-nathria",
+              "nyalotha-the-waking-city",
+              "the-eternal-palace",
+              "crucible-of-storms",
+              "battle-of-dazaralor",
+              "uldir",
+              "antorus-the-burning-throne",
+              "tomb-of-sargeras",
+              "the-nighthold",
+              "trial-of-valor",
+              "the-emerald-nightmare"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "raid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Boss slug to look up",
+            "pattern": "^[\\w-]+$",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "boss",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Raid difficulty to look up",
+            "enum": [
+              "mythic",
+              "heroic",
+              "normal"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "difficulty",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "guild"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/guilds/profile": {
+      "get": {
+        "summary": "Retrieve information about a guild.",
+        "operationId": "getApiV1GuildsProfile",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "realm",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of the guild to look up. This is not case sensitive.",
+            "pattern": "^[^\\!\\@\\#\\$\\%\\^\\&\\*\\?\\>\\<\\;\\:]+$",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "name",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "array",
+            "items": [
+              {"type": "string"}
+            ],
+            "description": "List of fields to retrieve for this guild.\n\nSupported values:\n- raid_progression\n- raid_encounters:RAID_SLUG:DIFFICULTY\n- raid_rankings\n- members",
+            "default": "",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "fields",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "guild"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Model3"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/affixes": {
+      "get": {
+        "summary": "Retrieve the affixes for a specific region, including the latest run seen with this affix",
+        "operationId": "getApiV1MythicplusAffixes",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Language to return name and description of affixes in.",
+            "default": "en",
+            "enum": [
+              "en",
+              "ru",
+              "ko",
+              "cn",
+              "pt",
+              "it",
+              "fr",
+              "es",
+              "de",
+              "tw"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "locale",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Model5"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/leaderboard-capacity": {
+      "get": {
+        "summary": "Retrieve the leaderboard capacity for a region including lowest level and time to qualify",
+        "operationId": "getApiV1MythicplusLeaderboardcapacity",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Retrieve the capacity info for the current or previous week.",
+            "default": "current",
+            "enum": [
+              "current",
+              "previous"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "scope",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "realm",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/run-details": {
+      "get": {
+        "summary": "Retrieve details for a specific Mythic+ run",
+        "operationId": "getApiV1MythicplusRundetails",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the season to retrieve (season-df-1, etc.).",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "season",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "ID of the run that you want to get details for",
+            "name": "id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/runs": {
+      "get": {
+        "summary": "Retrieve information about the top runs that match the given criteria",
+        "operationId": "getApiV1MythicplusRuns",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of season to request data for",
+            "default": "season-7.3.0",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "season",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "string",
+            "default": "world",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn",
+              "world"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "string",
+            "description": "Name of dungeon to filter by. This can be the dungeon's full name \"Eye of Azshara\" or its slug \"eye-of-azshara\". Use special keyword \"all\" to get the stats across all dungeons.",
+            "default": "all",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "dungeon",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "string",
+            "description": "Name of the affixes to restrict the results to. This will support affix in slug form: \"bolstering-explosive-tyrannical\". Additionally, you can supply just \"tyrannical\" or \"fortified\" to get the results for any affix combo with that as the final affix. Use the special keyword \"current\" to return the result for the current week's affixes, or \"all\" to retrieve results for all affixes.",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "affixes",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100,
+            "name": "page",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/score-tiers": {
+      "get": {
+        "summary": "Retrieve the colors used for score tiers in the given season.",
+        "operationId": "getApiV1MythicplusScoretiers",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the season to retrieve (season-bfa-1, etc.).",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "season",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/season-cutoffs": {
+      "get": {
+        "summary": "Retrieve the Mythic+ Season cutoffs for a region",
+        "operationId": "getApiV1MythicplusSeasoncutoffs",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Season to retrieve cutoffs for",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "season",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Region to receive cutoffs for",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/mythic-plus/static-data": {
+      "get": {
+        "summary": "Retrieve mythic plus season and dungeon static data for a specific expansion (slugs, names, etc.)",
+        "operationId": "getApiV1MythicplusStaticdata",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "expansion_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "mythic_plus"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/raiding/boss-rankings": {
+      "get": {
+        "summary": "Retrieve the boss rankings for a given raid and region",
+        "operationId": "getApiV1RaidingBossrankings",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "aberrus-the-shadowed-crucible",
+              "vault-of-the-incarnates",
+              "fated-sepulcher-of-the-first-ones",
+              "fated-sanctum-of-domination",
+              "fated-castle-nathria",
+              "sepulcher-of-the-first-ones",
+              "sanctum-of-domination",
+              "castle-nathria",
+              "nyalotha-the-waking-city",
+              "the-eternal-palace",
+              "crucible-of-storms",
+              "battle-of-dazaralor",
+              "uldir",
+              "antorus-the-burning-throne",
+              "tomb-of-sargeras",
+              "the-nighthold",
+              "trial-of-valor",
+              "the-emerald-nightmare"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "raid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Slug of boss to look up",
+            "pattern": "^[\\w-]+$",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "boss",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "mythic",
+              "heroic",
+              "normal"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "difficulty",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of region to restrict progress to. Can be a primary region: world, us, eu, kr, tw. Or a subregion: english, french, german, italian, oceanic, russian, spanish, eu-english, eu-portuguese, eu-spanish, us-english, brazil, us-spanish, us-central, us-eastern, us-mountain, us-pacific",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of realm to restrict to. Prefix with `connected-` to retrieve rankings from the connected realm. Requires that region be a standard region: us, eu, kr, tw.",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "realm",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "raiding"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/raiding/hall-of-fame": {
+      "get": {
+        "summary": "Retrieve the hall of fame for a given raid",
+        "operationId": "getApiV1RaidingHalloffame",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "aberrus-the-shadowed-crucible",
+              "vault-of-the-incarnates",
+              "fated-sepulcher-of-the-first-ones",
+              "fated-sanctum-of-domination",
+              "fated-castle-nathria",
+              "sepulcher-of-the-first-ones",
+              "sanctum-of-domination",
+              "castle-nathria",
+              "nyalotha-the-waking-city",
+              "the-eternal-palace",
+              "crucible-of-storms",
+              "battle-of-dazaralor",
+              "uldir",
+              "antorus-the-burning-throne",
+              "tomb-of-sargeras",
+              "the-nighthold",
+              "trial-of-valor",
+              "the-emerald-nightmare"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "raid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "mythic",
+              "heroic",
+              "normal"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "difficulty",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "raiding"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/raiding/progression": {
+      "get": {
+        "summary": "Retrieve details of raiding progression for a raid",
+        "operationId": "getApiV1RaidingProgression",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "aberrus-the-shadowed-crucible",
+              "vault-of-the-incarnates",
+              "fated-sepulcher-of-the-first-ones",
+              "fated-sanctum-of-domination",
+              "fated-castle-nathria",
+              "sepulcher-of-the-first-ones",
+              "sanctum-of-domination",
+              "castle-nathria",
+              "nyalotha-the-waking-city",
+              "the-eternal-palace",
+              "crucible-of-storms",
+              "battle-of-dazaralor",
+              "uldir",
+              "antorus-the-burning-throne",
+              "tomb-of-sargeras",
+              "the-nighthold",
+              "trial-of-valor",
+              "the-emerald-nightmare"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "raid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "mythic",
+              "heroic",
+              "normal"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "difficulty",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "us",
+              "eu",
+              "tw",
+              "kr",
+              "cn"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "region",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "raiding"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Model8"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/raiding/raid-rankings": {
+      "get": {
+        "summary": "Retrieve the raid rankings for a given raid and region",
+        "operationId": "getApiV1RaidingRaidrankings",
+        "parameters": [
+          {
+            "type": "string",
+            "enum": [
+              "aberrus-the-shadowed-crucible",
+              "vault-of-the-incarnates",
+              "fated-sepulcher-of-the-first-ones",
+              "fated-sanctum-of-domination",
+              "fated-castle-nathria",
+              "sepulcher-of-the-first-ones",
+              "sanctum-of-domination",
+              "castle-nathria",
+              "nyalotha-the-waking-city",
+              "the-eternal-palace",
+              "crucible-of-storms",
+              "battle-of-dazaralor",
+              "uldir",
+              "antorus-the-burning-throne",
+              "tomb-of-sargeras",
+              "the-nighthold",
+              "trial-of-valor",
+              "the-emerald-nightmare"
+            ],
+            "x-convert": {
+              "trim": true
+            },
+            "name": "raid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "mythic",
+              "heroic",
+              "normal"
+            ],
+            "x-convert": {
+              "case": "lower",
+              "trim": true
+            },
+            "name": "difficulty",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of region to restrict progress to. Can be a primary region: world, us, eu, kr, tw. Or a subregion: english, french, german, italian, oceanic, russian, spanish, eu-english, eu-portuguese, eu-spanish, us-english, brazil, us-spanish, us-central, us-eastern, us-mountain, us-pacific",
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Name of realm to restrict to. Prefix with `connected-` to retrieve rankings from the connected realm. Requires that region be a standard region: us, eu, kr, tw.",
+            "name": "realm",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "string",
+            "description": "Guild IDs of guilds to restrict the results to. Allows filtering to up to 10 different guilds.",
+            "x-convert": {
+              "trim": true
+            },
+            "name": "guilds",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "integer",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 200,
+            "name": "limit",
+            "in": "query",
+            "required": false
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "name": "page",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "tags": [
+          "raiding"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/api/v1/raiding/static-data": {
+      "get": {
+        "summary": "Retrieve raid and boss static data for a specific expansion (slugs, names, etc.)",
+        "operationId": "getApiV1RaidingStaticdata",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "expansion_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "tags": [
+          "raiding"
+        ],
+        "responses": {
+          "default": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "gear": {
+      "type": "object",
+      "x-meta": {
+        "className": "CharacterGearSchema"
+      },
+      "properties": {
+        "item_level_equipped": {
+          "type": "integer",
+          "description": "Character's equipped item level"
+        },
+        "item_level_total": {
+          "type": "integer",
+          "description": "Character's total item level (in bags)"
+        },
+        "artifact_traits": {
+          "type": "number",
+          "description": "Character's artifact traits on equipped artifact weapon"
+        }
+      },
+      "required": [
+        "item_level_equipped",
+        "item_level_total",
+        "artifact_traits"
+      ]
+    },
+    "aberrus-the-shadowed-crucible": {
+      "type": "object",
+      "x-meta": {
+        "className": "RaidProgressionSchema"
+      },
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Human readable summary of progression:",
+          "example": "4/10 H"
+        },
+        "total_bosses": {
+          "type": "integer",
+          "description": "Number of bosses in instance",
+          "example": 10,
+          "minimum": 1
+        },
+        "normal_bosses_killed": {
+          "type": "integer",
+          "description": "Number of normal mode bosses killed",
+          "minimum": 0
+        },
+        "heroic_bosses_killed": {
+          "type": "integer",
+          "description": "Number of heroic mode bosses killed",
+          "example": 4,
+          "minimum": 0
+        },
+        "mythic_bosses_killed": {
+          "type": "integer",
+          "description": "Number of mythic mode bosses killed",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "summary",
+        "total_bosses",
+        "normal_bosses_killed",
+        "heroic_bosses_killed",
+        "mythic_bosses_killed"
+      ]
+    },
+    "raid_progression": {
+      "type": "object",
+      "x-meta": {
+        "className": "OverallRaidProgressionSchema"
+      },
+      "properties": {
+        "aberrus-the-shadowed-crucible": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "vault-of-the-incarnates": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "fated-sepulcher-of-the-first-ones": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "fated-sanctum-of-domination": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "fated-castle-nathria": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "sepulcher-of-the-first-ones": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "sanctum-of-domination": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "castle-nathria": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "nyalotha-the-waking-city": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "the-eternal-palace": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "crucible-of-storms": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "battle-of-dazaralor": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "uldir": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "antorus-the-burning-throne": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "tomb-of-sargeras": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "the-nighthold": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "trial-of-valor": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        },
+        "the-emerald-nightmare": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible"
+        }
+      }
+    },
+    "overall": {
+      "type": "object",
+      "description": "Rank across all classes/roles",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "tank": {
+      "type": "object",
+      "description": "Rank across tanks from any classes",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "healer": {
+      "type": "object",
+      "description": "Rank across healers from any classes",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "dps": {
+      "type": "object",
+      "description": "Rank across DPS from any classes",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "class": {
+      "type": "object",
+      "description": "Rank across all roles from player's class",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "class_tank": {
+      "type": "object",
+      "description": "Rank across tanks from player's class",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "class_healer": {
+      "type": "object",
+      "description": "Rank across healers from player's class",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "class_dps": {
+      "type": "object",
+      "description": "Rank across DPS from player's class",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "mythic_plus_ranks": {
+      "type": "object",
+      "description": "Character's current season Mythic+ Ranks across all leaderboards and roles",
+      "x-meta": {
+        "className": "MythicPlusRoleRanksSchema"
+      },
+      "properties": {
+        "overall": {
+          "$ref": "#/definitions/overall"
+        },
+        "tank": {
+          "$ref": "#/definitions/tank"
+        },
+        "healer": {
+          "$ref": "#/definitions/healer"
+        },
+        "dps": {
+          "$ref": "#/definitions/dps"
+        },
+        "class": {
+          "$ref": "#/definitions/class"
+        },
+        "class_tank": {
+          "$ref": "#/definitions/class_tank"
+        },
+        "class_healer": {
+          "$ref": "#/definitions/class_healer"
+        },
+        "class_dps": {
+          "$ref": "#/definitions/class_dps"
+        }
+      },
+      "required": [
+        "overall",
+        "tank",
+        "healer",
+        "dps",
+        "class",
+        "class_tank",
+        "class_healer",
+        "class_dps"
+      ]
+    },
+    "mythic_plus_scores": {
+      "type": "object",
+      "description": "Character's current season Mythic+ Scores across all roles",
+      "x-meta": {
+        "className": "MythicPlusScoresSchema"
+      },
+      "properties": {
+        "all": {
+          "type": "number",
+          "description": "Player's best score across all possible roles"
+        },
+        "dps": {
+          "type": "number",
+          "description": "Player's score from DPS roles"
+        },
+        "healer": {
+          "type": "number",
+          "description": "Player's score from DPS roles"
+        },
+        "tank": {
+          "type": "number",
+          "description": "Player's score from DPS roles"
+        }
+      },
+      "required": [
+        "all",
+        "dps",
+        "healer",
+        "tank"
+      ]
+    },
+    "previous_mythic_plus_ranks": {
+      "type": "object",
+      "description": "Character's previous season Mythic+ Ranks across all leaderboards and roles",
+      "x-meta": {
+        "className": "MythicPlusRoleRanksSchema"
+      },
+      "properties": {
+        "overall": {
+          "$ref": "#/definitions/overall"
+        },
+        "tank": {
+          "$ref": "#/definitions/tank"
+        },
+        "healer": {
+          "$ref": "#/definitions/healer"
+        },
+        "dps": {
+          "$ref": "#/definitions/dps"
+        },
+        "class": {
+          "$ref": "#/definitions/class"
+        },
+        "class_tank": {
+          "$ref": "#/definitions/class_tank"
+        },
+        "class_healer": {
+          "$ref": "#/definitions/class_healer"
+        },
+        "class_dps": {
+          "$ref": "#/definitions/class_dps"
+        }
+      }
+    },
+    "previous_mythic_plus_scores": {
+      "type": "object",
+      "description": "Character's previous season Mythic+ Scores across all roles",
+      "x-meta": {
+        "className": "MythicPlusScoresSchema"
+      },
+      "properties": {
+        "all": {
+          "type": "number",
+          "description": "Player's best score across all possible roles"
+        },
+        "dps": {
+          "type": "number",
+          "description": "Player's score from DPS roles"
+        },
+        "healer": {
+          "type": "number",
+          "description": "Player's score from DPS roles"
+        },
+        "tank": {
+          "type": "number",
+          "description": "Player's score from DPS roles"
+        }
+      },
+      "required": [
+        "all",
+        "dps",
+        "healer",
+        "tank"
+      ]
+    },
+    "Model1": {
+      "type": "object",
+      "x-meta": {
+        "className": "KeystoneRun"
+      },
+      "properties": {
+        "dungeon": {
+          "type": "string",
+          "description": "Friendly name of Dungeon",
+          "example": "Court of Stars"
+        },
+        "short_name": {
+          "type": "string",
+          "description": "Shortened or abbreviated name of Dungeon",
+          "example": "COS"
+        },
+        "mythic_level": {
+          "type": "integer",
+          "description": "Mythic+ Level of the run",
+          "example": 11,
+          "minimum": 2
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date",
+          "description": "When this run was completed",
+          "example": "2017-04-16T20:19:04.000Z"
+        },
+        "clear_time_ms": {
+          "type": "integer",
+          "description": "How long it took to complete the dungeon, in milliseconds",
+          "example": 1273763,
+          "minimum": 1
+        },
+        "num_keystone_upgrades": {
+          "type": "integer",
+          "description": "How many times the keystone used for this dungeon would have been upgraded after completion",
+          "example": 2,
+          "minimum": 0
+        },
+        "score": {
+          "type": "number",
+          "description": "How many points this run was worth",
+          "example": 114.3
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to this specific run to view roster details",
+          "example": "https://raider.io/mythic-plus-runs/263-11-court-of-stars",
+          "x-format": {
+            "uri": true
+          }
+        }
+      },
+      "required": [
+        "dungeon",
+        "short_name",
+        "mythic_level",
+        "completed_at",
+        "clear_time_ms",
+        "num_keystone_upgrades",
+        "score",
+        "url"
+      ]
+    },
+    "mythic_plus_recent_runs": {
+      "type": "array",
+      "description": "Character's most recent Mythic+ runs from current season",
+      "items": {
+        "$ref": "#/definitions/Model1"
+      }
+    },
+    "mythic_plus_best_runs": {
+      "type": "array",
+      "description": "Character's highest scoring Mythic+ runs from current season",
+      "items": {
+        "$ref": "#/definitions/Model1"
+      }
+    },
+    "mythic_plus_alternate_runs": {
+      "type": "array",
+      "description": "Character's alternate highest scoring Mythic+ runs from current season",
+      "items": {
+        "$ref": "#/definitions/Model1"
+      }
+    },
+    "Model2": {
+      "type": "object",
+      "x-meta": {
+        "className": "ViewCharacterProfileResponse"
+      },
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of character",
+          "example": "Ulsoga",
+          "x-convert": {
+            "trim": true
+          }
+        },
+        "race": {
+          "type": "string",
+          "description": "Name of character's race",
+          "example": "Orc"
+        },
+        "class": {
+          "type": "string",
+          "description": "Name of character's class",
+          "example": "Warlock"
+        },
+        "active_spec_name": {
+          "type": "string",
+          "description": "Name of character's active spec",
+          "example": "Affliction"
+        },
+        "active_spec_role": {
+          "type": "string",
+          "description": "Name of the role for character's active spec",
+          "example": "DPS"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Character's gender",
+          "example": "female"
+        },
+        "faction": {
+          "type": "string",
+          "description": "Character's faction",
+          "example": "horde",
+          "enum": [
+            "horde",
+            "alliance"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "description": "Region character belongs to",
+          "example": "us",
+          "enum": [
+            "us",
+            "eu",
+            "tw",
+            "kr",
+            "cn"
+          ],
+          "x-convert": {
+            "case": "lower",
+            "trim": true
+          }
+        },
+        "realm": {
+          "type": "string",
+          "description": "Realm character resides on",
+          "example": "Skullcrusher"
+        },
+        "profile_url": {
+          "type": "string",
+          "description": "URL for Character's profile on Raider.IO",
+          "example": "https://raider.io/characters/us/skullcrusher/Ulsoga",
+          "x-format": {
+            "uri": true
+          }
+        },
+        "gear": {
+          "$ref": "#/definitions/gear"
+        },
+        "raid_progression": {
+          "$ref": "#/definitions/raid_progression"
+        },
+        "mythic_plus_ranks": {
+          "$ref": "#/definitions/mythic_plus_ranks"
+        },
+        "mythic_plus_scores": {
+          "$ref": "#/definitions/mythic_plus_scores"
+        },
+        "previous_mythic_plus_ranks": {
+          "$ref": "#/definitions/previous_mythic_plus_ranks"
+        },
+        "previous_mythic_plus_scores": {
+          "$ref": "#/definitions/previous_mythic_plus_scores"
+        },
+        "mythic_plus_recent_runs": {
+          "$ref": "#/definitions/mythic_plus_recent_runs"
+        },
+        "mythic_plus_best_runs": {
+          "$ref": "#/definitions/mythic_plus_best_runs"
+        },
+        "mythic_plus_alternate_runs": {
+          "$ref": "#/definitions/mythic_plus_alternate_runs"
+        }
+      },
+      "required": [
+        "name",
+        "race",
+        "class",
+        "active_spec_name",
+        "active_spec_role",
+        "gender",
+        "faction",
+        "region",
+        "realm",
+        "profile_url"
+      ]
+    },
+    "normal": {
+      "type": "object",
+      "x-meta": {
+        "className": "RanksSchema"
+      },
+      "properties": {
+        "world": {
+          "type": "integer",
+          "description": "World rank",
+          "example": 799
+        },
+        "region": {
+          "type": "integer",
+          "description": "Region rank",
+          "example": 564
+        },
+        "realm": {
+          "type": "integer",
+          "description": "Realm rank",
+          "example": 20
+        }
+      },
+      "required": [
+        "world",
+        "region",
+        "realm"
+      ]
+    },
+    "aberrus-the-shadowed-crucible1": {
+      "type": "object",
+      "x-meta": {
+        "className": "RaidDifficultyRankingsSchema"
+      },
+      "properties": {
+        "normal": {
+          "$ref": "#/definitions/normal"
+        },
+        "heroic": {
+          "$ref": "#/definitions/normal"
+        },
+        "mythic": {
+          "$ref": "#/definitions/normal"
+        }
+      }
+    },
+    "raid_rankings": {
+      "type": "object",
+      "x-meta": {
+        "className": "RaidRankingsSchema"
+      },
+      "properties": {
+        "aberrus-the-shadowed-crucible": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "vault-of-the-incarnates": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "fated-sepulcher-of-the-first-ones": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "fated-sanctum-of-domination": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "fated-castle-nathria": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "sepulcher-of-the-first-ones": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "sanctum-of-domination": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "castle-nathria": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "nyalotha-the-waking-city": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "the-eternal-palace": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "crucible-of-storms": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "battle-of-dazaralor": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "uldir": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "antorus-the-burning-throne": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "tomb-of-sargeras": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "the-nighthold": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "trial-of-valor": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        },
+        "the-emerald-nightmare": {
+          "$ref": "#/definitions/aberrus-the-shadowed-crucible1"
+        }
+      }
+    },
+    "Model3": {
+      "type": "object",
+      "x-meta": {
+        "className": "ViewGuildProfileResponse"
+      },
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of guild",
+          "example": "Ludicrous Speed"
+        },
+        "faction": {
+          "type": "string",
+          "description": "Guild's faction",
+          "example": "horde",
+          "enum": [
+            "horde",
+            "alliance"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "description": "Region guild belongs to",
+          "example": "us",
+          "enum": [
+            "us",
+            "eu",
+            "tw",
+            "kr",
+            "cn"
+          ],
+          "x-convert": {
+            "case": "lower",
+            "trim": true
+          }
+        },
+        "realm": {
+          "type": "string",
+          "description": "Realm guild resides on",
+          "example": "Skullcrusher"
+        },
+        "profile_url": {
+          "type": "string",
+          "description": "URL for Guild's profile on Raider.IO",
+          "example": "https://raider.io/guilds/us/skullcrusher/Ludicrous%20Speed",
+          "x-format": {
+            "uri": true
+          }
+        },
+        "raid_rankings": {
+          "$ref": "#/definitions/raid_rankings"
+        },
+        "raid_progression": {
+          "$ref": "#/definitions/raid_progression"
+        }
+      },
+      "required": [
+        "name",
+        "faction",
+        "region",
+        "realm",
+        "profile_url"
+      ]
+    },
+    "Model4": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Blizzard's ID for this affix",
+          "example": 7
+        },
+        "name": {
+          "type": "string",
+          "description": "Friendly name for this affix",
+          "example": "Bolstering"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the effects of this affix",
+          "example": "When any non-boss enemy dies, its death cry empowers nearby allies, increasing their maximum health and damage by 20%."
+        },
+        "wowhead_url": {
+          "type": "string",
+          "description": "URL to open details on this affix on Wowhead",
+          "example": "https://wowhead.com/affix=7",
+          "x-format": {
+            "uri": true
+          }
+        },
+        "icon": {
+          "type": "string",
+          "description": "Blizzard's Icon for this affix",
+          "example": "inv_misc_volatilewater"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "wowhead_url"
+      ]
+    },
+    "affix_details": {
+      "type": "array",
+      "description": "List of details for each active affix",
+      "items": {
+        "$ref": "#/definitions/Model4"
+      }
+    },
+    "Model5": {
+      "type": "object",
+      "x-meta": {
+        "className": "ViewRegionAffixesResponse"
+      },
+      "properties": {
+        "region": {
+          "type": "string",
+          "description": "Region that affixes are for",
+          "example": "kr",
+          "enum": [
+            "us",
+            "eu",
+            "tw",
+            "kr",
+            "cn"
+          ],
+          "x-convert": {
+            "case": "lower",
+            "trim": true
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "Human readable title for the current affixes",
+          "example": "Bolstering, Grievous, Tyrannical"
+        },
+        "leaderboard_url": {
+          "type": "string",
+          "example": "https://raider.io/mythic-plus-affix-rankings/all/kr/leaderboards-strict/bolstering-grievous-tyrannical",
+          "x-format": {
+            "uri": true
+          }
+        },
+        "recent_run": {
+          "$ref": "#/definitions/Model1"
+        },
+        "affix_details": {
+          "$ref": "#/definitions/affix_details"
+        }
+      },
+      "required": [
+        "region",
+        "title",
+        "leaderboard_url",
+        "affix_details"
+      ]
+    },
+    "realm": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the realm",
+          "example": "Skullcrusher"
+        },
+        "slug": {
+          "type": "string",
+          "description": "Slug for the realm, suitable for putting in URLs",
+          "example": "skullcrusher"
+        },
+        "isConnected": {
+          "type": "boolean",
+          "description": "Whether the realm is part of a connected realm",
+          "example": false
+        }
+      },
+      "required": [
+        "name",
+        "slug",
+        "isConnected"
+      ]
+    },
+    "region": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the region",
+          "example": "United States & Oceania"
+        },
+        "short_name": {
+          "type": "string",
+          "description": "Short name of the region",
+          "example": "US"
+        },
+        "slug": {
+          "type": "string",
+          "description": "Slug for the region, suitable for putting in URLs",
+          "example": "us"
+        }
+      },
+      "required": [
+        "name",
+        "short_name",
+        "slug"
+      ]
+    },
+    "guild": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Internal Raider.IO ID number for this guild",
+          "example": 955
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the guild",
+          "example": "Ludicrous Speed"
+        },
+        "faction": {
+          "type": "string",
+          "description": "Faction for this guild",
+          "example": "horde",
+          "enum": [
+            "horde",
+            "alliance"
+          ]
+        },
+        "realm": {
+          "$ref": "#/definitions/realm"
+        },
+        "region": {
+          "$ref": "#/definitions/region"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "faction"
+      ]
+    },
+    "Model6": {
+      "type": "object",
+      "properties": {
+        "defeatedAt": {
+          "type": "string",
+          "example": "2017-01-24T17:31:00.000Z"
+        },
+        "guild": {
+          "$ref": "#/definitions/guild"
+        }
+      },
+      "required": [
+        "defeatedAt"
+      ]
+    },
+    "guilds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Model6"
+      }
+    },
+    "Model7": {
+      "type": "object",
+      "properties": {
+        "progress": {
+          "type": "integer",
+          "description": "How many bosses out of all bosses in this instance",
+          "example": 1,
+          "minimum": 1
+        },
+        "totalGuilds": {
+          "type": "integer",
+          "description": "The number of guilds that are at this point of progression",
+          "example": 98,
+          "minimum": 0
+        },
+        "guilds": {
+          "$ref": "#/definitions/guilds"
+        }
+      },
+      "required": [
+        "progress",
+        "totalGuilds"
+      ]
+    },
+    "progression": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Model7"
+      }
+    },
+    "Model8": {
+      "type": "object",
+      "x-meta": {
+        "className": "ViewRaidProgressionResponse"
+      },
+      "properties": {
+        "progression": {
+          "$ref": "#/definitions/progression"
+        }
+      }
+    }
+  }
+}
