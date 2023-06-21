@@ -15,7 +15,7 @@ info:
   license:
     name: CC BY-SA
     url: http://creativecommons.org/licenses/by-sa/4.0/
-  version: 1.0.11
+  version: 1.0.12
 externalDocs:
   description: Find out more about TV Maze
   url: https://www.tvmaze.com
@@ -142,7 +142,7 @@ paths:
         - search
       summary: Find show by tvrage, thetvdb or IMDB ID
       description: Find specific show by tvrage, thetvdb or IMDB ID. At least one ID is required.
-      operationId: getShowById
+      operationId: getShowByExternalId
       parameters:
         - name: tvrage
           in: query
@@ -258,7 +258,7 @@ paths:
         - shows
       summary: Retrieve all primary information for a given show
       description: Retrieve all primary information for a given show
-      operationId: getShow
+      operationId: getShowById
       parameters:
         - name: id
           in: path
@@ -428,7 +428,7 @@ paths:
         - shows
       summary: Retrieve one episode from a show given season and episode numbers
       description: Retrieve one episode from a show given season and episode numbers
-      operationId: getEpisodeBydate
+      operationId: getEpisodeByDate
       parameters:
         - name: id
           in: path
