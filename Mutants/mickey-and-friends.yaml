@@ -116,7 +116,7 @@ paths:
                         url:
                           type: string
                           description: API URL for the character's detail.
-  /characters/{id}:
+  /character/{id}:
     get:
       tags:
         - "Characters"
