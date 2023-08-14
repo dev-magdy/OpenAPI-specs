@@ -215,7 +215,7 @@ paths:
       tags:
         - intensity
       summary: Get Carbon Intensity data 24hrs forwards from specific datetime.
-      description: Get Carbon Intensity data between the {from} datetime specified and 24hrs before. All times provided in UTC (+00:00).
+      description: Get Carbon Intensity data between the {from} datetime specified and 24hrs after. All times provided in UTC (+00:00).
       parameters:
         - name: from
           in: path
