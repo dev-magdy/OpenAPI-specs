@@ -11,7 +11,7 @@
       "name": "CC BY-SA",
       "url": "http://creativecommons.org/licenses/by-sa/4.0/"
     },
-    "version": "1.0.11"
+    "version": "1.0.12"
   },
   "externalDocs": {
     "description": "Find out more about TV Maze",
@@ -203,7 +203,7 @@
         ],
         "summary": "Find show by tvrage, thetvdb or IMDB ID",
         "description": "Find specific show by tvrage, thetvdb or IMDB ID. At least one ID is required.",
-        "operationId": "getShowById",
+        "operationId": "getShowByExternalId",
         "parameters": [
           {
             "name": "tvrage",
@@ -375,7 +375,7 @@
         ],
         "summary": "Retrieve all primary information for a given show",
         "description": "Retrieve all primary information for a given show",
-        "operationId": "getShow",
+        "operationId": "getShowById",
         "parameters": [
           {
             "name": "id",
@@ -635,7 +635,7 @@
         ],
         "summary": "Retrieve one episode from a show given episode air date",
         "description": "Retrieve one episode from a show given episode air date",
-        "operationId": "getEpisodeBydate",
+        "operationId": "getEpisodeByDate",
         "parameters": [
           {
             "name": "id",
